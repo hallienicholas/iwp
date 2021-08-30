@@ -3,26 +3,22 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@0.0.10
 
-jobs:
-  build:
-    docker:
-      - image: circleci/node:10.16.3
-    working_directory: ~/repo
-    steps:
-      - checkout
-      # install dependencies
-      - run:
-          name: Install Dependencies
-          command: npm install
-      - run:
-          name: Run tests
-          command: npm run test
+deploy: 
+  docker: 
+    - image: ircleci/node:10.16.3
+  steps: 
+    - checkout
+    - run
+      name: Deploy Main Main to Heroku
+      commmand: |
+        git push https://heroku:d5d8189d-826c-4111-aa1d-5f1cde57fc5a@git.heroku.com/intelligent-water.git main
 
 workflows:
-  heroku_deploy:
+  version: 2
+  build-deploy:
     jobs:
       - build
-      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+      - deploy:
           requires:
             - build
           filters:
