@@ -24,4 +24,4 @@ yarn-error.log*
 iwp-1/
 
 #database
-src/server/config
+#src/server/config
