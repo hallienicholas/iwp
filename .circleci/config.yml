@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Deploy Master to Heroku
           command: |
-            git push https://heroku:d5d8189d-826c-4111-aa1d-5f1cde57fc5a@https://intelligent-water.herokuapp.com/ master
+            git push https://heroku:d5d8189d-826c-4111-aa1d-5f1cde57fc5a@https://git.heroku.com/intelligent-water.git master
 
 workflows:
   heroku_deploy:
