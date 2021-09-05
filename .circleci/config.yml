@@ -27,11 +27,9 @@ jobs:
           name: Run tests
           command: npm run test
 
-  
-          
   deploy:
     docker:
-      -image: sample-dev:trusty
+      -image: mysql
     steps:
       - checkout
       - run:
