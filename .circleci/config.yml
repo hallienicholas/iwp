@@ -38,6 +38,7 @@ jobs:
             git push https://heroku:d5d8189d-826c-4111-aa1d-5f1cde57fc5a@git.heroku.com/intelligent-water.git master
 
 workflows:
+version: 2
   heroku_deploy:
     jobs:
       - build
