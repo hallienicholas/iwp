@@ -9,22 +9,19 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
         </header>
-        <div className = "get_data_button">
-        <button onClick={getData}>Show Data</button>  
-
-        {pumpList.map((val, key) => {
-          return (
-            <div className = "dataTables">
-              <h3>data transmission id: {val.iwp_sensor_data_id}</h3>
-              <h3>pump id: {val.iwp_pump_id_fk}</h3>
-              <h3>battery percentage: {val.battery_percentage}</h3> 
-            </div>
-          )
-        })}
-
-      </div>
-
       </div>
     );
   }
