@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Axios from 'axios'
-import { useState } from "react";
 
 class App extends Component {
   render() {
