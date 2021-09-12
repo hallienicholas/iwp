@@ -23,7 +23,7 @@ const db = mysql.createConnection({
 });
 
 app.get('/data', (req,res) => {
-    db.query("SELECT * FROM iwp_sensor_data LIMIT 10", (err, result) => {
+    db.query("SELECT * FROM iwp_sensor_data ORDER BY date_sensed DESC LIMIT 10", (err, result) => {
         if (err) {
             console.log(err)
         } else {

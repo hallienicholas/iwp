@@ -22,9 +22,10 @@ function App() {
         {pumpList.map((val, key) => {
           return (
             <div className = "dataTables">
-              <h3>data transmission id: {val.iwp_sensor_data_id}</h3>
-              <h3>pump id: {val.iwp_pump_id_fk}</h3>
-              <h3>battery percentage: {val.battery_percentage}</h3> 
+              <h3>Timestamp: {val.date_sensed}</h3>
+              <h3>Data Transmission Id: {val.iwp_sensor_data_id}</h3>
+              <h3>Pump Id: {val.iwp_pump_id_fk}</h3>
+              <h3>Battery Percentage: {val.battery_percentage}</h3> 
             </div>
           )
         })}
