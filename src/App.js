@@ -4,13 +4,20 @@ import './App.css';
 import Axios from 'axios'
 import { useState } from "react";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-        </header>
-        <div className = "get_data_button">
+
+function App() {
+  const [pumpList, setPumpList] = useState([]);
+
+  const getData = () => {
+    Axios.get("http://localhost:3001/data").then((response) => {
+      setPumpList(response.data);
+    });
+  };
+
+  return (
+    <div className="App">
+      <h1>IWP Database</h1>
+      <div className = "get_data_button">
         <button onClick={getData}>Show Data</button>  
 
         {pumpList.map((val, key) => {
@@ -24,10 +31,8 @@ class App extends Component {
         })}
 
       </div>
-
-      </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;
