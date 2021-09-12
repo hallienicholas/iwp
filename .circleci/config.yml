@@ -13,7 +13,7 @@ jobs:
 # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-{{ checksum "client/package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
       - run: npm install
@@ -21,7 +21,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "client/package.json" }}
 
       - run:
           name: Run tests
@@ -29,7 +29,7 @@ jobs:
 
   deploy:
     docker:
-      - image: mysql:8.0.21
+      - image: mysql:8.0
     steps:
       - checkout
       - run:
