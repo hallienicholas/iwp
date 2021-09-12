@@ -9,7 +9,6 @@ jobs:
       - image: circleci/node:11.15.0
     steps:
       - checkout
-  working_directory: ./client
 
 # Download and cache dependencies
       - restore_cache:
