@@ -10,12 +10,14 @@ import {
 } from "react-router-dom";
 
 import DbPage from "./pages";
+import LoginPage from "./pages/login";
 
 class App extends Component {
   render() {
     return (
       <Router>
        <Route exact path="/" component={DbPage} />
+       <Route exact path="/login" component={LoginPage} />
       </Router>
     );
   }
