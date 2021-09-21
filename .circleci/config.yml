@@ -22,7 +22,7 @@ jobs:
        name: push cliet
        command: |
          docker login -u intelligentwater -p 1717intelligent-docker!
-         docker push intelligentwater/iwp:tag
+         docker push intelligentwater/iwp:cliet
 
     - run:
        name: push server
