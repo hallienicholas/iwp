@@ -11,8 +11,8 @@ jobs:
     - setup_remote_docker
 
     - run:
-       name: build cliet
-       command: docker build -t intelligentwater/iwp:cliet -f ./client/Dockerfile .
+       name: build client
+       command: docker build -t intelligentwater/iwp:client -f ./client/Dockerfile .
 
     - run:
        name: build server
