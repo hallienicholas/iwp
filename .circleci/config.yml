@@ -19,10 +19,10 @@ jobs:
        command: docker build -t intelligentwater/iwp:server -f ./server/Dockerfile .
 
     - run:
-       name: push cliet
+       name: push client
        command: |
          docker login -u intelligentwater -p 1717intelligent-docker!
-         docker push intelligentwater/iwp:cliet
+         docker push intelligentwater/iwp:client
     - run:
        name: push server
        command: |
