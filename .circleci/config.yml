@@ -1,4 +1,7 @@
-version: 2
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@0.0.10
 
 jobs:
 
@@ -29,3 +32,9 @@ jobs:
        command: |
          docker login -u intelligentwater -p 1717intelligent-docker!
          docker push intelligentwater/iwp:server
+
+         
+workflows:
+  heroku_deploy:
+    jobs:
+      - heroku/deploy-via-git
