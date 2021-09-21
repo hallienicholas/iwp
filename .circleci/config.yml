@@ -4,30 +4,30 @@ jobs:
 
  build:
    docker:
-    - image: docker:19.03.5
+    - image: cimg/node:current
 
-   working_directory: ./
+   working_directory: intelligentwater/iwp
 
    steps:
     - checkout
     - setup_remote_docker
 
     - run:
-       name: build client
-       command: docker build -t cliet -f ./client/Dockerfile .
+       name: build cliet
+       command: docker build -t intelligentwater/iwp[:cliet] -f ./client/Dockerfile .
 
     - run:
        name: build server
-       command: docker build -t server -f ./server/Dockerfile .
+       command: docker build -t intelligentwater/iwp[:server] -f ./server/Dockerfile .
 
     - run:
-       name: push frontend
+       name: push cliet
        command: |
          docker login -u intelligentwater -p 1717intelligent-docker!
-         docker push cliet:tag
+         docker push intelligentwater/iwp:tag
 
     - run:
-       name: push backend
+       name: push server
        command: |
          docker login -u intelligentwater -p 1717intelligent-docker!
-         docker push server:tag
+         docker push intelligentwater/iwp:server
