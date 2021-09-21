@@ -12,11 +12,11 @@ jobs:
 
     - run:
        name: build cliet
-       command: docker build -t intelligentwater/iwp[:cliet] -f ./client/Dockerfile .
+       command: docker build -t intelligentwater/iwp:cliet -f ./client/Dockerfile .
 
     - run:
        name: build server
-       command: docker build -t intelligentwater/iwp[:server] -f ./server/Dockerfile .
+       command: docker build -t intelligentwater/iwp:server -f ./server/Dockerfile .
 
     - run:
        name: push cliet
