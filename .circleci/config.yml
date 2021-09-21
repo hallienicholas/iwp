@@ -4,7 +4,6 @@ orbs:
   heroku: circleci/heroku@0.0.10
 
 jobs:
-
    build:
       docker:
        - image: cimg/node:current
@@ -31,18 +30,3 @@ jobs:
          command: |
             docker login -u intelligentwater -p 1717intelligent-docker!
             docker push intelligentwater/iwp:server
-
-   deploy:
-      docker:
-         - image: mysql:8.0
-      steps:
-         - checkout
-         - run:
-            name: Deploy Master to Heroku
-            command: |
-               git push https://heroku:d5d8189d-826c-4111-aa1d-5f1cde57fc5a@git.heroku.com/intelligent-water.git master
-
-workflows:
-  heroku_deploy:
-    jobs:
-      - heroku/deploy-via-git
