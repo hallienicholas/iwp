@@ -5,35 +5,43 @@ orbs:
 
 jobs:
 
- build:
-   docker:
-    - image: cimg/node:current
+   build:
+      docker:
+       - image: cimg/node:current
+      steps:
+       - checkout
+       - setup_remote_docker
 
-   steps:
-    - checkout
-    - setup_remote_docker
+       - run:
+         name: build cliet
+         command: docker build -t intelligentwater/iwp:cliet -f ./client/Dockerfile .
 
-    - run:
-       name: build cliet
-       command: docker build -t intelligentwater/iwp:cliet -f ./client/Dockerfile .
+       - run:
+         name: build server
+         command: docker build -t intelligentwater/iwp:server -f ./server/Dockerfile .
 
-    - run:
-       name: build server
-       command: docker build -t intelligentwater/iwp:server -f ./server/Dockerfile .
+       - run:
+         name: push cliet
+         command: |
+            docker login -u intelligentwater -p 1717intelligent-docker!
+            docker push intelligentwater/iwp:cliet
 
-    - run:
-       name: push cliet
-       command: |
-         docker login -u intelligentwater -p 1717intelligent-docker!
-         docker push intelligentwater/iwp:cliet
+       - run:
+         name: push server
+         command: |
+            docker login -u intelligentwater -p 1717intelligent-docker!
+            docker push intelligentwater/iwp:server
 
-    - run:
-       name: push server
-       command: |
-         docker login -u intelligentwater -p 1717intelligent-docker!
-         docker push intelligentwater/iwp:server
+   deploy:
+      docker:
+         - image: mysql:8.0
+      steps:
+         - checkout
+         - run:
+            name: Deploy Master to Heroku
+            command: |
+               git push https://heroku:d5d8189d-826c-4111-aa1d-5f1cde57fc5a@git.heroku.com/intelligent-water.git master
 
-         
 workflows:
   heroku_deploy:
     jobs:
