@@ -6,8 +6,6 @@ jobs:
    docker:
     - image: cimg/node:current
 
-   working_directory: intelligentwater/iwp
-
    steps:
     - checkout
     - setup_remote_docker
