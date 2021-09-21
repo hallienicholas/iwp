@@ -4,9 +4,9 @@ import './App.css';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
-  Link,
-  Redirect
+  //Switch,
+  //Link,
+  //Redirect
 } from "react-router-dom";
 
 import DbPage from "./pages";

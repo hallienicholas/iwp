@@ -1,6 +1,7 @@
 import React from "react";
 import Axios from 'axios'
 import { useState } from "react";
+import { Link } from "react-router-dom";
 //Functional Component 
 
 
@@ -14,8 +15,9 @@ function DbPage() {
   };
 
   return (
-    <div className="App">
+    <div className="DbPage">
       <h1>IWP Database</h1>
+      <Link to="/login">Go To Login Page</Link>
       <div className = "get_data_button">
         <button onClick={getData}>
           Show Data</button>  
