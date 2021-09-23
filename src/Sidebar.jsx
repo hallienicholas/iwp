@@ -4,7 +4,7 @@ class Sidebar extends Component {
   render(){
     return(
       <ul id="accordionSidebar" className="bg-gradient-primary accordion navbar-nav sidebar sidebar-dark">
-      <a className="sidebar-brand d-flex align-items-center justify-content-center mt-2 mb-2" href="index.html">
+      <a className="sidebar-brand d-flex align-items-center justify-content-center mt-2 mb-2" href="/">
         <div className="sidebar-brand-text mx-3">
           Intelligent Water Project
         </div>
@@ -15,7 +15,7 @@ class Sidebar extends Component {
       <hr className="sidebar-divider"></hr>
       <div className="sidebar-heading">Dashboard</div>
       <li className="nav-item">
-        <a className="nav-link" href="index.html">
+        <a className="nav-link" href="/">
           <i className="fas fa-fw fa-home">
           </i>
           <span>Dashboard</span>
@@ -24,21 +24,21 @@ class Sidebar extends Component {
       <hr className="sidebar-divider"></hr>
       <div className="sidebar-heading">Pumps</div>
       <li className="nav-item">
-        <a className="nav-link" href="http://iwp.cs.messiah.edu/about/">
+        <a className="nav-link" href="/">
           <i className="fas fa-fw fa-faucet">
           </i>
           <span>Pump #1</span>
         </a>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="http://iwp.cs.messiah.edu/about/contact.php">
+        <a className="nav-link" href="/">
           <i className="fas fa-fw fa-faucet">
           </i>
           <span>Pump #2</span>
         </a>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="http://iwp.cs.messiah.edu/about/faq.php">
+        <a className="nav-link" href="/">
           <i className="fas fa-fw fa-faucet">
           </i>
           <span>Pump #3</span>
