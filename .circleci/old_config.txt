@@ -1,0 +1,50 @@
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@1.2.6
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:11.15.0
+    steps:
+      - checkout
+
+# Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "client/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "client/package.json" }}
+
+      - run:
+          name: Run tests
+          command: npm run test
+
+  deploy:
+    docker:
+      - image: mysql:8.0
+    steps:
+      - checkout
+      - run:
+          name: Deploy Master to Heroku
+          command: |
+            git push https://heroku:d5d8189d-826c-4111-aa1d-5f1cde57fc5a@git.heroku.com/intelligent-water.git master
+
+workflows:
+  version: 2.1
+  heroku_deploy:
+    jobs:
+      - build
+      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
