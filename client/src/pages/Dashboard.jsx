@@ -5,6 +5,7 @@ class Dashboard extends Component {
 		return(
 			<div className="container-fluid">
 				<h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
+				<button className="mr-auto primary">Get Data</button>
 				<div className="row">
 					<div className="col-xl-3 col-md-6 mb-4">
 						<div className="card border-left-primary shadow h-100 py-2">
