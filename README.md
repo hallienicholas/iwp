@@ -17,9 +17,15 @@ Intelligent Water Alerts is a web application that will serve as a user interfac
 
 - [Github Repo](https://github.com/hallienicholas/iwp)
  
-**Commands:**
+## Commands:
 
-- Starting the application: ```npm start```
+- **Starting the application:**
+
+1)  Spin up the server: ```cd server```
+2)  Type the command ```node server.js```
+3)  Add a second terminal
+4)  Start the client: ```cd client```
+5)  Type the command: ```npm start```
 
 - Staging: ```git add .```
   
