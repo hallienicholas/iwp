@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
-import Sidebar from "./Sidebar";
-import Navbar from "./Navbar";
-import Dashboard from "./Dashboard";
-import LoginRibbon from "./LoginRibbon";
+import Sidebar from "./pages/Sidebar";
+import Navbar from "./pages/Navbar";
+import Dashboard from "./pages/Dashboard";
+import LoginRibbon from "./pages/LoginRibbon";
 import "./App.css";
 import {
   BrowserRouter as Router,
