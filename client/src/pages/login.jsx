@@ -2,6 +2,7 @@ import React from "react";
 import Axios from 'axios'
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import LoginRibbon from "../LoginRibbon";
 function LoginPage () {
 
     const [username, setUsername] = useState("");
@@ -17,26 +18,35 @@ function LoginPage () {
     };
   
     return (
-      <div className = "LoginPage">
-        <div className = "loginBoxes">
-          <label>Username:</label>
+      <div id = "wrapper">
+        <LoginRibbon />
+        <div className = "mt-auto mb-auto mr-auto ml-auto">
+        
+          <label className="mb-0">Username</label><br />
           <input 
+            className="mt-0"
             type="text" 
+            name="username"
             onChange={(event) => {
               setUsername(event.target.value); 
               }}
             />
-          <label>Password:</label>
+          <br />
+          <label className="mt-1 mb-auto">Password</label><br />
           <input 
+            className="mt-0"
             type="text" 
             onChange={(event) => {
               setPassword(event.target.value); 
               }}
             
           />
-          <button>Login</button>
+          <br />
+          <div className="btn-group mt-2 mb-2" role="group">
+          <button className="btn btn-primary shadow">Login</button>
+            <Link to="/" className="btn btn-light shadow">Go To DB Page</Link> 
+          </div>
         </div>
-        <Link to="/">Go To DB Page</Link>
       </div>
     );
   }

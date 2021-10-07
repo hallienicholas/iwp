@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  //Redirect
+} from "react-router-dom";
 
 class Sidebar extends Component {
   render(){
@@ -24,26 +31,12 @@ class Sidebar extends Component {
       <hr className="sidebar-divider"></hr>
       <div className="sidebar-heading">Pumps</div>
       <li className="nav-item">
-        <a className="nav-link" href="/">
+        <Link to="/pump" className="nav-link" href="/">
           <i className="fas fa-fw fa-faucet">
           </i>
-          <span>Pump #1</span>
-        </a>
+          <span>Pump 275</span>
+        </Link>
       </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/">
-          <i className="fas fa-fw fa-faucet">
-          </i>
-          <span>Pump #2</span>
-        </a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/">
-          <i className="fas fa-fw fa-faucet">
-          </i>
-          <span>Pump #3</span>
-        </a>
-        </li>
       </ul>
     );
   }
