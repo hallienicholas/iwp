@@ -22,20 +22,20 @@ function LoginPage () {
         <LoginRibbon />
         <div className = "mt-auto mb-auto mr-auto ml-auto">
         
-          <label className="mb-0">Username</label><br />
           <input 
-            className="mt-0"
+            className="mt-2"
             type="text" 
             name="username"
+            placeholder="Username"
             onChange={(event) => {
               setUsername(event.target.value); 
               }}
             />
-          <br />
-          <label className="mt-1 mb-auto">Password</label><br />
+            <br />
           <input 
-            className="mt-0"
-            type="text" 
+            className="mt-2"
+            type="text"
+            placeholder="Password"
             onChange={(event) => {
               setPassword(event.target.value); 
               }}
@@ -46,6 +46,7 @@ function LoginPage () {
           <button className="btn btn-primary shadow">Login</button>
             <Link to="/" className="btn btn-light shadow">Go To DB Page</Link> 
           </div>
+          <p>Don't have an account? <Link to="/register" className="link">Register</Link></p> 
         </div>
       </div>
     );
