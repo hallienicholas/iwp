@@ -15,23 +15,37 @@ function DbPage() {
   };
 
   return (
-    <div className="DbPage">
-      <h1>IWP Database</h1>
-      <Link to="/login">Go To Login Page</Link>
-      <div className = "get_data_button">
-        <button onClick={getData}>
-          Show Data</button>  
-
-        {pumpList.map((val, key) => {
-          return (
-            <div className = "dataTables">
-              <h3>data transmission id: {val.iwp_sensor_data_id}</h3>
-              <h3>pump id: {val.iwp_pump_id_fk}</h3>
-              <h3>battery percentage: {val.battery_percentage}</h3> 
-            </div>
-          )
-        })}
-
+    <div className="container-fluid">
+      <h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
+      <div className="btn-group mt-2 mb-2" role="group">
+        <button className="btn-primary btn d-inline shadow" onClick={getData}>Show Data</button> 
+        <Link to="/login" className="btn btn-light shadow">Go To Login Page</Link> 
+      </div>
+      <div className="row">
+        <div className="col-8">
+          <div className="card shadow">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Transmission ID</th>
+                  <th>Pump ID</th>
+                  <th>Battery Percentage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pumpList.map((val,key) => {
+                  return(
+                    <tr>
+                      <td>{val.iwp_sensor_data_id}</td>
+                      <td>{val.iwp_pump_id_fk}</td>
+                      <td>{val.battery_percentage}</td>
+                    </tr>
+                  );
+                })}
+                </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );
