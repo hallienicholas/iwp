@@ -11,7 +11,7 @@ class LoginRibbon extends Component {
 				  Project<br />
 		        </div>
 		        <div className="sidebar-brand-icon">
-		          <img className="mt-3 mr-auto ml-auto mb-3" display="inline" width="40px" height="55px" src="../img/minimallogo.png"></img>
+		          <img className="mt-3 mr-auto ml-auto mb-3" alt="The logo of IWP, a water droplet" display="inline" width="40px" height="55px" src="../img/minimallogo.png"></img>
 		        </div>
 		      </div>
 		    </ul>

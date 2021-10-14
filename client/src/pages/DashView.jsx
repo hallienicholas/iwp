@@ -5,10 +5,8 @@ import DbPage from "./index";
 import About from "./About";
 import Pump from "./PumpView";
 import {
-    BrowserRouter as Router,
     Route,
     Switch,
-    Link,
     //Redirect
   } from "react-router-dom";
 
