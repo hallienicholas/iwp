@@ -28,3 +28,16 @@ jobs:
        command: |
          docker login -u intelligentwater -p 1717intelligent-docker!
          docker push intelligentwater/iwp:server
+   
+   deploy-dev:
+      machine: true
+      steps:
+        - checkout
+
+        - run:
+            name: Build and push Docker image to Heroku
+            command: |
+              sudo curl https://cli-assets.heroku.com/install.sh | sh
+              HEROKU_API_KEY=$d5d8189d-826c-4111-aa1d-5f1cde57fc5a heroku container:login
+              HEROKU_API_KEY=$d5d8189d-826c-4111-aa1d-5f1cde57fc5a heroku container:push web
+              HEROKU_API_KEY=$d5d8189d-826c-4111-aa1d-5f1cde57fc5a heroku container:release web
