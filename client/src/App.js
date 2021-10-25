@@ -17,9 +17,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/register" component={Registration} />
             <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/" component={DashView} />
-            <Route exact path="/about" component={DashView} />
-            <Route exact path="/pump" component={DashView} />
+            <Route exact path="*" component={DashView} />
           </Switch>
         </Router> 
     );
