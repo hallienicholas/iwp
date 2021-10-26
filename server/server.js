@@ -22,6 +22,12 @@ const db = mysql.createConnection({
     database: "iwpDB",
 });
 
+app.use('/login', (req, res) => {
+    res.send({
+      token: 'test123'
+    });
+  });
+
 app.get('/data', (req,res) => {
     db.query("SELECT * FROM iwp_sensor_data ORDER BY date_sensed DESC LIMIT 10", (err, result) => {
         if (err) {

@@ -2,8 +2,9 @@ import React from "react";
 import Axios from 'axios'
 import { useState } from "react";
 import { Link } from "react-router-dom";
-//Functional Component 
-
+//
+import LoginPopUp from '../LoginPopUp';
+//^^
 
 function DbPage() {
   const [pumpList, setPumpList] = useState([]);
@@ -13,7 +14,12 @@ function DbPage() {
       setPumpList(response.data);
     });
   };
-
+  //vv
+  const [token, setToken] = useState();
+  if(!token) {
+    return <LoginPopUp setToken={setToken} />
+  }
+  //^^
   return (
     <div className="container-fluid">
       <h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
