@@ -4,11 +4,11 @@ import Navbar from "../Navbar";
 import DbPage from "./index";
 import About from "./About";
 import Pump from "./PumpView";
+import Error from "./error";
+import Contact from "./Contact";
 import {
-    BrowserRouter as Router,
     Route,
     Switch,
-    Link,
     //Redirect
   } from "react-router-dom";
 
@@ -26,6 +26,8 @@ class DashView extends Component {
                         </Route>
                         <Route exact path="/pump" component={Pump}>
                         </Route>
+                        <Route exact path="/contact" component={Contact} />
+                        <Route path="*" component={Error} />
                     </Switch>
                 </div>
             </div>

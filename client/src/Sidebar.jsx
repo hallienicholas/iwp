@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
   Link,
   //Redirect
 } from "react-router-dom";
@@ -16,7 +13,7 @@ class Sidebar extends Component {
           Intelligent Water Project
         </div>
         <div className="sidebar-brand-icon">
-          <img className="mt-3 mr-auto ml-auto mb-3" display="inline" width="40px" height="55px" src="../img/minimallogo.png"></img>
+          <img className="mt-3 mr-auto ml-auto mb-3" alt="The logo of IWP, a water droplet." display="inline" width="40px" height="55px" src="../img/minimallogo.png"></img>
         </div>
       </a>
       <hr className="sidebar-divider"></hr>
