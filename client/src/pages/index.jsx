@@ -2,11 +2,12 @@ import React from "react";
 import Axios from 'axios'
 import { useState } from "react";
 import { Link } from "react-router-dom";
-//
+//vv
 import LoginPopUp from '../LoginPopUp';
 //^^
 
 function DbPage() {
+  //vv
   const [pumpList, setPumpList] = useState([]);
 
   const getData = () => {
@@ -14,7 +15,7 @@ function DbPage() {
       setPumpList(response.data);
     });
   };
-  //vv
+  //
   const [token, setToken] = useState();
   if(!token) {
     return <LoginPopUp setToken={setToken} />

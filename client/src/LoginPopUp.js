@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+// Credits: For this page, I followed the tutorial at: 
+// https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
+
+
 import './loginPopUp.css';
 
 async function loginUser(credentials) {
@@ -15,7 +19,7 @@ async function loginUser(credentials) {
    }
 
 export default function LoginPopUp({ setToken }) {
-    // vv
+  
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
 
@@ -29,7 +33,7 @@ export default function LoginPopUp({ setToken }) {
       }
     
 
-    // ^^  
+   
     return(
         <div className="login-wrapper">
             <h1>Please Log In</h1>
