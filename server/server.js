@@ -16,10 +16,10 @@ app.use(express.json());
 //data schema and model
 
 const db = mysql.createConnection({
-    user: "sql5443248",
-    host: "sql5.freemysqlhosting.net",
-    password: "IDPfqZSmn1",
-    database: "sql5443248",
+    user: "ReactApp",
+    host: "localhost",
+    password: "1111",
+    database: "iwpDB",
 });
 
 app.get('/data', (req,res) => {
