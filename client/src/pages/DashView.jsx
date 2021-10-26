@@ -5,6 +5,7 @@ import DbPage from "./index";
 import About from "./About";
 import Pump from "./PumpView";
 import Error from "./error";
+import Contact from "./Contact";
 import {
     Route,
     Switch,
@@ -25,6 +26,7 @@ class DashView extends Component {
                         </Route>
                         <Route exact path="/pump" component={Pump}>
                         </Route>
+                        <Route exact path="/contact" component={Contact} />
                         <Route path="*" component={Error} />
                     </Switch>
                 </div>
