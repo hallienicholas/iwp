@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import {
-	BrowserRouter as Router,
-	Route,
-	Switch,
 	Link,
 	//Redirect
   } from "react-router-dom";
   import ProfileButton from "./pages/ProfileButton";
-  
-function border(props){
-	//Fill this in later. Will probably need the React Router dependency to do it.
-}
 
 class Navbar extends Component {
 	render(){
