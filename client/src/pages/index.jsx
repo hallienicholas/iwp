@@ -4,10 +4,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 //vv
 import LoginPopUp from '../LoginPopUp';
+import useToken from '../useToken';
 //^^
 
+
 function DbPage() {
-  //vv
+
   const [pumpList, setPumpList] = useState([]);
 
   const getData = () => {
@@ -15,8 +17,9 @@ function DbPage() {
       setPumpList(response.data);
     });
   };
-  //
-  const [token, setToken] = useState();
+  //vv
+  const { token, setToken } = useToken();
+
   if(!token) {
     return <LoginPopUp setToken={setToken} />
   }
