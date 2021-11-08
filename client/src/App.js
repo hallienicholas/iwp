@@ -8,8 +8,7 @@ import {
 } from "react-router-dom";
 import LoginPage from "./pages/login";
 import DashView from "./pages/DashView";
-import Registration from "./pages/Registration";
-// 
+import Registration from "./pages/Registration"; 
 class App extends Component {
   render() {
     return (
