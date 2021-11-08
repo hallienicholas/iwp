@@ -29,6 +29,7 @@ class Registration extends Component{
                 />
                 <br />
                 <p>Already have an account? <Link to="/login" className="link">Login</Link></p>
+                <button className="btn btn-primary">Submit</button>
                 </div>
             </div>
         );
