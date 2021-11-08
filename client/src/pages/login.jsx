@@ -47,6 +47,7 @@ function LoginPage () {
             <Link to="/" className="btn btn-light shadow">Go To DB Page</Link> 
           </div>
           <p>Don't have an account? <Link to="/register" className="link">Register</Link></p> 
+          <p>Forgot your password? <Link to="/forgot" className="link">Reset password</Link></p>
         </div>
       </div>
     );
