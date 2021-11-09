@@ -5,6 +5,8 @@ const mysql = require('mysql');
 const cors = require("cors");
 const path = require("path");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const saltRounds = 10
 //const port = process.env.PORT || 3000
 
 app.use(express.urlencoded({ extended: true }))
@@ -22,12 +24,62 @@ const db = mysql.createConnection({
     database: "iwpDB",
 });
 
-app.use('/login', (req, res) => {
+app.use('/loginpop', (req, res) => {
     res.send({
       token: 'test123'
     });
   });
 
+app.post('/login', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    
+    db.query(
+        "SELECT * FROM iwp_user WHERE user_email = ?;",
+        username,
+        (err, result) => {
+            if (err) {
+                res.send({err: err});
+            }
+            if (result.length > 0){
+               bcrypt.compare(password, result[0].user_password, (error, response) => {
+                   if(response) {
+                       res.send(result);
+                   } else {
+                       res.send({message: "Wrong username/password combination" });
+                   }
+               }); 
+            } else {
+                res.send({ message: "User does not exist"});
+            }
+        }
+    );
+  });
+
+
+app.post('/register', (req, res) => {
+    
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
+    const username = req.body.username;
+    const password = req.body.password;
+
+    bcrypt.hash(password,saltRounds, (err, hash) => {
+        
+        if (err) {
+            console.log(err)
+        }
+
+        db.query(
+            "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')", 
+            [firstname, lastname, username, hash],
+            (err, result) => {
+                console.log(err);
+            }
+        );
+    })
+});
+  
 app.get('/data', (req,res) => {
     db.query("SELECT * FROM iwp_sensor_data ORDER BY date_sensed DESC LIMIT 10", (err, result) => {
         if (err) {
