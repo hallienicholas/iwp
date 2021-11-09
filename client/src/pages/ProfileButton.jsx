@@ -9,7 +9,7 @@ class ProfileButton extends Component{
                     <span className="dropdown-header">Account class</span>
                     <a className="dropdown-item">User Settings</a>
                     <div className="dropdown-divider" />
-                    <a className="dropdown-item">Logout</a>
+                    <a className="dropdown-item" href="./login">Logout</a>
                 </div>
             </div>
         );

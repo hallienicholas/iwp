@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
 
 
-import './loginPopUp.css';
+//import './loginPopUp.css';
 
 async function loginUser(credentials) {
     return fetch('http://localhost:3001/login', {
@@ -32,25 +32,40 @@ export default function LoginPopUp({ setToken }) {
         setToken(token);
       }
     
+    const loginWrapper = `.login-wrapper {
+      top:50px;
+      left:400px;
+      right:400px;
+      }`
 
    
     return(
-        <div className="login-wrapper">
-            <h1>Please Log In</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
+        <div className="login-wrapper position-fixed ">
+          <style>
+          {loginWrapper}
+          </style>
+          <div className="card mb-4 shadow">
+            <div className="card-header py-3">
+              <h6 className="m-0 font-weight-bold text-primary">Please Log In</h6>
+            </div>
+            <div className="card-body">
+              <form onSubmit={handleSubmit}>
+                  <label>
                     <p>Username</p>
                     <input type="text" onChange={e => setUserName(e.target.value)}/>
-            </label>
-            <label>
-                <p>Password</p>
-                <input type="password" onChange={e => setPassword(e.target.value)}/>
-          </label>
-          <div>
-            <button type="submit">Submit</button>
+                  </label>
+                  <br />
+                  <label>
+                    <p>Password</p>
+                    <input type="password" onChange={e => setPassword(e.target.value)}/>
+                </label>
+                <div>
+                  <button type="submit" className="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
           </div>
-        </form>
-      </div>
+        </div>
   )
 }
 
