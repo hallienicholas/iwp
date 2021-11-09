@@ -5,10 +5,12 @@ import {useState} from "react";
 import { Link } from "react-router-dom";
 //vv
 import LoginPopUp from '../LoginPopUp';
+import useToken from '../useToken';
 //^^
 
+
 function DbPage() {
-  //vv
+
   const [pumpList, setPumpList] = useState([]);
 
   const getData = () => {
@@ -16,12 +18,12 @@ function DbPage() {
       setPumpList(response.data);
     });
   };
-    //
-    const {token, setToken} = useToken();
-    if(!token) {
-      return <LoginPopUp setToken={setToken} />
-    }
-    //^^
+  //vv
+  const { token, setToken } = useToken();
+
+  if(!token) {
+    return <LoginPopUp setToken={setToken} />
+  }
   return (
     <div className="container-fluid">
       <h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
