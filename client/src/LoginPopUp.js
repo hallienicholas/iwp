@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 //import './loginPopUp.css';
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:3001/login', {
+    return fetch('http://localhost:3001/loginpop', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
