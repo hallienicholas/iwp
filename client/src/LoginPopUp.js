@@ -29,7 +29,7 @@ export default function LoginPopUp({ setToken }) {
           username,
           password
         });
-        //setToken(token);
+        setToken(token);
       }
     
     const loginWrapper = `.login-wrapper {
