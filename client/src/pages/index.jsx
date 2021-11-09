@@ -1,6 +1,7 @@
 import React from "react";
 import Axios from 'axios'
-import { useState } from "react";
+import useToken from "../useToken";
+import {useState} from "react";
 import { Link } from "react-router-dom";
 //vv
 import LoginPopUp from '../LoginPopUp';
@@ -16,7 +17,7 @@ function DbPage() {
     });
   };
     //
-    const [token, setToken] = useState();
+    const {token, setToken} = useToken();
     if(!token) {
       return <LoginPopUp setToken={setToken} />
     }

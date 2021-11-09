@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import LoginRibbon from "../LoginRibbon";
+import { Link } from "react-router-dom";
 
 class ForgotPassword extends Component{
     render(){
@@ -16,7 +17,8 @@ class ForgotPassword extends Component{
                         placeholder="Email"
                     />
                     <br />
-                    <button className="btn btn-primary mt-2">Send Password Reset</button>
+                    <button className="btn btn-primary mt-2 mb-2">Send Password Reset</button>
+                    <p>I remembered my password. <Link to="/login" className="link">Log me in</Link></p>
                 </div>
             </div>
         )
