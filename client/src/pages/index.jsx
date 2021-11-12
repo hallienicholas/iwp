@@ -7,7 +7,6 @@ import LoginPopUp from '../LoginPopUp';
 import useToken from '../useToken';
 //^^
 
-
 function DbPage() {
 
   const [pumpList, setPumpList] = useState([]);

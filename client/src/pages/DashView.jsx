@@ -6,8 +6,6 @@ import About from "./About";
 import Pump from "./PumpView";
 import Error from "./error";
 import Contact from "./Contact";
-import LoginPopUp from "../LoginPopUp";
-import Warning from "./Warning";
 import {
     Route,
     Switch,

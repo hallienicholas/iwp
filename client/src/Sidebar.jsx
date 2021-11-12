@@ -34,6 +34,7 @@ class Sidebar extends Component {
           <span>Pump 275</span>
         </Link>
       </li>
+  
       </ul>
     );
   }

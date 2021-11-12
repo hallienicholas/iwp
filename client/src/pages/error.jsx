@@ -1,8 +1,4 @@
 import React, {Component} from "react";
-import Axios from 'axios'
-import { useState } from "react";
-import { Link } from "react-router-dom";
-//Functional Component 
 
 class Error extends Component{
     render(){

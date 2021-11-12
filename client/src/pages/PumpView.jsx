@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
+const pumpName = "Pump 275";
+
 class Pump extends Component {
 	render(){
 		return(
 			<div className="container-fluid">
-				<h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
+				<h1 className="h3 mb-4 text-gray-800">{pumpName}</h1>
 				<div className="row">
 					<div className="col-xl-3 col-md-6 mb-4">
 						<div className="card border-left-primary shadow h-100 py-2">
