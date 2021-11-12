@@ -29,7 +29,7 @@ function Registration () {
                 <LoginRibbon />
                 <div className = "mt-auto mb-auto mr-auto ml-auto">
                 
-                {/* Beginning of registration Section */}
+                {/* Beginning of Registration Section */}
                     Registration
                     <div>
                         <input 
