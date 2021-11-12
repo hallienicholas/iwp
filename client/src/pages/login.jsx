@@ -6,10 +6,6 @@ import LoginRibbon from "../LoginRibbon";
 function LoginPage () {
 
     /* Login States */
-    const [firstNameReg, setFirstNameReg] = useState("");
-    const [lastNameReg, setLastNameReg] = useState("");
-    const [usernameReg, setUsernameReg] = useState("");
-    const [passwordReg, setPasswordReg] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState("");

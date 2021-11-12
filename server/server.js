@@ -30,32 +30,6 @@ app.use('/loginpop', (req, res) => {
     });
   });
 
-app.post('/register', (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    
-    db.query(
-        "SELECT * FROM iwp_user WHERE user_email = ?;",
-        username,
-        (err, result) => {
-            if (err) {
-                res.send({err: err});
-            }
-            if (result.length > 0){
-               bcrypt.compare(password, result[0].user_password, (error, response) => {
-                   if(response) {
-                       res.send(result);
-                   } else {
-                       res.send({message: "Wrong username/password combination" });
-                   }
-               }); 
-            } else {
-                res.send({ message: "User does not exist"});
-            }
-        }
-    );
-  });
-
 
 app.post('/register', (req, res) => {
     
@@ -94,6 +68,31 @@ app.listen(3001, ()=> {
     console.log("Yay, your server is running on port 3001");
 });
 
+app.post('/login', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    
+    db.query(
+        "SELECT * FROM iwp_user WHERE user_email = ?;",
+        username,
+        (err, result) => {
+            if (err) {
+                res.send({err: err});
+            }
+            if (result.length > 0){
+               bcrypt.compare(password, result[0].user_password, (error, response) => {
+                   if(response) {
+                       res.send(result);
+                   } else {
+                       res.send({message: "Wrong username/password combination" });
+                   }
+               }); 
+            } else {
+                res.send({ message: "User does not exist"});
+            }
+        }
+    );
+  });
 
 //API routes 
 
