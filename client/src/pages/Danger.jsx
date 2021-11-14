@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 
-class Warning extends Component{
+class Danger extends Component{
     render(){
 
         const SystemMessage = `.system-message {
@@ -12,9 +12,9 @@ class Warning extends Component{
         return(
             <div className="system-message position-fixed">
                 <style>{SystemMessage}</style>
-                <div className="card border-left-warning mb-4 shadow">
+                <div className="card border-left-danger mb-4 shadow">
                     <div className="card-header py-3">
-                        <h6 className="m-0 font-weight-bold text-warning">System warning</h6>
+                        <h6 className="m-0 font-weight-bold text-danger">System warning</h6>
                     </div>
                 <div className="card-body">Some error has occured.
                     <h6 className="font-weight-light">Click this popup to close.</h6>
@@ -25,4 +25,4 @@ class Warning extends Component{
     }
 }
 
-export default Warning;
+export default Danger;
