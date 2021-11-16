@@ -29,7 +29,8 @@ function LoginPage () {
     useEffect(()=> {
       Axios.get("http://localhost:3001/login").then((response) => {
         if (response.data.loggedIn == true) {
-          setLoginStatus(response.data.user[0].user_email);
+          //setLoginStatus(response.data.user[0].user_email);
+          console.log(response.data.user[0].user_email);
         } 
       });
     }, []);
