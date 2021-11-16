@@ -1,6 +1,7 @@
 import React from "react";
 import Axios from 'axios'
 import { useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import LoginRibbon from "../LoginRibbon";
 function LoginPage () {
@@ -9,6 +10,8 @@ function LoginPage () {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginStatus, setLoginStatus] = useState("");
+
+    Axios.defaults.withCredentials = true;
 
     const login = () => {
       Axios.post("http://localhost:3001/login", {
@@ -22,6 +25,14 @@ function LoginPage () {
         }
       });
     };
+
+    useEffect(()=> {
+      Axios.get("http://localhost:3001/login").then((response) => {
+        if (response.data.loggedIn == true) {
+          setLoginStatus(response.data.user[0].user_email);
+        } 
+      });
+    }, []);
   
     return (
       <div id = "wrapper">

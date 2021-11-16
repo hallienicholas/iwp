@@ -1,22 +1,43 @@
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
+//const bodyParser = require("body-parser");
 const mysql = require('mysql');
 const cors = require("cors");
 const path = require("path");
 const mongoose = require("mongoose");
+
+const bodyParser = require("body-parser");
+const cookieParser = require ("cookie-parser");
+const session = require ("express-session");
+
 const bcrypt = require("bcrypt");
 const saltRounds = 10
 //const port = process.env.PORT || 3000
 
-app.use(express.urlencoded({ extended: true }))
-app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true
+}));
 
-//mongoose
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true}));
 
-//data schema and model
+app.use(
+    session({
+        key: "userId",
+        secret: "fp9834ou-0wipfoejn",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            expires: 60 * 60 * 24,
+        },
+    })
+);
 
+//database
 const db = mysql.createConnection({
     user: "ReactApp",
     host: "localhost",
@@ -26,7 +47,7 @@ const db = mysql.createConnection({
 
 app.use('/loginpop', (req, res) => {
     res.send({
-      token: 'test123'
+      token: 'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
     });
   });
 
@@ -64,9 +85,13 @@ app.get('/data', (req,res) => {
     })
 })
 
-app.listen(3001, ()=> {
-    console.log("Yay, your server is running on port 3001");
-});
+app.get("login", (req, res) => {
+    if (req.session.user) {
+        res.send({loggedIn: true, user: req.session.user})
+    } else {
+        res.send({loggedIn: false})
+    }
+})
 
 app.post('/login', (req, res) => {
     const username = req.body.username;
@@ -79,9 +104,12 @@ app.post('/login', (req, res) => {
             if (err) {
                 res.send({err: err});
             }
+
             if (result.length > 0){
                bcrypt.compare(password, result[0].user_password, (error, response) => {
                    if(response) {
+                       req.session.user = result;
+                       console.log(req.session.user);
                        res.send(result);
                    } else {
                        res.send({message: "Wrong username/password combination" });
@@ -92,7 +120,11 @@ app.post('/login', (req, res) => {
             }
         }
     );
-  });
+});
+
+app.listen(3001, ()=> {
+    console.log("Yay, your server is running on port 3001");
+});
 
 //API routes 
 
