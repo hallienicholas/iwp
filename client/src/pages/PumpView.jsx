@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
 
-const pumpName = "Pump 275";
+var pumpName = "Pump Data";
+
+function selectPump(input){
+	pumpName=input;
+}
 
 class Pump extends Component {
 	render(){
 		return(
 			<div className="container-fluid">
 				<h1 className="h3 mb-4 text-gray-800">{pumpName}</h1>
+				<div className="row">
+					<div className="col-lg-6 col-m-4 col-s-3 input-group  mb-2">
+						<input type="search" id="form1" className="form-control" placeholder="Search..."/>
+						<div className="input-group-append">
+							<button type="button" className="btn btn-primary">
+								<i class="fas fa-search"></i>
+							</button>
+						</div>
+					</div>
+					
+				</div>
 				<div className="row">
 					<div className="col-xl-3 col-md-6 mb-4">
 						<div className="card border-left-primary shadow h-100 py-2">
