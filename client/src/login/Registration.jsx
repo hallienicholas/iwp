@@ -2,7 +2,7 @@ import React from "react";
 import Axios from 'axios'
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import LoginRibbon from "../LoginRibbon";
+import LoginRibbon from "../global/LoginRibbon";
 
 function Registration () {
 
