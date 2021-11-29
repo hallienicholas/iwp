@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   Link,
   //Redirect
 } from "react-router-dom";
+import PumpList from './PumpList';
 
 class Sidebar extends Component {
-  render(){
+  render(){    
+
     return(
       <ul id="accordionSidebar" className="bg-gradient-primary accordion navbar-nav sidebar sidebar-dark">
       <a className="sidebar-brand d-flex align-items-center justify-content-center mt-2 mb-2" href="/">
@@ -27,14 +29,7 @@ class Sidebar extends Component {
       </li>
       <hr className="sidebar-divider"></hr>
       <div className="sidebar-heading">Pumps</div>
-      <li className="nav-item">
-        <Link to="/pump" className="nav-link" href="/">
-          <i className="fas fa-fw fa-faucet">
-          </i>
-          <span>Pump 275</span>
-        </Link>
-      </li>
-  
+      <PumpList/>
       </ul>
     );
   }

@@ -64,6 +64,16 @@ app.get('/data', (req,res) => {
     })
 })
 
+app.get('/pumps', (req,res) => {
+    db.query("SELECT iwp_pump_id FROM iwp.pump ORDER BY iwp_pump_id", (err, result) => {
+        if (err){
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
+
 app.listen(3001, ()=> {
     console.log("Yay, your server is running on port 3001");
 });
