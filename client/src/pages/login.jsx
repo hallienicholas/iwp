@@ -72,7 +72,7 @@ function LoginPage () {
 
           {/* End of Login Section */}
 
-          <h1>{loginStatus}</h1>
+          <p className="text-danger">{loginStatus}</p>
           <p>Don't have an account? <Link to="/register" className="link">Register</Link></p> 
           <p>Forgot your password? <Link to="/forgot" className="link">Reset password</Link></p>
         </div>
