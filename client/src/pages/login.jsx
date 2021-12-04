@@ -21,11 +21,10 @@ function LoginPage () {
         if (response.data.message){
           setLoginStatus(response.data.message);
         } else {
-          setLoginStatus(("Logged in as ") + (response.data[0].user_email));
+          setLoginStatus(response.data[0].user_email);
         }
       });
     };
-    
 
     useEffect(()=> {
       Axios.get("http://localhost:3001/login").then((response) => {
@@ -52,18 +51,16 @@ function LoginPage () {
             name="username"
             placeholder="Email Address"
             onChange={(event) => {
-              setUsername(event.target.value);
+              setUsername(event.target.value); 
               }}
             />
-
             <br />
           <input 
             className="mt-2"
             type="text"
             placeholder="Password"
             onChange={(event) => {
-              setPassword(event.target.value);
-              
+              setPassword(event.target.value); 
               }}
             
           />

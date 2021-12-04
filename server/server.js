@@ -51,7 +51,7 @@ app.use('/loginpop', (req, res) => {
     });
   });
 
-//vvvvvvv
+
 app.post('/register', (req, res) => {
     
     const firstname = req.body.firstname;
@@ -64,16 +64,12 @@ app.post('/register', (req, res) => {
         if (err) {
             console.log(err)
         }
+
         db.query(
             "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')", 
             [firstname, lastname, username, hash],
             (err, result) => {
                 console.log(err);
-                if (err) {
-                    res.send({message: "An account with that email already exists." });
-                };
-                //look for 'ER_DUP_ENTRY'
-                // 23000
             }
         );
     })
@@ -114,15 +110,13 @@ app.post('/login', (req, res) => {
                    if(response) {
                        req.session.user = result;
                        console.log(req.session.user);
-                       res.send({message: "Logged in as "});
                        res.send(result);
-                       
                    } else {
-                       res.send({message: "Wrong username/password combination." });
+                       res.send({message: "Wrong username/password combination" });
                    }
                }); 
             } else {
-                res.send({ message: "User does not exist."});
+                res.send({ message: "User does not exist"});
             }
         }
     );
