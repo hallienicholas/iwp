@@ -21,10 +21,11 @@ function LoginPage () {
         if (response.data.message){
           setLoginStatus(response.data.message);
         } else {
-          setLoginStatus(response.data[0].user_email);
+          setLoginStatus(("Logged in as ") + (response.data[0].user_email));
         }
       });
     };
+    
 
     useEffect(()=> {
       Axios.get("http://localhost:3001/login").then((response) => {
@@ -51,16 +52,18 @@ function LoginPage () {
             name="username"
             placeholder="Email Address"
             onChange={(event) => {
-              setUsername(event.target.value); 
+              setUsername(event.target.value);
               }}
             />
+
             <br />
           <input 
             className="mt-2"
             type="text"
             placeholder="Password"
             onChange={(event) => {
-              setPassword(event.target.value); 
+              setPassword(event.target.value);
+              
               }}
             
           />
@@ -72,7 +75,7 @@ function LoginPage () {
 
           {/* End of Login Section */}
 
-          <h1>{loginStatus}</h1>
+          <p className="text-danger">{loginStatus}</p>
           <p>Don't have an account? <Link to="/register" className="link">Register</Link></p> 
           <p>Forgot your password? <Link to="/forgot" className="link">Reset password</Link></p>
         </div>
