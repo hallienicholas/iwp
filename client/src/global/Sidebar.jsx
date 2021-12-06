@@ -29,7 +29,12 @@ class Sidebar extends Component {
       </li>
       <hr className="sidebar-divider"></hr>
       <div className="sidebar-heading">Pumps</div>
-      <PumpList/>
+      <li className="nav-item">
+        <a className="nav-link" href="./pump">
+          <i className="fas fa-fw fa-faucet"></i>
+          <span className>Pumps</span>
+        </a>
+      </li>
       </ul>
     );
   }

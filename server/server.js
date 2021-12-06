@@ -55,7 +55,7 @@ app.post('/register', (req, res) => {
 });
   
 app.get('/data', (req,res) => {
-    db.query("SELECT * FROM iwp_sensor_data ORDER BY date_sensed DESC LIMIT 10", (err, result) => {
+    db.query("SELECT * FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk ORDER BY date_sensed DESC LIMIT 10", (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -65,7 +65,17 @@ app.get('/data', (req,res) => {
 })
 
 app.get('/pumps', (req,res) => {
-    db.query("SELECT iwp_pump_id FROM iwp.pump ORDER BY iwp_pump_id", (err, result) => {
+    db.query("SELECT iwp_pump_id FROM iwp_pump ORDER BY iwp_pump_id", (err, result) => {
+        if (err){
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
+
+app.get('/volume', (req, res) => {
+    db.query("SELECT iwp_pump_id_fk, date_sensed, daily_volume_sum FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE iwp_pump_id_fk ='284' ORDER BY date_sensed", (err, result) => {
         if (err){
             console.log(err)
         } else {
