@@ -89,7 +89,7 @@ app.get('/data', (req,res) => {
     })
 })
 
-app.get("login", (req, res) => {
+app.get("/login", (req, res) => {
     if (req.session.user) {
         res.send({loggedIn: true, user: req.session.user})
     } else {
@@ -116,9 +116,6 @@ app.get('/volume', (req, res) => {
     })
 })
 
-app.listen(3001, ()=> {
-    console.log("Yay, your server is running on port 3001");
-});
 
 app.post('/login', (req, res) => {
     const username = req.body.username;
