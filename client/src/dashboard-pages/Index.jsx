@@ -1,10 +1,10 @@
 import React from "react";
-import Axios from 'axios'
+import Axios from 'axios';
 import {useState} from "react";
 import { Link } from "react-router-dom";
 //vv
-import LoginPopUp from '../LoginPopUp';
-import useToken from '../useToken';
+import LoginPopUp from '../popups/LoginPopUp';
+import useToken from '../popups/useToken';
 //^^
 
 function DbPage() {
@@ -35,18 +35,20 @@ function DbPage() {
             <table className="table">
               <thead>
                 <tr>
-                  <th>Transmission ID</th>
+                  <th>Timestamp</th>
                   <th>Pump ID</th>
                   <th>Battery Percentage</th>
+                  <th>Daily Volume Sum</th>
                 </tr>
               </thead>
               <tbody>
                 {pumpList.map((val,key) => {
                   return(
                     <tr>
-                      <td>{val.iwp_sensor_data_id}</td>
+                      <td>{val.date_sensed}</td>
                       <td>{val.iwp_pump_id_fk}</td>
                       <td>{val.battery_percentage}</td>
+                      <td>{val.daily_volume_sum}</td>
                     </tr>
                   );
                 })}
@@ -55,6 +57,7 @@ function DbPage() {
           </div>
         </div>
       </div>
+      
     </div>
   );
 }
