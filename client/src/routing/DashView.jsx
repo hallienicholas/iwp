@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import Sidebar from "../Sidebar";
-import Navbar from "../Navbar";
-import DbPage from "./index";
-import About from "./About";
-import Pump from "./PumpView";
-import Error from "./error";
-import Contact from "./Contact";
+import Sidebar from "../global/Sidebar";
+import Navbar from "../global/Navbar";
+import DbPage from "../dashboard-pages/Index";
+import About from "../dashboard-pages/About";
+import Pump from "../dashboard-pages/PumpView";
+import Error from "../dashboard-pages/Error";
+import Contact from "../dashboard-pages/Contact";
+import Messages from "../dashboard-pages/Messages";
 import {
     Route,
     Switch,
@@ -26,6 +27,7 @@ class DashView extends Component {
                             <Route exact path="/about" component={About} />
                             <Route exact path="/pump" component={Pump} />
                             <Route exact path="/contact" component={Contact} />
+                            <Route path="/messages" component={Messages} />
                             <Route path="*" component={Error} />
                         </Switch>
                     </div>

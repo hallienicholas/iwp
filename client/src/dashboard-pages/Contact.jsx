@@ -4,6 +4,7 @@ class Contact extends Component{
     render(){
         return(
             <div className="container-fluid">
+                <h1 className="h3 mb-4 text-gray-800">Contact Us</h1>
                 <div className="card shadow mb-4">
                     <div className="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Get in touch with the Intelligent Water Alerts team</h6>

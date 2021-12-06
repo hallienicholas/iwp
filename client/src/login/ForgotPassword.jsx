@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import LoginRibbon from "../LoginRibbon";
+import LoginRibbon from "../global/LoginRibbon";
 import { Link } from "react-router-dom";
 
 class ForgotPassword extends Component{

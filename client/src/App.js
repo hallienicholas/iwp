@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-//import "./App.css";
+//import "./custom-css/App.css";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   //Redirect
 } from "react-router-dom";
-import LoginPage from "./pages/login";
-import DashView from "./pages/DashView";
-import Registration from "./pages/Registration"; 
-import ForgotPassword from "./pages/ForgotPassword";
+import LoginPage from "./login/Login";
+import DashView from "./routing/DashView";
+import Registration from "./login/Registration"; 
+import ForgotPassword from "./login/ForgotPassword";
 class App extends Component {
   render() {
     return (

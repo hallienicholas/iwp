@@ -3,7 +3,7 @@ import Axios from 'axios'
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import LoginRibbon from "../LoginRibbon";
+import LoginRibbon from "../global/LoginRibbon";
 function LoginPage () {
 
     /* Login States */
@@ -35,6 +35,15 @@ function LoginPage () {
       });
     }, []);
   
+    useEffect(()=> {
+      Axios.get("http://localhost:3001/login").then((response) => {
+        if (response.data.loggedIn == true) {
+          //setLoginStatus(response.data.user[0].user_email);
+          console.log(response.data.user[0].user_email);
+        } 
+      });
+    }, []);
+
     return (
       <div id = "wrapper">
         <LoginRibbon />
