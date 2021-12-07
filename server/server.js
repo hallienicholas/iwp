@@ -64,6 +64,7 @@ app.post('/register', (req, res) => {
         if (err) {
             console.log(err)
         }
+        
         db.query(
             "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')", 
             [firstname, lastname, username, hash],
@@ -71,9 +72,9 @@ app.post('/register', (req, res) => {
                 console.log(err);
                 if (err) {
                     res.send({message: "An account with that email already exists." });
+                } else if ((err) == null) { //change this to what it will actually be after registration is complete?
+                    res.send({message: "Account successfully created."})
                 };
-                //look for 'ER_DUP_ENTRY'
-                // 23000
             }
         );
     })

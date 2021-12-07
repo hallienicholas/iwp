@@ -12,6 +12,7 @@ function Registration () {
     const [usernameReg, setUsernameReg] = useState("");
     const [passwordReg, setPasswordReg] = useState("");
     const [regStatus, setRegStatus] = useState("");
+    const [textStatus, setTextStatus] = useState("");
 
     const register = () => {
       Axios.post("http://localhost:3001/register", {
@@ -23,6 +24,11 @@ function Registration () {
         if (response.data.message){
             setRegStatus(response.data.message);
         } console.log(response);
+            if (response.data.message == "Account successfully created.") {
+                setTextStatus("text-success");
+            } else {
+                setTextStatus("text-danger");
+            }
       });
     };
 
@@ -76,7 +82,7 @@ function Registration () {
                     <button className="btn btn-primary shadow" onClick={register}>Submit</button>
                     </div>
                     
-                    <p className="text-danger">{regStatus}</p>
+                    <p className={textStatus}>{regStatus}</p>
                     <p>Already have an account? <Link to="/login" className="link">Login</Link></p>
                     
                 </div>
