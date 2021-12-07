@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ProfileButton from "./ProfileButton";
-import MessagesDropDown from './MessagesDropDown';
+import ProfileButton from "./pages/ProfileButton";
+import MessagesDropDown from './pages/MessagesDropDown';
 
 class Navbar extends Component {
 	render(){

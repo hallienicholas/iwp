@@ -10,7 +10,10 @@ class ProfileButton extends Component{
                 <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                     <span className="dropdown-header">Account class</span>
                     <a className="dropdown-item">User Settings</a>
+
+
                     <a className="dropdown-item" href="/messages">Messages</a>
+
                     <div className="dropdown-divider" />
                     <a className="dropdown-item" href="./login">Logout</a>
                 </div>
