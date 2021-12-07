@@ -71,9 +71,9 @@ app.post('/register', (req, res) => {
                 console.log(err);
                 if (err) {
                     res.send({message: "An account with that email already exists." });
+                } else if ((err) == null) { //change this to what it will actually be after registration is complete?
+                    res.send({message: "Account successfully created."})
                 };
-                //look for 'ER_DUP_ENTRY'
-                // 23000
             }
         );
     })
