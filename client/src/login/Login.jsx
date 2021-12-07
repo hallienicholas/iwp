@@ -3,7 +3,7 @@ import Axios from 'axios'
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import LoginRibbon from "../LoginRibbon";
+import LoginRibbon from "../global/LoginRibbon";
 function LoginPage () {
 
     /* Login States */
@@ -72,7 +72,7 @@ function LoginPage () {
             <br />
           <input 
             className="mt-2"
-            type="text"
+            type="password"
             placeholder="Password"
             onChange={(event) => {
               setPassword(event.target.value); 
