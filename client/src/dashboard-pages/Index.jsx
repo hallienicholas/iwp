@@ -1,10 +1,10 @@
 import React from "react";
-import Axios from 'axios';
+import Axios from 'axios'
 import {useState} from "react";
 import { Link } from "react-router-dom";
 //vv
-import LoginPopUp from '../popups/LoginPopUp';
-import useToken from '../popups/useToken';
+import LoginPopUp from '../LoginPopUp';
+import useToken from '../useToken';
 //^^
 
 function DbPage() {
@@ -19,9 +19,9 @@ function DbPage() {
   //vv
   const { token, setToken } = useToken();
 
-  if(!token) {
-    return <LoginPopUp setToken={setToken} />
-  }
+  //if(!token) {
+  //  return <LoginPopUp setToken={setToken} />
+  //}
   return (
     <div className="container-fluid">
       <h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
@@ -35,20 +35,18 @@ function DbPage() {
             <table className="table">
               <thead>
                 <tr>
-                  <th>Timestamp</th>
+                  <th>Transmission ID</th>
                   <th>Pump ID</th>
                   <th>Battery Percentage</th>
-                  <th>Daily Volume Sum</th>
                 </tr>
               </thead>
               <tbody>
                 {pumpList.map((val,key) => {
                   return(
                     <tr>
-                      <td>{val.date_sensed}</td>
+                      <td>{val.iwp_sensor_data_id}</td>
                       <td>{val.iwp_pump_id_fk}</td>
                       <td>{val.battery_percentage}</td>
-                      <td>{val.daily_volume_sum}</td>
                     </tr>
                   );
                 })}
@@ -57,7 +55,6 @@ function DbPage() {
           </div>
         </div>
       </div>
-      
     </div>
   );
 }
