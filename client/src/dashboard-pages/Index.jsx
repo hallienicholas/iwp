@@ -3,8 +3,8 @@ import Axios from 'axios'
 import {useState} from "react";
 import { Link } from "react-router-dom";
 //vv
-import LoginPopUp from '../LoginPopUp';
-import useToken from '../useToken';
+import LoginPopUp from '../popups/LoginPopUp';
+import useToken from '../popups/useToken';
 //^^
 
 function DbPage() {
