@@ -9,7 +9,7 @@ function LoginPage () {
     /* Login States */
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [loginStatus, setLoginStatus] = useState("");
+    const [loginStatus, setLoginStatus] = useState(false);
 
     Axios.defaults.withCredentials = true;
 
@@ -18,14 +18,29 @@ function LoginPage () {
         username: username, 
         password: password,
       }).then((response) => {
-        if (response.data.message){
-          setLoginStatus(response.data.message);
+        console.log(response);
+        if (!response.data.auth){
+          setLoginStatus(false);
         } else {
-          setLoginStatus(response.data[0].user_email);
+          console.log(response.data)
+          localStorage.setItem("token", response.data.token);
+          setLoginStatus(true);
         }
       });
     };
 
+    const userAuthenticated = () => {
+      Axios.get("http://localhost:3001/isUserAuth", {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      }).then((response) => {
+        console.log(response);
+      });
+    };
+
+
+// Check this vvvvv
     useEffect(()=> {
       Axios.get("http://localhost:3001/login").then((response) => {
         if (response.data.loggedIn == true) {
@@ -72,7 +87,12 @@ function LoginPage () {
 
           {/* End of Login Section */}
 
-          <h1>{loginStatus}</h1>
+          {loginStatus && (
+            <button onClick= {userAuthenticated}> Check if Authenticated</button>
+
+          )}
+
+          <h1></h1>
           <p>Don't have an account? <Link to="/register" className="link">Register</Link></p> 
           <p>Forgot your password? <Link to="/forgot" className="link">Reset password</Link></p>
         </div>

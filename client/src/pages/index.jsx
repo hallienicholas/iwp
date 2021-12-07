@@ -19,9 +19,9 @@ function DbPage() {
   //vv
   const { token, setToken } = useToken();
 
-  if(!token) {
-    return <LoginPopUp setToken={setToken} />
-  }
+  //if(!token) {
+  //  return <LoginPopUp setToken={setToken} />
+  //}
   return (
     <div className="container-fluid">
       <h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
