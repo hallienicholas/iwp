@@ -126,6 +126,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
         );
     });
 
+
     const mailOptions = {
         from: process.env.AUTH_EMAIL,
         to : email,
@@ -218,6 +219,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
 
 // Verified page route (Skip?)
 
+
 app.post('/register', (req, res) => {
     
     const firstname = req.body.firstname;
@@ -230,7 +232,6 @@ app.post('/register', (req, res) => {
         if (err) {
             console.log(err)
         }
-
         db.query(
             "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')", 
             [firstname, lastname, username, hash],
@@ -243,13 +244,17 @@ app.post('/register', (req, res) => {
                     sendVerificationEmail(username, res);
                     //
                 }
+                    res.send({message: "An account with that email already exists." });
+                } else if ((err) == null) { //change this to what it will actually be after registration is complete?
+                    res.send({message: "Account successfully created."})
+                };
             }
         );
     })
 });
   
 app.get('/data', (req,res) => {
-    db.query("SELECT * FROM iwp_sensor_data ORDER BY date_sensed DESC LIMIT 10", (err, result) => {
+    db.query("SELECT * FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk ORDER BY date_sensed DESC LIMIT 10", (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -258,13 +263,33 @@ app.get('/data', (req,res) => {
     })
 })
 
-app.get("login", (req, res) => {
+app.get("/login", (req, res) => {
     if (req.session.user) {
         res.send({loggedIn: true, user: req.session.user})
     } else {
         res.send({loggedIn: false})
     }
 })
+app.get('/pumps', (req,res) => {
+    db.query("SELECT iwp_pump_id FROM iwp_pump ORDER BY iwp_pump_id", (err, result) => {
+        if (err){
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
+
+app.get('/volume', (req, res) => {
+    db.query("SELECT iwp_pump_id_fk, date_sensed, daily_volume_sum FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE iwp_pump_id_fk ='284' ORDER BY date_sensed", (err, result) => {
+        if (err){
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
+
 
 const verifyJWT = (req, res, next) => {
     const token = req.headers["x-access-token"]
@@ -320,6 +345,17 @@ app.post('/login', (req, res) => {
                }); 
             } else {
                 res.json({ auth: false, message: "User does not exist"});
+                       console.log(req.session.user);
+                       res.send({message: "Logged in as "});
+                       res.send(result);
+                       
+                   } else {
+                       res.send({message: "Wrong username/password combination." });
+                   }
+               }); 
+            } else {
+                res.send({ message: "User does not exist."});
+
             }
         }
     );

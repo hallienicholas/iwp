@@ -2,7 +2,9 @@ import React from "react";
 import Axios from 'axios'
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import LoginRibbon from "../LoginRibbon";
+
+import LoginRibbon from "../global/LoginRibbon";
+
 
 function Registration () {
 
@@ -11,7 +13,9 @@ function Registration () {
     const [lastNameReg, setLastNameReg] = useState("");
     const [usernameReg, setUsernameReg] = useState("");
     const [passwordReg, setPasswordReg] = useState("");
-    const [loginStatus, setLoginStatus] = useState("");
+    const [regStatus, setRegStatus] = useState("");
+    const [textStatus, setTextStatus] = useState("");
+
 
     const register = () => {
       Axios.post("http://localhost:3001/register", {
@@ -20,7 +24,18 @@ function Registration () {
         firstname: firstNameReg,
         lastname: lastNameReg
       }).then((response) => {
+
         console.log(response);
+
+        if (response.data.message){
+            setRegStatus(response.data.message);
+        } console.log(response);
+        if (response.data.message == "Account successfully created.") {
+            setTextStatus("text-success");
+        } else {
+            setTextStatus("text-danger");
+        }
+
       });
     };
 
@@ -62,7 +77,11 @@ function Registration () {
                         <br />
                         <input 
                         className="mt-2"
+
                         type="text"
+
+                        type="password"
+
                         placeholder="Password"
                         onChange={(event) => {
                             setPasswordReg(event.target.value); 
@@ -73,9 +92,17 @@ function Registration () {
                     <div className="btn-group mt-2 mb-2" role="group">
                     <button className="btn btn-primary shadow" onClick={register}>Submit</button>
 
+
                     <h1>{loginStatus}</h1>
                     <p>Already have an account? <Link to="/login" className="link">Login</Link></p>
                     </div>
+
+                    </div>
+                    
+                    <p className={textStatus}>{regStatus}</p>
+                    <p>Already have an account? <Link to="/login" className="link">Login</Link></p>
+                    
+
                 </div>
                     {/* End of Create Account Section */}
                 </div>
