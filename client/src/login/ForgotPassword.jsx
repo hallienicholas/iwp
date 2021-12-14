@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Axios from 'axios'
 import { useState } from "react";
-import LoginRibbon from "../LoginRibbon";
+import LoginRibbon from "../global/LoginRibbon";
 import { Link } from "react-router-dom";
 
 function ForgotPassword () {
