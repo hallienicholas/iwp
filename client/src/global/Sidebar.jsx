@@ -28,6 +28,15 @@ class Sidebar extends Component {
         </a>
       </li>
       <hr className="sidebar-divider"></hr>
+      <div className="sidebar-heading">Map</div>
+      <li className="nav-item">
+        <a className="nav-link" href="./Map">
+          <i className="fas fa-fw fa-map">
+          </i>
+          <span>Map</span>
+        </a>
+      </li>
+      <hr className="sidebar-divider"></hr>
       <div className="sidebar-heading">Pumps</div>
       <li className="nav-item">
         <a className="nav-link" href="./pump">

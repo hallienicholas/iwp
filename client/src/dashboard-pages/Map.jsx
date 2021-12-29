@@ -1,30 +1,27 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
-import './map.css'
+import { Icon } from '@iconify/react'
+import locationIcon from '@iconify/icons-mdi/map-marker'
+import '../custom-css/Map.css'
 
-const location = {
-    address: 'One University Avenue, Mechanicsburg PA 17055',
-    lat: 40.155269,
-    lng: -76.99325,
-  }
+const LocationPin = ({ text }) => (
+    <div className="pin">
+    <Icon icon={locationIcon} className="pin-icon" />
+    <p className="pin-text">{text}</p>
+  </div>
+)
 
-  const App = () => (
-    <div className="App">
-      <IntroSection />
-      <ContactSection />
-      <MapSection location={location} zoomLevel={17} /> {/* include it here */}
-      <DisclaimerSection />
-      <FooterSection />
-    </div>
-  )
+
 
   const Map = ({ location, zoomLevel }) => (
+
     <div className="map">
       <h2 className="map-h2">Come Visit Us At Our Campus</h2>
-  
+
       <div className="google-map">
+      <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: MAP }} //will need to follow website to restrict key when it production
+          bootstrapURLKeys={{ key: '' }} //will need to follow website to restrict key when in production
           defaultCenter={location}
           defaultZoom={zoomLevel}
         >
@@ -34,9 +31,9 @@ const location = {
             text={location.address}
           />
         </GoogleMapReact>
+        </div>
       </div>
-    </div>
-  )
+    </div> 
 
-  export default App
-
+)
+export default Map
