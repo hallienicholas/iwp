@@ -29,7 +29,15 @@ function ForgotPassword () {
                         }}
                 />
                 <br />
-                <button className="btn btn-primary mt-2 mb-2"onClick={resetPassword}>Send Password Reset</button>
+                <button className="btn btn-primary mt-2 mb-2" type="button" data-toggle="modal" data-target="success" onClick={resetPassword}>Send Password Reset</button>
+                <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                             ...
+                        </div>
+                    </div>
+                </div>   
+
                 <p>I remembered my password. <Link to="/login" className="link">Log me in</Link></p>
             </div>
         </div>

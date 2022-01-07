@@ -39,7 +39,7 @@ transporter.verify((error, success) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    origin: [process.env.HOST_URL],
     methods: ["GET", "POST"],
     credentials: true
 }));
@@ -50,7 +50,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(
     session({
         key: "userId",
-        secret: "fp9834ou-0wipfoejn",
+        secret: process.env.SESSION_SEC,
         resave: false,
         saveUninitialized: false,
         cookie: {
@@ -64,8 +64,8 @@ app.use(
 const db = mysql.createConnection({
     user: "ReactApp",
     host: "localhost",
-    password: "1111",
-    database: "iwpDB",
+    password: process.env.PASS_DB,
+    database: process.env.DB_NAME,
 });
 
 //app.use('/loginpop', (req, res) => {
@@ -76,8 +76,8 @@ const db = mysql.createConnection({
 
 const sendVerificationEmail = (username, res) => {
     // verification url
-    const currentUrl = "http://localhost:3000";
-    const uniqueString = 'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+    const currentUrl = process.env.HOST_URL;
+    const uniqueString = process.env.VER_STRING;
 
     console.log(username);
     const mailOptions = {
@@ -98,10 +98,10 @@ const sendVerificationEmail = (username, res) => {
 };
 
 app.post('/sendPasswordResetEmail', (req, res) => {
-    const currentUrl = "http://localhost:3000";
-    const uniqueString = 'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+    const currentUrl = process.env.HOST_URL;
+    const uniqueString = process.env.RES_STRING;
     const email = req.body.email;
-    const newPassword = "xlKfmn";
+    const newPassword = process.env.PASS_RESET;
 
     bcrypt.hash(newPassword,saltRounds, (err, hash) => { 
         if (err) {
@@ -211,7 +211,7 @@ const verifyJWT = (req, res, next) => {
         res.send("Send token next time")
     }
     else {
-        jwt.verify(token, "jwtSecret", (err, decoded) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if (err) {
                 res.json({ auth: false, message: "failed to authenticate"});
             } else {
@@ -243,14 +243,13 @@ app.post('/login', (req, res) => {
                bcrypt.compare(password, result[0].user_password, (error, response) => {
                    if(response) {
                        const id = result[0].iwp_user_id
-                       // vvv change secret & move to .env
-                       const token = jwt.sign({id}, "jwtSecret", {
+                       const token = jwt.sign({id}, process.env.JWT_SECRET, {
                            expiresIn: 300,
                         });
                     
                     req.session.user = result;
                     console.log(req.session.user);
-                    res.send({message: "Logged in as "});
+                    res.send({message: "Logged in as " + username});
                     res.send(result);
                     res.json({auth: true, token: token, result: result}) ;
                        
