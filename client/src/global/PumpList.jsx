@@ -1,12 +1,30 @@
 import React, {useState} from 'react';
 import Axios from 'axios';
 
-function PumpList({pumpName, setPumpName, getVolumeData}){
+function PumpList({pumpName, setPumpName, volume, setVolume, battery, setBattery}){
+
+  const [volumeData, storeVolume] = useState([]);
+  const [batteryData, storeBattery] = useState([]);
+
+  const getVolumeData = () => {
+		Axios.get("http://localhost:3001/volume").then((response) => {
+		  storeVolume(response.data);
+      setVolume(volumeData);
+		})
+  }
+
+  const getBatteryData = () => {
+    Axios.get("http://localhost:3001/battery").then((response) => {
+      storeBattery(response.data);
+      setBattery(batteryData);
+    })
+  }
 
   const updateHeader = (e) => {
 		if(e.target.value !== "Select Pump"){
 		    setPumpName(e.target.value)
         getVolumeData();
+        getBatteryData();
 		  }      
 	  }
 

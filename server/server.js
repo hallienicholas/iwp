@@ -105,9 +105,19 @@ app.get('/pumps', (req,res) => {
         }
     })
 })
-
+//Put a limit on the two queries below at some point. Otherwise it's going to get hairy. 8 should be fine.
 app.get('/volume', (req, res) => {
     db.query("SELECT iwp_pump_id_fk, date_sensed, daily_volume_sum FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE iwp_pump_id_fk ='284' ORDER BY date_sensed", (err, result) => {
+        if (err){
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
+
+app.get('/battery', (req, res) => {
+    db.query("SELECT iwp_pump_id_fk, date_sensed, battery_percentage FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE iwp_pump_id_fk ='284' ORDER BY date_sensed", (err, result) => {
         if (err){
             console.log(err)
         } else {
