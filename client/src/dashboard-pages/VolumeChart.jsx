@@ -21,29 +21,31 @@ ChartJS.register(
   Legend
 );
 
-function VolumeChart({volume, chartTitle}){
+function VolumeChart({chartData, chartTitle, pumpId, purpose}){
 
+  
 
   var dates = [];
+  var id = "";
   var dataPoints = [];
-  if(volume[0]){
-    dates = [volume[0].date_sensed.split(":")[0].slice(0,-3), volume[1].date_sensed.split(":")[0].slice(0,-3),
-  volume[2].date_sensed.split(":")[0].slice(0,-3), volume[3].date_sensed.split(":")[0].slice(0,-3), 
-  volume[4].date_sensed.split(":")[0].slice(0,-3), volume[5].date_sensed.split(":")[0].slice(0,-3),
-  volume[6].date_sensed.split(":")[0].slice(0,-3), volume[7].date_sensed.split(":")[0].slice(0,-3)]
-  //You'll need to add new chart types here. Just add a new block to the if statement.
-    if(volume[0].daily_volume_sum){
+  if(chartData[0]){
+  for(var i=0; i<chartData.length; i++){
+    dates[i] = chartData[i].date_sensed.split(":")[0].slice(0,-3);
+  }
 
-    dataPoints = [volume[0].daily_volume_sum, volume[1].daily_volume_sum, volume[2].daily_volume_sum,
-    volume[3].daily_volume_sum, volume[4].daily_volume_sum, volume[5].daily_volume_sum,
-    volume[6].daily_volume_sum, volume[7].daily_volume_sum]
+    id = pumpId;
+
+  //You'll need to add new chart types here. Just add a new block to the if statement.
+    if(purpose=="volume"){
+      for(var i=0; i<chartData.length; i++){
+        dataPoints[i] = chartData[i].daily_volume_sum;
+      }
   } else {
-    dataPoints = [volume[0].battery_percentage, volume[1].battery_percentage, volume[2].battery_percentage,
-    volume[3].battery_percentage, volume[4].battery_percentage, volume[5].battery_percentage,
-    volume[6].battery_percentage, volume[7].battery_percentage]
+    for(var i=0; i<chartData.length; i++){
+      dataPoints[i] = chartData[i].battery_percentage;
+    }
   }
 }
-
 
   const options = {
     responsive: true,
@@ -59,7 +61,7 @@ function VolumeChart({volume, chartTitle}){
   };
 
 
-  var labels = ["10-27","10-29","10-30","10-31","11-03","11-13","12-22"];
+  var labels = ["Date 1","Date 2","Date 3","Date 4","Date 5","Date 6","Date 7", "Date 8"];
   if(dates){
     labels=dates;
   }
@@ -68,7 +70,7 @@ function VolumeChart({volume, chartTitle}){
     labels,
     datasets: [
       {
-        label: 'Pump 284',
+        label: 'Select Pump',
         data: ['0','0','0','0','0','0','0','0'],
         borderColor: 'rgb(40, 180, 70)',
         backgroundColor: 'rgba(40, 180, 70, 0.5)',
@@ -80,6 +82,9 @@ function VolumeChart({volume, chartTitle}){
     data.datasets[0].data=dataPoints;
   }
 
+  if(id){
+    data.datasets[0].label = "Pump " + id;
+  }
 
   return(<Line options={options} data={data} />);
 }

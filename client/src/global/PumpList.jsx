@@ -1,30 +1,19 @@
 import React, {useState} from 'react';
 import Axios from 'axios';
 
-function PumpList({pumpName, setPumpName, volume, setVolume, battery, setBattery}){
+function PumpList({pumpName, setPumpName, chartData, setChartData}){
 
-  const [volumeData, storeVolume] = useState([]);
-  const [batteryData, storeBattery] = useState([]);
-
-  const getVolumeData = () => {
-		Axios.get("http://localhost:3001/volume").then((response) => {
-		  storeVolume(response.data);
-      setVolume(volumeData);
-		})
-  }
-
-  const getBatteryData = () => {
-    Axios.get("http://localhost:3001/battery").then((response) => {
-      storeBattery(response.data);
-      setBattery(batteryData);
+  const getChartData = (e) => {
+    Axios.get("http://localhost:3001/chartData?id=" + e.target.value).then((response) => {
+      setChartData(response.data);
+      console.log(chartData)
     })
   }
 
   const updateHeader = (e) => {
 		if(e.target.value !== "Select Pump"){
-		    setPumpName(e.target.value)
-        getVolumeData();
-        getBatteryData();
+		    setPumpName(e.target.value);
+        getChartData(e);
 		  }      
 	  }
 
@@ -35,6 +24,7 @@ function PumpList({pumpName, setPumpName, volume, setVolume, battery, setBattery
         setPumps(response.data);
       })
     }
+
 
     return(
         <div className="row">

@@ -6,13 +6,13 @@ import Axios from 'axios';
 function Pump(){
 
 	const [pumpName, setPumpName] = useState([]);
-	const [volume, setVolume] = useState([]);
-	const [battery, setBattery] = useState([]);
-	console.log(battery);
+	// const [recentBattery, setRecentBattery] = useState([]);
+	// const [recentTrans, setRecentTrans] = useState([]);
+	const [chartData, setChartData] = useState([]);
 
 	return(
 		<div className="container-fluid">
-			<PumpList setPumpName={setPumpName} pumpName={pumpName} volume={volume} setVolume={setVolume} battery={battery} setBattery={setBattery} />
+			<PumpList setPumpName={setPumpName} pumpName={pumpName} setChartData={setChartData} chartData={chartData}/>
 			<div className="row">
 				<div className="col-xl-3 col-md-6 mb-4">
 					<div className="card border-left-primary shadow h-100 py-2">
@@ -36,7 +36,7 @@ function Pump(){
 									<div className="col mr-2">
 										<div className="text-xs font-weight-bold text-danger text-uppercase mb-1">
 											Battery Percentage</div>
-										<div className="h5 mb-0 font-weight-bold text-uppercase text-gray-800">0%</div>
+										<div className="h5 mb-0 font-weight-bold text-uppercase text-gray-800">0</div>
 									</div>
 									<div className="col-auto">
 										<i className="fas fa-battery-empty fa-2x text-gray-300"></i>
@@ -70,7 +70,7 @@ function Pump(){
 						<div className="card-body">
 							<canvas id="myChart"  className="chartjs-render-monitor mt-auto mb-auto" width="0" height="0">
 						</canvas>
-							<VolumeChart volume={volume} chartTitle={"Volume Pumped by Date"}/>
+							<VolumeChart chartData={chartData} chartTitle={"Volume Pumped by Date"} pumpId={pumpName} purpose="volume"/>
 						</div>
 					</div>
 				</div>
@@ -82,7 +82,7 @@ function Pump(){
 						<div className="card-body">
 							<canvas id="myChart"  className="chartjs-render-monitor mt-auto mb-auto" width="0" height="0">
 						</canvas>
-							<VolumeChart volume={battery} chartTitle={"Battery Percentage by Date"}/>
+							<VolumeChart chartData={chartData} chartTitle={"Battery Percentage by Date"} pumpId={pumpName} purpose="battery"/>
 						</div>
 					</div>
 				</div>
