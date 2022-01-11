@@ -7,12 +7,30 @@ import { Link } from "react-router-dom";
 function ForgotPassword () {
 
     const [email, setEmail] = useState("");
+    const [passStatus, setPassStatus] = useState("");
+    const [textsStatus, setTextsStatus] = useState("");
 
     const resetPassword = () => {
         Axios.post("http://localhost:3001/sendPasswordResetEmail", {
           email: email
-        });
+        }).then((response) => {
+            if (response.data.message){
+                setPassStatus(response.data.message);
+            } console.log(response);
+            if (response.data.message == "Email sent") {
+                setTextsStatus("text-success");
+            } else {
+                setTextsStatus("text-danger");
+            }
+          });
     };
+    /*if (resetPassword) { 
+        setPassStatus(true);
+        response.data.message()
+        
+    } else {
+        setPassStatus(false);
+    };*/
     return(
         <div id="wrapper">
             <LoginRibbon />
@@ -27,6 +45,7 @@ function ForgotPassword () {
                     onChange={(event) => {
                         setEmail(event.target.value); 
                         }}
+                        
                 />
                 <br />
                 <button className="btn btn-primary mt-2 mb-2" type="button" data-toggle="modal" data-target="success" onClick={resetPassword}>Send Password Reset</button>
@@ -36,8 +55,9 @@ function ForgotPassword () {
                              ...
                         </div>
                     </div>
-                </div>   
-
+                </div>  
+                 
+                <p className={textsStatus}>{passStatus}</p>
                 <p>I remembered my password. <Link to="/login" className="link">Log me in</Link></p>
             </div>
         </div>

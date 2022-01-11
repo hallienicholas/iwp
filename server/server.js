@@ -18,6 +18,8 @@ const saltRounds = 10
 
 const nodemailer = require("nodemailer");
 const {v4: uuidv4} = require("uuid");
+const { response } = require("express");
+
 require("dotenv").config();
 let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -134,6 +136,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
                 status:"Pending",
                 message: "Email sent",
             });
+                res.send({message: "Email sent"}) //is email sending? see what console message is then.
         });
 });
 
@@ -216,6 +219,7 @@ const verifyJWT = (req, res, next) => {
                 res.json({ auth: false, message: "failed to authenticate"});
             } else {
                 req.userId = decoded.id;
+                
                 next();
             }
         });
