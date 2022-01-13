@@ -7,9 +7,8 @@ class ForgotPassword extends Component{
         return(
             <div id="wrapper">
                 <LoginRibbon />
-                <div className = "mb-auto mr-auto ml-auto">
-                    <h2 className="mt-5 text-gray align-left">Forgot Password</h2>
-                    <br className="mt-5 mb-5" />
+                <div className = "mb-auto mr-auto ml-auto mt-auto">
+                    Reset Password<br />
                     <input 
                         className="mt-2"
                         type="text" 
