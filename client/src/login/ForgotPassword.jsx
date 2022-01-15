@@ -4,8 +4,6 @@ import { useState } from "react";
 import LoginRibbon from "../global/LoginRibbon";
 import { Link } from "react-router-dom";
 
-
-//=======
 function ForgotPassword () {
 
     const [email, setEmail] = useState("");
@@ -41,7 +39,6 @@ function ForgotPassword () {
                 </div>   
 
                 <p>I remembered my password. <Link to="/login" className="link">Log me in</Link></p>
-//>>>>>>> master
             </div>
         </div>
     )
