@@ -19,9 +19,9 @@ const LocationPin = ({ text }) => (
       <h2 className="map-h2">Come Visit Us At Our Campus</h2>
 
       <div className="google-map">
-      <div style={{width: '100%', height: '100%', position: 'relative'}}>
+      <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ apiKey: process.env.MAP }} //will need to follow website to restrict key when in production
+          bootstrapURLKeys={{ key: '' }} //will need to follow website to restrict key when in production
           defaultCenter={location}
           defaultZoom={zoomLevel}
         >
