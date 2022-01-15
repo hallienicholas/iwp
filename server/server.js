@@ -132,7 +132,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
         // email sent
             res.json({
                 status:"Pending",
-                message: "Email sent",
+                message: "Email sent", 
             });
         });
 });
