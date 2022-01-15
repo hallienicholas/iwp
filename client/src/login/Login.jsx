@@ -72,7 +72,7 @@ function LoginPage () {
             <br />
           <input 
             className="mt-2"
-            type="text"
+            type="password"
             placeholder="Password"
             onChange={(event) => {
               setPassword(event.target.value); 

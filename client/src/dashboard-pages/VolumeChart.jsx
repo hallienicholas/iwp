@@ -10,7 +10,6 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import faker from 'faker';
 
 ChartJS.register(
   CategoryScale,
@@ -22,7 +21,32 @@ ChartJS.register(
   Legend
 );
 
-function VolumeChart({storeVolume, volumeData, dateLabels, chartTitle, chartData}){
+function VolumeChart({chartData, chartTitle, pumpId, purpose}){
+
+  
+
+  var dates = [];
+  var id = "";
+  var dataPoints = [];
+  if(chartData[0]){
+  for(var i=0; i<chartData.length; i++){
+    dates[i] = chartData[i].date_sensed.split(":")[0].slice(0,-3);
+  }
+
+    id = pumpId;
+
+  //You'll need to add new chart types here. Just add a new block to the if statement.
+    if(purpose=="volume"){
+      for(var i=0; i<chartData.length; i++){
+        dataPoints[i] = chartData[i].daily_volume_sum;
+      }
+  } else {
+    for(var i=0; i<chartData.length; i++){
+      dataPoints[i] = chartData[i].battery_percentage;
+    }
+  }
+}
+
   const options = {
     responsive: true,
     plugins: {
@@ -36,22 +60,31 @@ function VolumeChart({storeVolume, volumeData, dateLabels, chartTitle, chartData
     },
   };
 
-  const labels = ["10-27","10-29","10-30","10-31","11-03","11-13","12-22"];
 
-console.log(dateLabels)
+  var labels = ["Date 1","Date 2","Date 3","Date 4","Date 5","Date 6","Date 7", "Date 8"];
+  if(dates){
+    labels=dates;
+  }
 
   const data = {
     labels,
     datasets: [
       {
-        label: 'Pump 284',
-        data: chartData,
+        label: 'Select Pump',
+        data: ['0','0','0','0','0','0','0','0'],
         borderColor: 'rgb(40, 180, 70)',
         backgroundColor: 'rgba(40, 180, 70, 0.5)',
       },
     ],
   };
 
+  if(dataPoints){
+    data.datasets[0].data=dataPoints;
+  }
+
+  if(id){
+    data.datasets[0].label = "Pump " + id;
+  }
 
   return(<Line options={options} data={data} />);
 }
