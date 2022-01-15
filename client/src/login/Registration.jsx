@@ -38,7 +38,7 @@ function Registration () {
                 <div className = "mt-auto mb-auto mr-auto ml-auto">
                 
                 {/* Beginning of registration Section */}
-                    Registration
+                    Register
                     <div>
                         <input 
                         className="mt-2"
@@ -76,7 +76,6 @@ function Registration () {
                             setPasswordReg(event.target.value); 
                             }}
                         />
-                        <br />
                         <br />
                     <div className="btn-group mt-2 mb-2" role="group">
                     <button className="btn btn-primary shadow" onClick={register}>Submit</button>
