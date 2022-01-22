@@ -23,8 +23,15 @@ function Registration () {
         password: passwordReg,
         firstname: firstNameReg,
         lastname: lastNameReg
-      }).then((response) => {
+
+    
+      }).then(async(response) => {
         if (response.data.message){
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            if (console.error("rejection id: 1")) {
+                console.log("INVALID EMAIL.");
+            }
             setRegStatus(response.data.message);
         } console.log(response);
         if (response.data.message === "Account successfully created.") {
@@ -34,49 +41,6 @@ function Registration () {
             setTextStatus("text-danger"); 
         }
       });
-    };
-
-    class Test extends React.Component {
-        constructor(props) {
-          super(props);
-      
-          this.state = {
-            fields: {},
-            errors: {},
-          };
-        }
-        handleValidation() {
-            let fields = this.state.fields;
-            let errors = {};
-            let formIsValid = true;
-
-            //Email
-    if (!fields["username"]) {
-        formIsValid = false;
-        errors["username"] = "Cannot be empty";
-      }
-  
-      if (typeof fields["username"] !== "undefined") {
-        let lastAtPos = fields["username"].lastIndexOf("@");
-        let lastDotPos = fields["username"].lastIndexOf(".");
-  
-        if (
-          !(
-            lastAtPos < lastDotPos &&
-            lastAtPos > 0 &&
-            fields["username"].indexOf("@@") == -1 &&
-            lastDotPos > 2 &&
-            fields["username"].length - lastDotPos > 2
-          )
-        ) {
-          formIsValid = false;
-          errors["username"] = "username is not valid";
-        }
-      }
-  
-      this.setState({ errors: errors });
-      return formIsValid;
-        }
     };
         
         return(
