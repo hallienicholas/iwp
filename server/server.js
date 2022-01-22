@@ -145,6 +145,7 @@ app.post('/register', (req, res) => {
     const lastname = req.body.lastname;
     const username = req.body.username;
     const password = req.body.password;
+    const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
     bcrypt.hash(password,saltRounds, (err, hash) => {
         
@@ -157,12 +158,11 @@ app.post('/register', (req, res) => {
             (err, result) => {
                 sendVerificationEmail(username, res);
                 console.log(err);
-                if (code == 'ER_DUP_ENTRY') {
+                if (err) {
                     res.send({message: "An account with that email already exists." });
-                } else if (result != (/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-                    res.send({message: "You've entered an invalid email."});//would this even work? look more into this
-
-                } else  { //change this to what it will actually be after registration is complete?
+                } else if (this.username || regex.test(username) === false) {
+                    res.send({message: "You've entered an invalid email address."});
+                } else { //change this to what it will actually be after registration is complete?
                     res.send({message: "Account successfully created."});
                 };
             }

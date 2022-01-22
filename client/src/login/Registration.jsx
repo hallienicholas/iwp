@@ -17,6 +17,7 @@ function Registration () {
 
 
     const register = (event) => {
+
       Axios.post("http://localhost:3001/register", {
         username: usernameReg, 
         password: passwordReg,
@@ -33,7 +34,49 @@ function Registration () {
             setTextStatus("text-danger"); 
         }
       });
+    };
+
+    class Test extends React.Component {
+        constructor(props) {
+          super(props);
       
+          this.state = {
+            fields: {},
+            errors: {},
+          };
+        }
+        handleValidation() {
+            let fields = this.state.fields;
+            let errors = {};
+            let formIsValid = true;
+
+            //Email
+    if (!fields["username"]) {
+        formIsValid = false;
+        errors["username"] = "Cannot be empty";
+      }
+  
+      if (typeof fields["username"] !== "undefined") {
+        let lastAtPos = fields["username"].lastIndexOf("@");
+        let lastDotPos = fields["username"].lastIndexOf(".");
+  
+        if (
+          !(
+            lastAtPos < lastDotPos &&
+            lastAtPos > 0 &&
+            fields["username"].indexOf("@@") == -1 &&
+            lastDotPos > 2 &&
+            fields["username"].length - lastDotPos > 2
+          )
+        ) {
+          formIsValid = false;
+          errors["username"] = "username is not valid";
+        }
+      }
+  
+      this.setState({ errors: errors });
+      return formIsValid;
+        }
     };
         
         return(
@@ -98,5 +141,4 @@ function Registration () {
              
         );  
 } 
-
 export default Registration;
