@@ -3,28 +3,25 @@ import Axios from 'axios'
 import { useState } from "react";
 import LoginRibbon from "../global/LoginRibbon";
 import { Link } from "react-router-dom";
-//import { response } from 'express';
+
 
 function ForgotPassword () {
 
     const [email, setEmail] = useState("");
     const [PassStatus, setPassStatus] = useState("");
-    const [textStatus, setTextStatus] = useState("");
 
     const resetPassword = () => {
         Axios.post("http://localhost:3001/sendPasswordResetEmail", {
           email: email
         });
     };
-   /* if (response.data.message == "Email sent") { 
+    if (response.data.message == "Email sent") { 
         setPassStatus(true);
-        console.log(response.data.message);
-        setTextStatus("text-success");
+        response.data.message()
         
     } else {
         setPassStatus(false);
-        setTextStatus("text-danger");
-    };*/
+    };
 
     return(
         <div id="wrapper">
@@ -43,7 +40,6 @@ function ForgotPassword () {
                 />
                 <br />
                 <button className="btn btn-primary mt-2 mb-2" type="button" data-toggle="modal" data-target="success" onClick={resetPassword}>Send Password Reset</button>
-                <p className={textStatus}>{PassStatus}</p>
                 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">

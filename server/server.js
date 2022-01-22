@@ -157,13 +157,10 @@ app.post('/register', (req, res) => {
             (err, result) => {
                 sendVerificationEmail(username, res);
                 console.log(err);
-                if (code == 'ER_DUP_ENTRY') {
+                if (err) {
                     res.send({message: "An account with that email already exists." });
-                } else if (result != (/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-                    res.send({message: "You've entered an invalid email."});//would this even work? look more into this
-
-                } else  { //change this to what it will actually be after registration is complete?
-                    res.send({message: "Account successfully created."});
+                } else if ((err) == null) { //change this to what it will actually be after registration is complete?
+                    res.send({message: "Account successfully created."})
                 };
             }
         );
