@@ -28,16 +28,11 @@ function Registration () {
       }).then(async(response) => {
         if (response.data.message){
             await new Promise(resolve => setTimeout(resolve, 1000));
-
-            if (console.error("rejection id: 1")) {
-                console.log("INVALID EMAIL.");
-            }
             setRegStatus(response.data.message);
         } console.log(response);
         if (response.data.message === "Account successfully created.") {
             setTextStatus("text-success");
         } else {
-
             setTextStatus("text-danger"); 
         }
       });
