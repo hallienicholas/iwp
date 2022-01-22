@@ -1,6 +1,7 @@
 import React from "react";
-import Axios from 'axios'
+import Axios from 'axios';
 import { useState } from "react";
+import { Formik } from 'formik';
 import { Link } from "react-router-dom";
 import LoginRibbon from "../global/LoginRibbon";
 
@@ -14,7 +15,8 @@ function Registration () {
     const [regStatus, setRegStatus] = useState("");
     const [textStatus, setTextStatus] = useState("");
 
-    const register = () => {
+
+    const register = (event) => {
       Axios.post("http://localhost:3001/register", {
         username: usernameReg, 
         password: passwordReg,
@@ -24,14 +26,16 @@ function Registration () {
         if (response.data.message){
             setRegStatus(response.data.message);
         } console.log(response);
-        if (response.data.message == "Account successfully created.") {
+        if (response.data.message === "Account successfully created.") {
             setTextStatus("text-success");
         } else {
-            setTextStatus("text-danger");
+
+            setTextStatus("text-danger"); 
         }
       });
+      
     };
-
+        
         return(
             <div id = "wrapper">
                 <LoginRibbon />
@@ -77,18 +81,22 @@ function Registration () {
                             }}
                         />
                         <br />
+                       
                     <div className="btn-group mt-2 mb-2" role="group">
                     <button className="btn btn-primary shadow" onClick={register}>Submit</button>
                     </div>
-                    
+
                     <p className={textStatus}>{regStatus}</p>
                     <p>Already have an account? <Link to="/login" className="link">Login</Link></p>
-                    
+                   
                 </div>
+                
                     {/* End of Create Account Section */}
-                </div>
+                </div> 
+               
             </div>
-        );
-}
+             
+        );  
+} 
 
 export default Registration;
