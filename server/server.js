@@ -146,6 +146,7 @@ app.post('/register', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const qDelete = "DELETE FROM iwpDB.iwp_user WHERE iwp_user_id IS NOT NULL ORDER BY iwp_user_id desc limit 1";
 
     bcrypt.hash(password,saltRounds, (err, hash) => {
         
@@ -162,8 +163,7 @@ app.post('/register', (req, res) => {
                     res.send({message: "An account with that email already exists." });
                 } else if (this.username || regex.test(username) === false) {
                     res.send({message: "You've entered an invalid email address."});
-                    //db.query(
-                        //"DELETE FROM iwpDB.iwp_user WHERE iwp_user_id IS NOT NULL ORDER BY iwp_user_id desc limit 1");
+                    db.query("DELETE FROM iwpDB.iwp_user WHERE iwp_user_id IS NOT NULL ORDER BY iwp_user_id desc limit 1");
                         //won't execute?
                 } else { 
                     res.send({message: "Account successfully created."});
