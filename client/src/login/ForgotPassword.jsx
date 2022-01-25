@@ -12,15 +12,17 @@ function ForgotPassword () {
     const resetPassword = () => {
         Axios.post("http://localhost:3001/sendPasswordResetEmail", {
           email: email
+        }).then((response) => {
+    
+            if (response.message == "Email sent") { 
+                setPassStatus(true);
+                response.message()
+                
+            } else {
+                setPassStatus(false);
+            };
         });
-    };
-    if (response.data.message == "Email sent") { 
-        setPassStatus(true);
-        response.data.message()
-        
-    } else {
-        setPassStatus(false);
-    };
+    }
 
     return(
         <div id="wrapper">
