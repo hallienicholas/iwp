@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const app = express();
 //const bodyParser = require("body-parser");
 const mysql = require('mysql');
@@ -132,7 +132,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
         // email sent
             res.json({
                 status:"Pending",
-                message: "Email sent",
+                message: "Email sent", 
             });
         });
 });

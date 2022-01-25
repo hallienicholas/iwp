@@ -7,12 +7,21 @@ import { Link } from "react-router-dom";
 function ForgotPassword () {
 
     const [email, setEmail] = useState("");
+    const [PassStatus, setPassStatus] = useState("");
 
     const resetPassword = () => {
         Axios.post("http://localhost:3001/sendPasswordResetEmail", {
           email: email
         });
     };
+    if (response.data.message == "Email sent") { 
+        setPassStatus(true);
+        response.data.message()
+        
+    } else {
+        setPassStatus(false);
+    };
+
     return(
         <div id="wrapper">
             <LoginRibbon />

@@ -12,12 +12,16 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "google-map-react": "^2.1.10",
     "mongoose": "^6.0.5",
     "mysql": "^2.18.1",
     "nodemailer": "^6.7.2",
     "uuid": "^8.3.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@iconify/icons-mdi": "^1.1.42",
+    "@iconify/react": "^3.1.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
