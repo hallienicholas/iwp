@@ -8,6 +8,8 @@ import Error from "../dashboard-pages/Error";
 import Contact from "../dashboard-pages/Contact";
 import Messages from "../dashboard-pages/Messages";
 import Map from "../dashboard-pages/Map";
+import Danger from "../popups/Danger";
+import { useState } from "react";
 
 import {
     Route, 
@@ -16,9 +18,23 @@ import {
   } from "react-router-dom";
 
   
-
 class DashView extends Component {
-    render(){
+
+    constructor(){
+        super()
+        this.state = {
+            display: true
+        }
+    }
+
+    closePopup = () => {
+        this.setState({
+            display: false
+        })
+    }
+
+    render() {
+
         return(
             <div id="wrapper" className="display-flex">
                     <Sidebar />
@@ -33,6 +49,7 @@ class DashView extends Component {
                             <Route exact path="/Map" component={Map} />
                             <Route path="*" component={Error} />
                         </Switch>
+                        <Danger display={this.state.display} close={this.closePopup}/>
                     </div>
             </div>
         );
