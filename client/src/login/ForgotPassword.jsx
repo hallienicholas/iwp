@@ -8,18 +8,20 @@ function ForgotPassword () {
 
     const [email, setEmail] = useState("");
     const [PassStatus, setPassStatus] = useState("");
+    const [tStatus, setTStatus] = useState("");
 
     const resetPassword = () => {
         Axios.post("http://localhost:3001/sendPasswordResetEmail", {
           email: email
         }).then((response) => {
     
-            if (response.message == "Email sent") { 
-                setPassStatus(true);
-                response.message()
-                
+            if (response.data.message == "Email sent!") { 
+                setPassStatus(response.data.message);
+            } console.log(response);
+            if (response.data.message == "Email sent!") {
+                setTStatus("text-success");
             } else {
-                setPassStatus(false);
+                setTStatus("text-danger");
             };
         });
     }
@@ -53,6 +55,7 @@ function ForgotPassword () {
                             </div>   
 
                             <p>I remembered my password.<br /><Link to="/login" className="link">Log me in</Link></p>
+                            <p className={tStatus}>{PassStatus}</p>
                         </div>
                         <div className="col-sm"></div>
                     </div>
