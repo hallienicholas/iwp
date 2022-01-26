@@ -1,6 +1,7 @@
 import React from "react";
-import Axios from 'axios'
+import Axios from 'axios';
 import { useState } from "react";
+import { Formik } from 'formik';
 import { Link } from "react-router-dom";
 import LoginRibbon from "../global/LoginRibbon";
 
@@ -14,24 +15,30 @@ function Registration () {
     const [regStatus, setRegStatus] = useState("");
     const [textStatus, setTextStatus] = useState("");
 
-    const register = () => {
+
+    const register = (event) => {
+
       Axios.post("http://localhost:3001/register", {
         username: usernameReg, 
         password: passwordReg,
         firstname: firstNameReg,
         lastname: lastNameReg
-      }).then((response) => {
+
+    
+      }).then(async(response) => {
         if (response.data.message){
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
             setRegStatus(response.data.message);
         } console.log(response);
-        if (response.data.message == "Account successfully created.") {
+        if (response.data.message === "Account successfully created!") {
             setTextStatus("text-success");
         } else {
-            setTextStatus("text-danger");
+            setTextStatus("text-danger"); 
         }
       });
     };
-
+        
         return(
             <div id = "wrapper">
                 <LoginRibbon />
@@ -92,9 +99,9 @@ function Registration () {
                         </div>
                         <div className="col-sm"></div>
                     </div>
-                </div>
+                </div
             </div>
-        );
-}
-
+             
+        );  
+} 
 export default Registration;
