@@ -9,22 +9,22 @@ function ForgotPassword () {
 
     const [email, setEmail] = useState("");
     const [PassStatus, setPassStatus] = useState("");
-    const [textStatus, setTextStatus] = useState("");
+    const [tStatus, setTStatus] = useState("");
 
     const resetPassword = () => {
         Axios.post("http://localhost:3001/sendPasswordResetEmail", {
           email: email
+        }).then((response) => {
+            if (response.data.message == "Email sent!") {
+                setPassStatus(response.data.message);
+            } console.log(response);
+            if (response.data.message == "Email sent!") {
+                setTStatus("text-success");
+            } else setTStatus("text-danger");
+            setPassStatus(response.data.message);
         });
     };
-   /* if (response.data.message == "Email sent") { 
-        setPassStatus(true);
-        console.log(response.data.message);
-        setTextStatus("text-success");
-        
-    } else {
-        setPassStatus(false);
-        setTextStatus("text-danger");
-    };*/
+
 
     return(
         <div id="wrapper">
@@ -43,7 +43,6 @@ function ForgotPassword () {
                 />
                 <br />
                 <button className="btn btn-primary mt-2 mb-2" type="button" data-toggle="modal" data-target="success" onClick={resetPassword}>Send Password Reset</button>
-                <p className={textStatus}>{PassStatus}</p>
                 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
@@ -53,6 +52,7 @@ function ForgotPassword () {
                 </div>   
 
                 <p>I remembered my password. <Link to="/login" className="link">Log me in</Link></p>
+                <p className={tStatus}>{PassStatus}</p>
             </div>
         </div>
     )
