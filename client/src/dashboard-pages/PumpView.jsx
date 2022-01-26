@@ -6,8 +6,6 @@ import Axios from 'axios';
 function Pump(){
 
 	const [pumpName, setPumpName] = useState([]);
-	// const [recentBattery, setRecentBattery] = useState([]);
-	// const [recentTrans, setRecentTrans] = useState([]);
 	const [chartData, setChartData] = useState([]);
 
 	return(

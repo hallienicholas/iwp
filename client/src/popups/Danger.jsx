@@ -1,16 +1,18 @@
 import React,{Component} from 'react';
 
-class Danger extends Component{
-    render(){
+function Danger(props) {
 
-        const SystemMessage = `.system-message {
-            top:50px;
-            left:300px;
-            right:300px;
-            }`
+    const SystemMessage = `.system-message {
+        top:50px;
+        left:300px;
+        right:300px;
+        }`;
 
+        console.log(props.display)
+
+    if(props.display == true){
         return(
-            <div className="system-message position-fixed">
+            <div className="system-message position-fixed" onClick={props.close}>
                 <style>{SystemMessage}</style>
                 <div className="card border-left-danger mb-4 shadow">
                     <div className="card-header py-3">
@@ -22,6 +24,8 @@ class Danger extends Component{
                 </div>
             </div>
         )
+    }else{
+        return(<></>);
     }
 }
 

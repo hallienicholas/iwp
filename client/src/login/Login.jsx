@@ -54,48 +54,52 @@ function LoginPage () {
     return (
       <div id = "wrapper">
         <LoginRibbon />
-        <div className = "mt-auto mb-auto mr-auto ml-auto">
+        <div className="container mt-auto mb-auto">
+          <div className="row">
+            <div className="col-sm"></div>
+            <div className="col-sm">
+                {/* Beginning of Login Section */}
+                <br />
+                Login
+                <br />
+                <input 
+                  className="mt-2"
+                  type="text" 
+                  name="username"
+                  placeholder="Email Address"
+                  onChange={(event) => {
+                    setUsername(event.target.value); 
+                    }}
+                  />
+                  <br />
+                <input 
+                  className="mt-2"
+                  type="password"
+                  placeholder="Password"
+                  onChange={(event) => {
+                    setPassword(event.target.value); 
+                    }}
+                  
+                />
+                <br />
+                <div className="btn-group mt-2 mb-2" role="group">
+                <button className="btn btn-primary shadow" onClick={login}>Login</button>
+                  <Link to="/" className="btn btn-light shadow">Go To DB Page</Link> 
+                </div>
 
+                {/* End of Login Section */}
 
-          {/* Beginning of Login Section */}
-          <br />
-          Login
-          <br />
-          <input 
-            className="mt-2"
-            type="text" 
-            name="username"
-            placeholder="Email Address"
-            onChange={(event) => {
-              setUsername(event.target.value); 
-              }}
-            />
-            <br />
-          <input 
-            className="mt-2"
-            type="password"
-            placeholder="Password"
-            onChange={(event) => {
-              setPassword(event.target.value); 
-              }}
-            
-          />
-          <br />
-          <div className="btn-group mt-2 mb-2" role="group">
-          <button className="btn btn-primary shadow" onClick={login}>Login</button>
-            <Link to="/" className="btn btn-light shadow">Go To DB Page</Link> 
+                {loginStatus && (
+                  <button onClick= {userAuthenticated}> Check if Authenticated</button>
+
+                )}
+
+                <h1></h1>
+                <p>Don't have an account? <Link to="/register" className="link">Register</Link></p> 
+                <p>Forgot your password? <Link to="/forgot" className="link">Reset password</Link></p>
+            </div>
+            <div className="col-sm"></div>
           </div>
-
-          {/* End of Login Section */}
-
-          {loginStatus && (
-            <button onClick= {userAuthenticated}> Check if Authenticated</button>
-
-          )}
-
-          <h1></h1>
-          <p>Don't have an account? <Link to="/register" className="link">Register</Link></p> 
-          <p>Forgot your password? <Link to="/forgot" className="link">Reset password</Link></p>
         </div>
       </div>
     );
