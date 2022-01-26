@@ -63,9 +63,10 @@ function ForgotPassword () {
 
                 <p>I remembered my password. <Link to="/login" className="link">Log me in</Link></p>
                 <p className={tStatus}>{PassStatus}</p>
-                </div>
+
+                        <div className="col-sm"></div>
             </div>
-    )
+      )
 }
 
 export default ForgotPassword;
