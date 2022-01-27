@@ -195,7 +195,18 @@ app.get('/pumps', (req,res) => {
 })
 
 app.get('/chartData', (req, res) => {
-    db.query("SELECT * FROM(SELECT iwp_pump_id_fk, iwp_sensor_data_id, date_sensed, daily_volume_sum, battery_percentage FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE iwp_pump_id_fk ='"+req.query.id+"' ORDER BY date_sensed DESC LIMIT 8) sub ORDER BY date_sensed ASC", (err, result) => {
+    db.query("SELECT * FROM(SELECT iwp_pump_id_fk, iwp_sensor_data_id, date_sensed, daily_volume_sum, battery_percentage, leak_coefficient_avg FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE iwp_pump_id_fk ='"+req.query.id+"' ORDER BY date_sensed DESC LIMIT 8) sub ORDER BY date_sensed ASC", (err, result) => {
+        if (err){
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
+
+//Route for Danger and notifications
+app.get('/dangerData', (req, res) => {
+    db.query("SELECT iwp_pump_id_fk, date_sensed, daily_volume_sum, battery_percentage, leak_coefficient_avg, iwp_sensor_data_id FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE iwp_pump_id_fk ='"+req.query.id+"' ORDER BY date_sensed DESC LIMIT 1", (err, result) => {
         if (err){
             console.log(err)
         } else {

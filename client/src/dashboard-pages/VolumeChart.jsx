@@ -33,13 +33,17 @@ function VolumeChart({chartData, chartTitle, pumpId, purpose}){
     dates[i] = chartData[i].date_sensed.split(":")[0].slice(0,-3);
   }
 
-    id = pumpId;
+  id = pumpId;
 
   //You'll need to add new chart types here. Just add a new block to the if statement.
-    if(purpose=="volume"){
-      for(var i=0; i<chartData.length; i++){
-        dataPoints[i] = chartData[i].daily_volume_sum;
-      }
+  if(purpose=="volume"){
+    for(var i=0; i<chartData.length; i++){
+      dataPoints[i] = chartData[i].daily_volume_sum;
+    }
+  } else if(purpose=="leakage"){
+    for(var i=0; i<chartData.length; i++){
+      dataPoints[i] = chartData[i].leak_coefficient_avg;
+    }
   } else {
     for(var i=0; i<chartData.length; i++){
       dataPoints[i] = chartData[i].battery_percentage;
