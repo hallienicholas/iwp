@@ -53,18 +53,12 @@ function ForgotPassword () {
                                     </div>
                                 </div>
                             </div>   
-
                             <p>I remembered my password.<br /><Link to="/login" className="link">Log me in</Link></p>
                             <p className={tStatus}>{PassStatus}</p>
                         </div>
                         <div className="col-sm"></div>
                     </div>
-                </div>   
-
-                <p>I remembered my password. <Link to="/login" className="link">Log me in</Link></p>
-                <p className={tStatus}>{PassStatus}</p>
-
-                        <div className="col-sm"></div>
+                </div>
             </div>
       )
 }

@@ -152,6 +152,7 @@ app.post('/register', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    
 
     bcrypt.hash(password,saltRounds, (err, hash) => {
         
@@ -162,8 +163,13 @@ app.post('/register', (req, res) => {
             "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')", 
             [firstname, lastname, username, hash],
             (err, result) => {
-                if (firstname.length == 0 && lastname.length == 0 && username.length == 0 && password.length == 0) {
-                
+                if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
+                    if (password.length < 8) {
+                        res.send({message: "Password requirees more than 8 characters."});
+                    } else if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
+                        res.send({message: "Password must contain a numeric symbol."});
+                    };
+                   
                     if (err) {
                         res.send({message: "An account with that email already exists." });
                     } else if (this.username || regex.test(username) === false) {
