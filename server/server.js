@@ -15,7 +15,6 @@ const saltRounds = 10
 //const port = process.env.PORT || 3000
 
 // email handling
-
 const nodemailer = require("nodemailer");
 const {v4: uuidv4} = require("uuid");
 require("dotenv").config();
@@ -26,6 +25,8 @@ let transporter = nodemailer.createTransport({
         pass: process.env.AUTH_PASS,
     }
 })
+
+//is ready for messages?
 transporter.verify((error, success) => {
     if (error) {
         console.log(error);
@@ -47,6 +48,7 @@ app.use(cors({
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true}));
 
+//session key
 app.use(
     session({
         key: "userId",
@@ -96,7 +98,7 @@ const sendVerificationEmail = (username, res) => {
             });
         });
 };
-
+//reset password
 app.post('/sendPasswordResetEmail', (req, res) => {
     const currentUrl = process.env.HOST_URL;
     const uniqueString = process.env.RES_STRING;
@@ -108,7 +110,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
         if (err) {
             console.log(err)
         }
-
+//update db with new password
         db.query(
             "UPDATE iwp_user SET user_password = ? WHERE user_email = ?", 
             [hash, email],
@@ -144,7 +146,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
 });
 
 
-//vvvvvvv
+//registration
 app.post('/register', (req, res) => {
     
     const firstname = req.body.firstname;
@@ -159,17 +161,19 @@ app.post('/register', (req, res) => {
         if (err) {
             console.log(err)
         }
+        //insert new user into db
         db.query(
             "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')", 
             [firstname, lastname, username, hash],
             (err, result) => {
+                //null checks and password validation
                 if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
                     if (password.length < 8) {
                         res.send({message: "Password requires more than 8 characters."});
                     } else if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
                         res.send({message: "Password must contain a numeric symbol."});
                     };
-                   
+                   //email validation and success msg
                     if (err) {
                         res.send({message: "An account with that email already exists." });
                     } else if (this.username || regex.test(username) === false) {
@@ -186,7 +190,7 @@ app.post('/register', (req, res) => {
         );
     })
 });
-  
+//get data from db for dashboard
 app.get('/data', (req,res) => {
     db.query("SELECT * FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk ORDER BY date_sensed DESC LIMIT 10", (err, result) => {
         if (err) {
@@ -197,6 +201,7 @@ app.get('/data', (req,res) => {
     })
 })
 
+//is logged in?
 app.get("/login", (req, res) => {
     if (req.session.user) {
         res.send({loggedIn: true, user: req.session.user})
@@ -204,6 +209,8 @@ app.get("/login", (req, res) => {
         res.send({loggedIn: false})
     }
 })
+
+//pump data
 app.get('/pumps', (req,res) => {
     db.query("SELECT iwp_pump_id FROM iwp_pump ORDER BY iwp_pump_id", (err, result) => {
         if (err){
@@ -214,6 +221,7 @@ app.get('/pumps', (req,res) => {
     })
 })
 
+//get data for charts
 app.get('/chartData', (req, res) => {
     db.query("SELECT * FROM(SELECT iwp_pump_id_fk, iwp_sensor_data_id, date_sensed, daily_volume_sum, battery_percentage FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE iwp_pump_id_fk ='"+req.query.id+"' ORDER BY date_sensed DESC LIMIT 8) sub ORDER BY date_sensed ASC", (err, result) => {
         if (err){
@@ -224,6 +232,7 @@ app.get('/chartData', (req, res) => {
     })
 })
 
+//JWT info and config
 const verifyJWT = (req, res, next) => {
     const token = req.headers["x-access-token"]
 
@@ -246,7 +255,7 @@ app.get('/isUserAuth', verifyJWT, (req, res) => {
     res.send("You are authenticated")
 })
 
-
+//Login
 app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -292,8 +301,4 @@ app.post('/login', (req, res) => {
 app.listen(3001, ()=> {
     console.log("Yay, your server is running on port 3001");
 });
-
-
-
-//API routes 
 
