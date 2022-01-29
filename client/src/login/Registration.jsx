@@ -24,7 +24,7 @@ function Registration () {
         if (response.data.message){
             setRegStatus(response.data.message);
         } console.log(response);
-        if (response.data.message == "Account successfully created.") {
+        if (response.data.message == "Account successfully created!") {
             setTextStatus("text-success");
         } else {
             setTextStatus("text-danger");
