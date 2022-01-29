@@ -215,6 +215,17 @@ app.get('/dangerData', (req, res) => {
     })
 })
 
+//Route for Last Transmissions pie chart
+app.get('/lastTrans', (req, res) => {
+    db.query("SELECT iwp_pump_id_fk FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk ORDER BY timestamp DESC limit 25", (err, result) => {
+        if(err){
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
+
 const verifyJWT = (req, res, next) => {
     const token = req.headers["x-access-token"]
 

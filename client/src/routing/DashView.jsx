@@ -9,7 +9,8 @@ import Contact from "../dashboard-pages/Contact";
 import Messages from "../dashboard-pages/Messages";
 import Map from "../dashboard-pages/Map";
 import Danger from "../popups/Danger";
-import { useState } from "react";
+import DangerHandling from "../popups/DangerHandling.jsx";
+import Axios from "axios";
 
 import {
     Route, 
@@ -23,7 +24,9 @@ class DashView extends Component {
     constructor(){
         super()
         this.state = {
-            display: true
+            display: true,
+            dangerData: [],
+            pumps: [],
         }
     }
 
@@ -34,6 +37,16 @@ class DashView extends Component {
     }
 
     render() {
+
+        // const getPumpList = () => {
+        //     Axios.get("http://localhost:3001/pumps").then((response) => {
+        //       //this.setState({pumps: response.data});
+        //       console.log("Response: " + response.data);
+        //       console.log("Pumps: " + this.state.pumps);
+        //     })
+        //   }
+        //   console.log(getPumpList())
+
 
         return(
             <div id="wrapper" className="display-flex">
@@ -49,7 +62,7 @@ class DashView extends Component {
                             <Route exact path="/Map" component={Map} />
                             <Route path="*" component={Error} />
                         </Switch>
-                        <Danger display={this.state.display} close={this.closePopup}/>
+                        <DangerHandling />
                     </div>
             </div>
         );
