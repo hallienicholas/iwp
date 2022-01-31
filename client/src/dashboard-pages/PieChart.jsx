@@ -76,7 +76,6 @@ function PieChart(data){
     };
 
     const realData = data.data;
-    console.log(realData)
     if(realData.labels){
         return(<Pie options={options} data={realData} />);
     } else {

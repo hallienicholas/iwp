@@ -12,9 +12,8 @@ import PieChart from "./PieChart";
 function DbPage() {
 
   const [pumpList, setPumpList] = useState([]);
-  const [pieData, setPieData] = useState([]);
+  //const [pieData, setPieData] = useState([]);
   const [chartData, setChartData] = useState({});
-  console.log(chartData)
 
   const getData = () => {
     Axios.get("http://localhost:3001/data").then((response) => {

@@ -26,28 +26,28 @@ class DashView extends Component {
         this.state = {
             display: true,
             dangerData: [],
-            pumps: [],
+            pumps : null,
         }
     }
 
-    closePopup = () => {
-        this.setState({
-            display: false
+    useEffect(){
+        Axios.get("http://localhost:3001/pumps").then((response) => {
+            this.setState({pumps: response.data});
         })
+        
+        console.log(this.state.pumps);
+    
+    // console.log(this.state.pumps);
+    // var pumpList = []
+    // for(var i=0; i<this.state.pumps.length; i++){
+    //     pumpList[i]=this.state.pumps[i].iwp_pump_id
+    // }
+    // this.setState({pumps: pumpList});
+    // console.log(this.state.pumps);        
     }
 
     render() {
-
-        // const getPumpList = () => {
-        //     Axios.get("http://localhost:3001/pumps").then((response) => {
-        //       //this.setState({pumps: response.data});
-        //       console.log("Response: " + response.data);
-        //       console.log("Pumps: " + this.state.pumps);
-        //     })
-        //   }
-        //   console.log(getPumpList())
-
-
+        
         return(
             <div id="wrapper" className="display-flex">
                     <Sidebar />
@@ -62,8 +62,10 @@ class DashView extends Component {
                             <Route exact path="/Map" component={Map} />
                             <Route path="*" component={Error} />
                         </Switch>
-                        <DangerHandling />
+                        
                     </div>
+                    <DangerHandling />
+                    {this.state.pumps}
             </div>
         );
     }

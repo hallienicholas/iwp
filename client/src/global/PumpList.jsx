@@ -6,7 +6,6 @@ function PumpList({pumpName, setPumpName, chartData, setChartData}){
   const getChartData = (e) => {
     Axios.get("http://localhost:3001/chartData?id=" + e.target.value).then((response) => {
       setChartData(response.data);
-      console.log(chartData)
     })
   }
 
