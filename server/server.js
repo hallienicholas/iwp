@@ -170,8 +170,8 @@ app.post('/register', (req, res) => {
                 if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
                     if (password.length < 8) {
                         res.send({message: "Password requires more than 8 characters."});
-                    } else if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-                        res.send({message: "Password must contain a numeric symbol."});
+                    //} else if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
+                       //res.send({message: "Password must contain a numeric symbol."});
                     };
                    //email validation and success msg
                     if (err) {
