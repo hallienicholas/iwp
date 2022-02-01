@@ -48,7 +48,7 @@ app.use(cors({
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true}));
 
-//session key
+//session
 app.use(
     session({
         key: "userId",
@@ -168,11 +168,11 @@ app.post('/register', (req, res) => {
             (err, result) => {
                 //null checks and password validation
                 if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
-                    if (password.length < 8) {
+                    /*if (password.length < 8) {
                         res.send({message: "Password requires more than 8 characters."});
-                    //} else if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-                       //res.send({message: "Password must contain a numeric symbol."});
-                    };
+                    } else if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
+                        res.send({message: "Password must contain a numeric symbol."});*/
+                    
                    //email validation and success msg
                     if (err) {
                         res.send({message: "An account with that email already exists." });
@@ -184,7 +184,8 @@ app.post('/register', (req, res) => {
                     };
                 } else {
                     res.send({message: "Please complete all fields."});
-            }
+            };
+        
         }
         
         );
