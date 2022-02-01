@@ -6,16 +6,28 @@ import { Link } from "react-router-dom";
 import LoginPopUp from '../popups/LoginPopUp';
 import useToken from '../popups/useToken';
 //^^
+import sortPieData from "./sortPieData.js";
+import PieChart from "./PieChart";
 
 function DbPage() {
 
   const [pumpList, setPumpList] = useState([]);
+  //const [pieData, setPieData] = useState([]);
+  const [chartData, setChartData] = useState({});
 
   const getData = () => {
     Axios.get("http://localhost:3001/data").then((response) => {
       setPumpList(response.data);
     });
+    getPieData();
   };
+
+  const getPieData = () => {
+    Axios.get("http://localhost:3001/lastTrans").then((response) => {
+      setChartData(sortPieData(response.data))
+    })
+  };
+
   //vv
   const { token, setToken } = useToken();
 
@@ -53,6 +65,9 @@ function DbPage() {
                 </tbody>
             </table>
           </div>
+        </div>
+        <div className="col-4">
+                <PieChart data={chartData} />
         </div>
       </div>
     </div>
