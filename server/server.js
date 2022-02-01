@@ -174,10 +174,11 @@ app.post('/register', (req, res) => {
                         res.send({message: "Password must contain a numeric symbol."});*/
                     
                    //email validation and success msg
-                    if (err) {
-                        res.send({message: "An account with that email already exists." });
-                    } else if (this.username || regex.test(username) === false) {
+                    
+                    if (this.username || regex.test(username) === false) {
                         res.send({message: "You've entered an invalid email address."});
+                    } else if (err) {
+                        res.send({message: "An account with that email already exists." });
                     } else { 
                     res.send({message: "Account successfully created!"});
                     sendVerificationEmail(username, res);
