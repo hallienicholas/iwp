@@ -11,8 +11,6 @@ function Danger(props) {
         right:300px;
         }`;
 
-    console.log(display)
-
     const closePopup = () => {
         setDisplay(false)
     }
@@ -44,7 +42,7 @@ function Danger(props) {
 
     useEffect(() => {
         setMessage(sortData())
-    })
+    }, [])
 
     if(display == true){
         return(

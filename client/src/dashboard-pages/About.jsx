@@ -4,9 +4,7 @@ class About extends Component{
     render(){
         return(
             <div className="container-fluid">
-                <div className="row">
-                    <h1 className="h3 mb-4 text-gray-800">About the Project</h1>
-                </div>
+                <h1 className="h3 mb-4 text-gray-800">About the Project</h1>
                 <div className="row">
                     <div className="col-lg-7"><b>Intelligent Water Alerts</b> is a web application that serves as a user interface 
                     for users, local mechanics, and donors of well systems in various countries, mostly in Africa, 
