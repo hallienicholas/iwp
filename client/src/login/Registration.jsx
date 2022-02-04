@@ -3,6 +3,13 @@ import Axios from 'axios'
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import LoginRibbon from "../global/LoginRibbon";
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect
+  } from "react-router-dom";
+import LoginPage from "./Login";
 
 function Registration () {
 
@@ -13,6 +20,7 @@ function Registration () {
     const [passwordReg, setPasswordReg] = useState("");
     const [regStatus, setRegStatus] = useState("");
     const [textStatus, setTextStatus] = useState("");
+    const [nextAction, setNextAction] = useState("");
 
     const register = () => {
       Axios.post("http://localhost:3001/register", {
@@ -26,6 +34,7 @@ function Registration () {
         } console.log(response);
         if (response.data.message == "Account successfully created!") {
             setTextStatus("text-success");
+            setNextAction(<Route><Redirect to="./Login"/></Route>)
         } else {
             setTextStatus("text-danger");
         }
@@ -85,6 +94,8 @@ function Registration () {
                                 </div>
                                 
                                 <p className={textStatus}>{regStatus}</p>
+                                //put a timeout here before routing
+                                {nextAction}
                                 <p>Already have an account? <Link to="/login" className="link">Login</Link></p>
                                 
                             </div>

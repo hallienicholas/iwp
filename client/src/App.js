@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  //Redirect
+  Redirect
 } from "react-router-dom";
 import LoginPage from "./login/Login";
 import DashView from "./routing/DashView";
