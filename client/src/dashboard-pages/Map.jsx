@@ -15,25 +15,43 @@ const LocationPin = ({ text }) => (
 
   const Map = ({ location, zoomLevel }) => (
 
-    <div className="map">
-      <h2 className="map-h2">Come Visit Us At Our Campus</h2>
-
-      <div className="google-map">
-      <div style={{width: '100%', height: '100%', position: 'relative'}}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ apiKey: process.env.MAP }} //will need to follow website to restrict key when in production
-          defaultCenter={location}
-          defaultZoom={zoomLevel}
-        >
-          <LocationPin
-            lat={location.lat}
-            lng={location.lng}
-            text={location.address}
-          />
-        </GoogleMapReact>
-        </div>
-      </div>
-    </div> 
+    <Map.Navigator
+      initialRouteName="SearchPage"
+      screenOptions={{
+        cardStyle: {
+          backgroundColor: "#fefefe",
+        },
+        headerLeft: () => null,
+        headerTitleAlign: "center",
+        headerBackTitle: null,
+        headerTintColor: "black",
+        headerTitleStyle: {
+          color: "white",
+        },
+        headerStyle: {
+          backgroundColor: "#2C2C2C",
+        },
+      }}
+    >
+      <Map.Screen
+        name="Map"
+        component={SearchPage}
+        options={({ navigation }) => {
+          return {
+            headerRight: () => <Header navigation={navigation} />,
+          };
+        }}
+      />
+      <Map.Screen
+        name="MapView"
+        component={MapView}
+        options={({ navigation }) => {
+          return {
+            headerRight: () => <Header navigation={navigation} />,
+          };
+        }}
+      />
+    </Map.Navigator>
 
 )
 export default Map

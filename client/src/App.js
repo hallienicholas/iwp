@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import LoginPage from "./login/Login";
 import DashView from "./routing/DashView";
+import MapPage from "./dashboard-pages/MapPage";
 import Registration from "./login/Registration"; 
 import ForgotPassword from "./login/ForgotPassword";
 class App extends Component {

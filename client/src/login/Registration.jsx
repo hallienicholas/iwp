@@ -21,7 +21,7 @@ function Registration () {
     const [regStatus, setRegStatus] = useState("");
     const [textStatus, setTextStatus] = useState("");
     const [nextAction, setNextAction] = useState("");
-
+    
     const register = () => {
       Axios.post("http://localhost:3001/register", {
         username: usernameReg, 
@@ -32,15 +32,20 @@ function Registration () {
         if (response.data.message){
             setRegStatus(response.data.message);
         } console.log(response);
+        setTimeout(() =>{
+            if (response.data.message == "Account successfully created!") {
+                setNextAction(<Route><Redirect to="./Login"/></Route>);
+            }
+        }, 3000);
+
         if (response.data.message == "Account successfully created!") {
             setTextStatus("text-success");
-            setNextAction(<Route><Redirect to="./Login"/></Route>)
         } else {
             setTextStatus("text-danger");
-        }
+        };
+
       });
     };
-
         return(
             <div id = "wrapper">
                 <LoginRibbon />
@@ -94,8 +99,7 @@ function Registration () {
                                 </div>
                                 
                                 <p className={textStatus}>{regStatus}</p>
-                                //put a timeout here before routing
-                                {nextAction}
+                                    {nextAction}
                                 <p>Already have an account? <Link to="/login" className="link">Login</Link></p>
                                 
                             </div>
