@@ -169,7 +169,7 @@ app.post('/register', (req, res) => {
                 //null checks and password validation
                 
                 if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
-                    function Validate(username, password) {
+                    function Validate(username, password) { // make this a const
                         try 
                         {if (password.length < 8) {
                              throw "Short";
