@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 //import "./custom-css/App.css";
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 import {
   BrowserRouter as Router,
   Route,

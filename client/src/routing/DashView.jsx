@@ -7,7 +7,7 @@ import Pump from "../dashboard-pages/PumpView";
 import Error from "../dashboard-pages/Error";
 import Contact from "../dashboard-pages/Contact";
 import Messages from "../dashboard-pages/Messages";
-import Map from "../dashboard-pages/Map";
+import Map from "../dashboard-pages/MapPage";
 import DangerHandling from "../popups/DangerHandling.jsx";
 import User from "../dashboard-pages/User";
 import Axios from "axios";
@@ -59,7 +59,7 @@ class DashView extends Component {
                             <Route exact path="/pump" component={Pump} />
                             <Route exact path="/contact" component={Contact} />
                             <Route path="/messages" component={Messages} />
-                            <Route exact path="/Map" component={Map} />
+                            <Route exact path="/MapPage" component={Map} />
                             <Route exact path="/User" component={User} />
                             <Route path="*" component={Error} />
                         </Switch>

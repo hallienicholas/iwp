@@ -12,6 +12,7 @@
     "enzyme": "^3.11.0",
     "faker": "^5.5.3",
     "google-map-react": "^2.1.10",
+    "mapbox-gl": "^2.7.0",
     "react": "^17.0.2",
     "react-chartjs-2": "^4.0.0",
     "react-dom": "^17.0.2",
