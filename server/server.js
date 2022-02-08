@@ -167,30 +167,70 @@ app.post('/register', (req, res) => {
             [firstname, lastname, username, hash],
             (err, result) => {
                 //null checks and password validation
+                
                 if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
-                    /*if (password.length < 8) {
+                    function Validate(username, password) {
+                        try 
+                        {if (password.length < 8) {
+                             throw "Short";
+                        } if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
+                            throw "Number";
+                        } if (this.username || regex.test(username) === false) {
+                            throw "Invalid";
+                        } if (err) {
+                            throw "Exist";
+                      }
+                      res.send({message: "Account successfully created!"});
+                      sendVerificationEmail(username, res);
+                    }
+                      catch(e)
+                      {
+                          if (e == "Short") {
+                            res.send({message: "Password requires more than 8 characters."});
+                          }
+                          if (e == "Number") {
+                            res.send({message: "Password must contain a numeric symbol."});
+                          }
+                          if (e == "Invalid") {
+                            res.send({message: "You've entered an invalid email address."});
+                          }
+                          if (e == "Exist") {
+                            res.send({message: "An account with that email already exists." });
+                          }
+                      }
+                    } 
+                } 
+                return(e);
+                /* else {
+                    res.send({message: "Please complete all fields."});
+                }; */
+                
+            }
+                    /* if (password.length < 8) {
                         res.send({message: "Password requires more than 8 characters."});
                     } else if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-                        res.send({message: "Password must contain a numeric symbol."});*/
-                    
+                        res.send({message: "Password must contain a numeric symbol."});
+                     */
                    //email validation and success msg
                     
-                    if (this.username || regex.test(username) === false) {
+                    /* if (this.username || regex.test(username) === false) {
                         res.send({message: "You've entered an invalid email address."});
                     } else if (err) {
                         res.send({message: "An account with that email already exists." });
-                    } else { 
-                    res.send({message: "Account successfully created!"});
+                    } else {  */
+                    /* if (!error) {
+                        res.send({message: "Account successfully created!"});
                     sendVerificationEmail(username, res);
-                    };
-                } else {
+                    //};
+                    } else {
                     res.send({message: "Please complete all fields."});
-            };
-        
-        }
-        
-        );
-    })
+            }; */
+                 
+        //}
+              
+          );
+   })
+    
 });
 //get data from db for dashboard
 app.get('/data', (req,res) => {
@@ -325,4 +365,3 @@ app.post('/login', (req, res) => {
 app.listen(3001, ()=> {
     console.log("Yay, your server is running on port 3001");
 });
-
