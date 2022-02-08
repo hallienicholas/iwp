@@ -3,6 +3,13 @@ import Axios from 'axios'
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import LoginRibbon from "../global/LoginRibbon";
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect
+  } from "react-router-dom";
+import LoginPage from "./Login";
 
 function Registration () {
 
@@ -13,7 +20,8 @@ function Registration () {
     const [passwordReg, setPasswordReg] = useState("");
     const [regStatus, setRegStatus] = useState("");
     const [textStatus, setTextStatus] = useState("");
-
+    const [nextAction, setNextAction] = useState("");
+    
     const register = () => {
       Axios.post("http://localhost:3001/register", {
         username: usernameReg, 
@@ -24,14 +32,20 @@ function Registration () {
         if (response.data.message){
             setRegStatus(response.data.message);
         } console.log(response);
+        setTimeout(() =>{
+            if (response.data.message == "Account successfully created!") {
+                setNextAction(<Route><Redirect to="./Login"/></Route>);
+            }
+        }, 3000);
+
         if (response.data.message == "Account successfully created!") {
             setTextStatus("text-success");
         } else {
             setTextStatus("text-danger");
-        }
+        };
+
       });
     };
-
         return(
             <div id = "wrapper">
                 <LoginRibbon />
@@ -85,6 +99,7 @@ function Registration () {
                                 </div>
                                 
                                 <p className={textStatus}>{regStatus}</p>
+                                    {nextAction}
                                 <p>Already have an account? <Link to="/login" className="link">Login</Link></p>
                                 
                             </div>
