@@ -39,11 +39,12 @@ function DangerHandling () {
   
   return(
     <>
-    {dangerData.map((val, key) => {
+    {/* {dangerData.map((val, key) => {
       return(
         <Danger data={val}/>
       );
-    })}
+    })} */}
+    <Danger data={dangerData} />
     </>
   );
     

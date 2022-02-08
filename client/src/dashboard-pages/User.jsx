@@ -6,7 +6,7 @@ class User extends Component{
             <div className="container-fluid">
                 <h1 className="h3 mb-4 text-gray-800">User Settings</h1>
                 <div className="row ml-1">
-                    <span className="">Your email address: </span>
+                    <span className="">Your email address:</span>
                     <span className="font-weight-light ml-1">Email@site.com</span>
                 </div>
                 <div className='row ml-1'>
