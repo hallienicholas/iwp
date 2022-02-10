@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class User extends Component{
     render(){
@@ -13,7 +14,11 @@ class User extends Component{
                     <a href="/forgot">Reset your password</a>
                 </div>
                 <h1 className="h3 mb-4 mt-2 text-gray-800">Administration</h1>
-                <div className="row"></div>
+                <div className="row">
+                    <div className="col-lg-4 col-sm-fluid">
+                        <Link to="./requests"><button className='btn btn-primary'>See requests</button></Link>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -10,6 +10,7 @@ import Messages from "../dashboard-pages/Messages";
 import Map from "../dashboard-pages/MapPage";
 import DangerHandling from "../popups/DangerHandling.jsx";
 import User from "../dashboard-pages/User";
+import Requests from "../dashboard-pages/Requests";
 import Axios from "axios";
 
 import {
@@ -57,6 +58,7 @@ class DashView extends Component {
                             <Route path="/messages" component={Messages} />
                             <Route exact path="/MapPage" component={Map} />
                             <Route exact path="/User" component={User} />
+                            <Route exact path="/requests" component={Requests} />
                             <Route path="*" component={Error} />
                         </Switch>
                         
