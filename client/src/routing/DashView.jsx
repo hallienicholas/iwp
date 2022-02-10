@@ -30,20 +30,16 @@ class DashView extends Component {
         }
     }
 
+    setDangerData(stuff){
+        this.setState({dangerData: stuff})
+    }
+
     useEffect(){
         Axios.get("http://localhost:3001/pumps").then((response) => {
             this.setState({pumps: response.data});
         })
         
-        console.log(this.state.pumps);
-    
-    // console.log(this.state.pumps);
-    // var pumpList = []
-    // for(var i=0; i<this.state.pumps.length; i++){
-    //     pumpList[i]=this.state.pumps[i].iwp_pump_id
-    // }
-    // this.setState({pumps: pumpList});
-    // console.log(this.state.pumps);        
+        console.log(this.state.pumps);        
     }
 
     render() {
@@ -65,7 +61,7 @@ class DashView extends Component {
                         </Switch>
                         
                     </div>
-                    <DangerHandling />
+                    <DangerHandling dangerData={this.state.dangerData} setDangerData={this.setDangerData.bind(this)} />
                     {this.state.pumps}
             </div>
         );
