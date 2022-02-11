@@ -154,7 +154,6 @@ app.post('/register', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    
 
     bcrypt.hash(password,saltRounds, (err, hash) => {
         
@@ -167,66 +166,45 @@ app.post('/register', (req, res) => {
             [firstname, lastname, username, hash],
             (err, result) => {
                 //null checks and password validation
+
+                function Validate(username, password) { // make this a const?
+                    try 
+                    {if (password.length < 8) {
+                        throw "Short";
+                    } if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
+                        throw "Number";
+                    } if (this.username || regex.test(username) === false) {
+                        throw "Invalid";
+                    } if (err) {
+                        throw "Exist";
+                  }
+                  res.send({message: "Account successfully created!"});
+                  sendVerificationEmail(username, res);
+                }
+                  catch(err)
+                  {
+                      if (err == "Short") {
+                        res.send({message: "Password requires more than 8 characters."});
+                      }
+                      if (err == "Number") {
+                        res.send({message: "Password must contain a numeric symbol."});
+                      }
+                      if (err == "Invalid") {
+                        res.send({message: "You've entered an invalid email address."});
+                      }
+                      if (err == "Exist") {
+                        res.send({message: "An account with that email already exists." });
+                      }
+                  }
+                  return(err);
+                }
                 
                 if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
-                    function Validate(username, password) { // make this a const
-                        try 
-                        {if (password.length < 8) {
-                             throw "Short";
-                        } if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-                            throw "Number";
-                        } if (this.username || regex.test(username) === false) {
-                            throw "Invalid";
-                        } if (err) {
-                            throw "Exist";
-                      }
-                      res.send({message: "Account successfully created!"});
-                      sendVerificationEmail(username, res);
-                    }
-                      catch(e)
-                      {
-                          if (e == "Short") {
-                            res.send({message: "Password requires more than 8 characters."});
-                          }
-                          if (e == "Number") {
-                            res.send({message: "Password must contain a numeric symbol."});
-                          }
-                          if (e == "Invalid") {
-                            res.send({message: "You've entered an invalid email address."});
-                          }
-                          if (e == "Exist") {
-                            res.send({message: "An account with that email already exists." });
-                          }
-                      }
-                    } 
-                } 
-                return(e);
-                /* else {
+                     Validate(err, username, password);
+                } else {
                     res.send({message: "Please complete all fields."});
-                }; */
-                
+                };
             }
-                    /* if (password.length < 8) {
-                        res.send({message: "Password requires more than 8 characters."});
-                    } else if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-                        res.send({message: "Password must contain a numeric symbol."});
-                     */
-                   //email validation and success msg
-                    
-                    /* if (this.username || regex.test(username) === false) {
-                        res.send({message: "You've entered an invalid email address."});
-                    } else if (err) {
-                        res.send({message: "An account with that email already exists." });
-                    } else {  */
-                    /* if (!error) {
-                        res.send({message: "Account successfully created!"});
-                    sendVerificationEmail(username, res);
-                    //};
-                    } else {
-                    res.send({message: "Please complete all fields."});
-            }; */
-                 
-        //}
               
           );
    })
