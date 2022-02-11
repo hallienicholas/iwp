@@ -1,9 +1,10 @@
 import React,{Component, useState, useEffect} from 'react';
+import DangerChild from "./DangerChild"
 
 function Danger(props) {
 
     const [display, setDisplay] = useState(true);
-    const [message, setMessage] = useState({});
+    
 
     const SystemMessage = `.system-message {
         top:50px;
@@ -11,52 +12,29 @@ function Danger(props) {
         right:300px;
         }`;
 
-    const closePopup = () => {
+    const closeContainer = () => {
         setDisplay(false)
     }
 
-    const sortData = () => {
-        const pumpName      = props.data.iwp_pump_id_fk
-        const date          = props.data.date_sensed;
-        const battery       = props.data.battery_percentage;
-        const leak          = props.data.leak_coefficient_avg;
-        const transmission  = props.data.iwp_sensor_data_id;
-        var message = {battery:"", leak:"", tagline:""};
-
-        if(battery < 5){
-            message.battery = 'Pump ' + pumpName + '\'s battery percentage has fallen below 5%.'
-        }
-        
-        if(leak > 20){
-            message.leak = 'Pump ' + pumpName + '\'s leakage coefficient average has risen above 20.'
-        }
-
-        if(message.battery != '' || message.leak != ''){
-            message.tagline = "Based on transmission " + transmission + " from " + date;
-            message.tagline = 'This should be cause for concern.'
-        } else {
-            setDisplay(false);
-        }
-        return(message);
-    }
-
-    useEffect(() => {
-        setMessage(sortData())
-    }, [])
+    console.log(props.data);
 
     if(display == true){
         return(
-            <div className="system-message position-fixed" onClick={closePopup}>
+            <div className="system-message position-fixed">
                 <style>{SystemMessage}</style>
-                <div className="card border-left-danger mb-4 shadow">
+                <div className="card system-card border-left-danger mb-4 shadow vw-50">
                     <div className="card-header py-3">
-                        <h6 className="m-0 font-weight-bold text-danger">System warning</h6>
+                        <span className="ml-0 h6 mr-auto font-weight-bold text-danger float-left">System warning</span>
+                        <a className="float-right h6 text-muted text-decoration-none close-button" onClick={closeContainer}>
+                            <b>x</b>
+                        </a>
                     </div>
                 <div className="card-body">
-                    <p><b>{message.battery}</b></p>
-                    <p><b>{message.leak}</b></p>
-                    <i>{message.tagline}</i>
-                    <h6 className="font-weight-light">Click this popup to close.</h6>
+                    {props.data.map((val, key) => {
+                        return(
+                            <DangerChild data={val}/>
+                        );
+                    })}
                 </div>
                 </div>
             </div>
