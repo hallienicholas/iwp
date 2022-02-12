@@ -167,7 +167,7 @@ app.post('/register', (req, res) => {
             (err, result) => {
                 //null checks and password validation
 
-                function Validate(username, password) { // make this a const?
+                function Validate(err, username, password) { // make this a const?
                     try 
                     {if (password.length < 8) {
                         throw "Short";
@@ -198,9 +198,12 @@ app.post('/register', (req, res) => {
                   }
                   return(err);
                 }
-                
+
                 if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
-                     Validate(err, username, password);
+                    console.log("all fields in");
+                    Validate(err, username, password);
+                
+                
                 } else {
                     res.send({message: "Please complete all fields."});
                 };
