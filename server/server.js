@@ -166,17 +166,19 @@ app.post('/register', (req, res) => {
             [firstname, lastname, username, hash],
             (err, result) => {
                 //null checks and password validation
+                if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
 
-                function Validate(err, username, password) { // make this a const?
+                let val; // make this a const?
                     try 
-                    {if (password.length < 8) {
-                        throw "Short";
+                    { if (password.length < 8) {
+                        val = "Short";
+                        console.log("it is short");
                     } if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-                        throw "Number";
+                        val = "Number";
                     } if (this.username || regex.test(username) === false) {
-                        throw "Invalid";
+                        val = "Invalid";
                     } if (err) {
-                        throw "Exist";
+                        val = "Exist";
                   }
                   res.send({message: "Account successfully created!"});
                   sendVerificationEmail(username, res);
@@ -196,21 +198,15 @@ app.post('/register', (req, res) => {
                         res.send({message: "An account with that email already exists." });
                       }
                   }
-                  return(err);
-                }
+                  return(val);
+                }      
+                
+             else {
+                res.send({message: "Please complete all fields."});
+            }; 
 
-                if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
-                    console.log("all fields in");
-                    Validate(err, username, password);
-                
-                
-                } else {
-                    res.send({message: "Please complete all fields."});
-                };
-            }
-              
-          );
-   })
+        });
+        })
     
 });
 //get data from db for dashboard
