@@ -15,7 +15,7 @@ ReactDOM.render(
 
 function Map(){
 
-const mapToken = process.env.MAP;
+const mapToken = "pk.eyJ1IjoiaG5pY2hvbGFzIiwiYSI6ImNremRma3hrNjA1bjAybm9iM2thdnZraXQifQ.CyiZY5YybAs-rk7ac--dsA";
 mapboxgl.accessToken = mapToken;
 const mapContainer = useRef(null);
 const map = useRef(null);
@@ -53,10 +53,10 @@ Add an event listener that runs
   when a user clicks on the map element.
 */
 
-/*map.addEventListener("click", function(event)  {
+const interact = (event) => {
     // If the user clicked on one of your markers, get its information.
     const features = map.queryRenderedFeatures(event.point, {
-      layers: ['pump-locations'] // replace with your layer name
+      layers: 'pump-locations'
     });
     if (!features.length) {
       return;
@@ -67,19 +67,20 @@ Add an event listener that runs
     Create a popup, specify its options 
     and properties, and add it to the map.
   */
-/*const popup = new mapboxgl.Popup({ offset: [0, -15] })
+const popup = new mapboxgl.Popup({ offset: [0, -15] })
 .setLngLat(feature.geometry.coordinates)
 .setHTML(
   `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
 )
 .addTo(map);
     
-  });
-*/
+  };
 
     return(
         <div>
-            <div ref={mapContainer} className="map-container" />
+            <div id="map" classname="ml-auto mr-auto">
+            <div ref={mapContainer} className="map-container" onClick={interact} />
+            
             <title>Display a map on a webpage</title>
             <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet"></link>
             <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
@@ -87,6 +88,7 @@ Add an event listener that runs
         <style>{mapStyle}</style>
             
         <div id="root"></div>
+        </div>
         </div>
         );
         
