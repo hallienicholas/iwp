@@ -15,25 +15,67 @@ ReactDOM.render(
 
 function Map(){
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiaG5pY2hvbGFzIiwiYSI6ImNremRma3hrNjA1bjAybm9iM2thdnZraXQifQ.CyiZY5YybAs-rk7ac--dsA';
+const mapToken = process.env.MAP;
+mapboxgl.accessToken = mapToken;
 const mapContainer = useRef(null);
 const map = useRef(null);
-const [lng, setLng] = useState(-70.9);
-const [lat, setLat] = useState(42.35);
-const [zoom, setZoom] = useState(9);
+const [lng, setLng] = useState(-77.012100);
+const [lat, setLat] = useState(40.231838);
+const [zoom, setZoom] = useState(5);
+
+const mapStyle = 
+    `body { 
+        margin: 300px;
+        padding: 0;
+      }
+#map { 
+    position: absolute; 
+    top: 0; 
+    bottom: 0;
+    width: 100%;
+}`;
+
 
 useEffect(() => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
     container: mapContainer.current,
-    style: 'mapbox://styles/mapbox/outdoors-v11',
+    style: 'mapbox://styles/hnicholas/ckzdfpm16000614mn71sfppcs',
+    //style: 'mapbox://styles/mapbox/outdoors-v11',
     center: [lng, lat],
     zoom: zoom
+    
         });
     });
 
-const mapStyle = `body { margin: 600px; padding: 100px; max-width: 200px} 
-#map { position: fixed; top: 50%; left: 50%; right: 50% bottom: 50%}`;
+    /* 
+Add an event listener that runs
+  when a user clicks on the map element.
+*/
+
+/*map.addEventListener("click", function(event)  {
+    // If the user clicked on one of your markers, get its information.
+    const features = map.queryRenderedFeatures(event.point, {
+      layers: ['pump-locations'] // replace with your layer name
+    });
+    if (!features.length) {
+      return;
+    }
+    const feature = features[0];
+    
+    /* 
+    Create a popup, specify its options 
+    and properties, and add it to the map.
+  */
+/*const popup = new mapboxgl.Popup({ offset: [0, -15] })
+.setLngLat(feature.geometry.coordinates)
+.setHTML(
+  `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+)
+.addTo(map);
+    
+  });
+*/
 
     return(
         <div>
@@ -41,8 +83,8 @@ const mapStyle = `body { margin: 600px; padding: 100px; max-width: 200px}
             <title>Display a map on a webpage</title>
             <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet"></link>
             <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
-            
-        <style>{mapStyle}</style>   
+
+        <style>{mapStyle}</style>
             
         <div id="root"></div>
         </div>
