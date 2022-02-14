@@ -6,13 +6,6 @@ import ReactDOM from 'react-dom';
 // ADD YOUR ACCESS TOKEN FROM
 // https://account.mapbox.com
 
-ReactDOM.render(
-    <React.StrictMode>
-    <Map />
-    </React.StrictMode>,
-    document.getElementById('root')
-    );
-
 function Map(){
 
 const mapToken = "pk.eyJ1IjoiaG5pY2hvbGFzIiwiYSI6ImNremRma3hrNjA1bjAybm9iM2thdnZraXQifQ.CyiZY5YybAs-rk7ac--dsA";
@@ -24,15 +17,14 @@ const [lat, setLat] = useState(40.231838);
 const [zoom, setZoom] = useState(5);
 
 const mapStyle = 
-    `body { 
-        margin: 300px;
-        padding: 0;
-      }
-#map { 
-    position: absolute; 
-    top: 0; 
-    bottom: 0;
+  `#map { 
     width: 100%;
+    margin-right:auto;
+    margin-left:auto;
+}
+#map-container {
+  margin-left:auto;
+  margin-right:auto;
 }`;
 
 
@@ -77,8 +69,8 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
   };
 
     return(
-        <div>
-            <div id="map" classname="ml-auto mr-auto">
+        <div className='container-fluid'>
+            <div id="map">
             <div ref={mapContainer} className="map-container" onClick={interact} />
             
             <title>Display a map on a webpage</title>

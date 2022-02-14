@@ -21,7 +21,6 @@ class App extends Component {
             <Route exact path="/register" component={Registration} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/forgot" component={ForgotPassword} />
-            <Route exact path="/Map" component={Map} />
             <Route exact path="*" component={DashView} />
           </Switch>
         </Router> 
