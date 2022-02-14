@@ -59,7 +59,7 @@ class DashView extends Component {
                             <Route exact path="/pump" component={Pump} />
                             <Route exact path="/contact" component={Contact} />
                             <Route path="/messages" component={Messages} />
-                            <Route exact path="/MapPage" component={Map} />
+                            <Route exact path="/Map" component={Map} />
                             <Route exact path="/User" component={User} />
                             <Route path="*" component={Error} />
                         </Switch>
