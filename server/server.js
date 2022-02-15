@@ -211,6 +211,11 @@ app.get("/login", (req, res) => {
         res.send({loggedIn: false})
     }
 })
+//call map page
+app.get('/MapPage', (req,res) => {
+    console.log("Reading map")
+    res.send("read map")
+})
 
 //pump data
 app.get('/pumps', (req,res) => {
