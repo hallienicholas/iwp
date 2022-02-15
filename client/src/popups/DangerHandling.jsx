@@ -5,10 +5,8 @@ import {Component, useState, useEffect } from "react";
 import PumpList from "../global/PumpList";
 import Danger from "./Danger";
 
-function DangerHandling () {
+function DangerHandling (props) {
 
-  //const [display, setDisplay] = useState(true);
-  const [dangerData, setDangerData] = useState([]);
   const [list, setList] = useState([]);
 
   
@@ -21,7 +19,7 @@ function DangerHandling () {
 
   const getDangerData = () => {
     Axios.get("http://localhost:3001/dangerData").then((response) => {
-      setDangerData(response.data);
+      props.setDangerData(response.data);
     })
   }
 
@@ -32,7 +30,7 @@ function DangerHandling () {
     
   }, [])
 
-  console.log(dangerData);
+  console.log(props.dangerData);
 
 
   var count=1;
@@ -44,7 +42,7 @@ function DangerHandling () {
         <Danger data={val}/>
       );
     })} */}
-    <Danger data={dangerData} />
+    <Danger data={props.dangerData} />
     </>
   );
     
