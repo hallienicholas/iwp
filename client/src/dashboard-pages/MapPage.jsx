@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 // ADD YOUR ACCESS TOKEN FROM
 // https://account.mapbox.com
 
-function Map(){
+function Map(mapData, setMapData){
 
 const mapToken = "pk.eyJ1IjoiaG5pY2hvbGFzIiwiYSI6ImNremRma3hrNjA1bjAybm9iM2thdnZraXQifQ.CyiZY5YybAs-rk7ac--dsA";
 mapboxgl.accessToken = mapToken;
@@ -15,6 +15,12 @@ const map = useRef(null);
 const [lng, setLng] = useState(-77.012100);
 const [lat, setLat] = useState(40.231838);
 const [zoom, setZoom] = useState(5);
+
+/* const getMapData = (e) => {
+    Axios.get("http://localhost:3001/mapData?id=" + e.target.value).then((response) => {
+      setMapData(response.data);
+    })
+  } */ //this will be added to in the future of the map
 
 const mapStyle = 
   `#map { 
@@ -47,9 +53,9 @@ Add an event listener that runs
 
 const interact = (event) => {
     // If the user clicked on one of your markers, get its information.
-    const features = map.queryRenderedFeatures(event.point, {
-      layers: 'pump-locations'
-    });
+    var features = map.queryRenderedFeatures({ layers: ['sites-outline'] }).map(function(feat) {
+        return feat.properties && feat.properties.DEV_STATUS;
+      });
     if (!features.length) {
       return;
     }
