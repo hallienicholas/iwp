@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import "./custom-css/App.css";
+import "./custom-css/App.css";
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import {
@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import LoginPage from "./login/Login";
 import DashView from "./routing/DashView";
-import MapPage from "./dashboard-pages/MapPage";
+import Map from "./dashboard-pages/MapPage";
 import Registration from "./login/Registration"; 
 import ForgotPassword from "./login/ForgotPassword";
 class App extends Component {
