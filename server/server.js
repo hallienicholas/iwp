@@ -241,7 +241,7 @@ app.get('/chartData', (req, res) => {
 
 //get data for map
 app.get('/mapData', (req, res) => {
-    db.query("SELECT iwp_pump_id, pump_name, gps_latitude, gps_longitude, country_fk from iwpDB.iwp_pump ORDER BY iwp_pump_id", (err, result) => {
+    db.query("SELECT iwp_pump_id, pump_name, gps_latitude, gps_longitude, country_fk from iwpDB.iwp_pump WHERE iwp_pump_id ='"+req.query.id+"' ORDER BY iwp_pump_id", (err, result) => {
         if (err){
             console.log(err)
         } else {
