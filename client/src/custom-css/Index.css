@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.close-button:hover, .dangerChild:hover{
+  cursor:pointer;
+}
+
+.dangerChild{
+  font-size:0.9em;
+}

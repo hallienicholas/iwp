@@ -7,9 +7,10 @@ import Pump from "../dashboard-pages/PumpView";
 import Error from "../dashboard-pages/Error";
 import Contact from "../dashboard-pages/Contact";
 import Messages from "../dashboard-pages/Messages";
-import Map from "../dashboard-pages/Map";
+import Map from "../dashboard-pages/MapPage";
 import DangerHandling from "../popups/DangerHandling.jsx";
 import User from "../dashboard-pages/User";
+import Requests from "../dashboard-pages/Requests";
 import Axios from "axios";
 
 import {
@@ -30,20 +31,16 @@ class DashView extends Component {
         }
     }
 
+    setDangerData(stuff){
+        this.setState({dangerData: stuff})
+    }
+
     useEffect(){
         Axios.get("http://localhost:3001/pumps").then((response) => {
             this.setState({pumps: response.data});
         })
         
-        console.log(this.state.pumps);
-    
-    // console.log(this.state.pumps);
-    // var pumpList = []
-    // for(var i=0; i<this.state.pumps.length; i++){
-    //     pumpList[i]=this.state.pumps[i].iwp_pump_id
-    // }
-    // this.setState({pumps: pumpList});
-    // console.log(this.state.pumps);        
+        console.log(this.state.pumps);        
     }
 
     render() {
@@ -61,11 +58,12 @@ class DashView extends Component {
                             <Route path="/messages" component={Messages} />
                             <Route exact path="/Map" component={Map} />
                             <Route exact path="/User" component={User} />
+                            <Route exact path="/requests" component={Requests} />
                             <Route path="*" component={Error} />
                         </Switch>
                         
                     </div>
-                    <DangerHandling />
+                    <DangerHandling dangerData={this.state.dangerData} setDangerData={this.setDangerData.bind(this)} />
                     {this.state.pumps}
             </div>
         );

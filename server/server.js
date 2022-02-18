@@ -228,6 +228,11 @@ app.get("/login", (req, res) => {
         res.send({loggedIn: false})
     }
 })
+//call map page
+app.get('/MapPage', (req,res) => {
+    console.log("Reading map")
+    res.send("read map")
+})
 
 //pump data
 app.get('/pumps', (req,res) => {
@@ -243,6 +248,17 @@ app.get('/pumps', (req,res) => {
 //get data for charts
 app.get('/chartData', (req, res) => {
     db.query("SELECT * FROM(SELECT iwp_pump_id_fk, iwp_sensor_data_id, date_sensed, daily_volume_sum, battery_percentage, leak_coefficient_avg FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE iwp_pump_id_fk ='"+req.query.id+"' ORDER BY date_sensed DESC LIMIT 8) sub ORDER BY date_sensed ASC", (err, result) => {
+        if (err){
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
+
+//get data for map
+app.get('/mapData', (req, res) => {
+    db.query("SELECT iwp_pump_id, pump_name, gps_latitude, gps_longitude, country_fk from iwpDB.iwp_pump WHERE iwp_pump_id ='"+req.query.id+"' ORDER BY iwp_pump_id", (err, result) => {
         if (err){
             console.log(err)
         } else {
