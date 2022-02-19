@@ -17,6 +17,7 @@ const saltRounds = 10
 // email handling
 const nodemailer = require("nodemailer");
 const {v4: uuidv4} = require("uuid");
+const e = require('express');
 require("dotenv").config();
 let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -104,7 +105,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
     const uniqueString = process.env.RES_STRING;
     const email = req.body.email;
     const newPassword = process.env.PASS_RESET;
-    const regexp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    
 
     bcrypt.hash(newPassword,saltRounds, (err, hash) => { 
         if (err) {
@@ -153,61 +154,42 @@ app.post('/register', (req, res) => {
     const lastname = req.body.lastname;
     const username = req.body.username;
     const password = req.body.password;
-    const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
     bcrypt.hash(password,saltRounds, (err, hash) => {
         
         if (err) {
             console.log(err)
         }
-        //insert new user into db
-        db.query(
-            "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')", 
-            [firstname, lastname, username, hash],
-            (err, result) => {
-                //null checks and password validation
-                if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
+        // INSERT PRE-VALIDATION
 
-                let val; // make this a const?
-                    try 
-                    { if (password.length < 8) {
-                        val = "Short";
-                        console.log("it is short");
-                    } if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-                        val = "Number";
-                    } if (this.username || regex.test(username) === false) {
-                        val = "Invalid";
-                    } if (err) {
-                        val = "Exist";
-                  }
-                  res.send({message: "Account successfully created!"});
-                  sendVerificationEmail(username, res);
-                }
-                  catch(err)
-                  {
-                      if (err == "Short") {
-                        res.send({message: "Password requires more than 8 characters."});
-                      }
-                      if (err == "Number") {
-                        res.send({message: "Password must contain a numeric symbol."});
-                      }
-                      if (err == "Invalid") {
-                        res.send({message: "You've entered an invalid email address."});
-                      }
-                      if (err == "Exist") {
-                        res.send({message: "An account with that email already exists." });
-                      }
-                  }
-                  return(val);
-                }      
-                
-             else {
-                res.send({message: "Please complete all fields."});
-            }; 
+        if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
+    let messageString = "Account successfully created!";
 
-        });
-        })
+// Check to see if the user exists
+    let userExist = db.query ("SELECT * FROM iwp_user") == username;
+
+        if (userExist.length > 0) {
+    // No other users - go ahead and attempt an Insert
+        try {
+            db.query(
+            "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')",
+            [firstname, lastname, username, hash]
+                ); 
+        } catch(e) {
+            console.log("in catch");
+        messageString = "Something went wrong - Account not created!";
+        } 
+    } else {
+        messageString = "An account with that email already exists." ;
+    }
+
+
+        res.send({message: messageString});
+} else {
+    res.send({message: "Please complete all fields"});
+};
     
+    });
 });
 //get data from db for dashboard
 app.get('/data', (req,res) => {

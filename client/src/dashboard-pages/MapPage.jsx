@@ -18,7 +18,7 @@ const [lat, setLat] = useState(40.231838);
 const [zoom, setZoom] = useState(5);
 const [central, setCentral] = useState("");
 const [pumpsName, setPumpsName] = useState([]);
-const [mapData, setMapData] = useState([]);
+const [mapData, setMapData] = useState([]); //should be elsewhere, just not sure where
 
 const getMapData = (e) => {
     Axios.get("http://localhost:3001/mapData?id=" + e.target.value).then((response) => {
@@ -36,11 +36,11 @@ const updateZoom = (e) => {
       }      
   }
   
-const [pumps, setPumps] = useState([]);
+const [pumps1, setPumps1] = useState([]);
 
 const getPumpsList = () => {
     Axios.get("http://localhost:3001/pumps").then((response) => {
-      setPumps(response.data);
+      setPumps1(response.data);
     })
   }
 
@@ -113,7 +113,7 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
             <label for="pumpList">Pump</label>
             <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} onChange={updateZoom}>
             <option key="default">Select Pump</option>
-            {pumps.map((val,key) => {
+            {pumps1.map((val,key) => {
                   return(
                     <option key={val.iwp_pump_id}>{val.iwp_pump_id}</option>
                   )
