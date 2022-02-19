@@ -217,6 +217,12 @@ app.get('/MapPage', (req,res) => {
     res.send("read map")
 })
 
+//call map page
+app.get('/MapPage', (req,res) => {
+    console.log("Reading map")
+    res.send("read map")
+})
+
 //pump data
 app.get('/pumps', (req,res) => {
     db.query("SELECT iwp_pump_id FROM iwp_pump ORDER BY iwp_pump_id", (err, result) => {

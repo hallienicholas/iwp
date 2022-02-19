@@ -59,6 +59,9 @@ const interact = (event) => {
     Create a popup, specify its options 
     and properties, and add it to the map.
   */
+ map.on('mouseDown', (e) => {
+   console.log(e);
+ })
 const popup = new mapboxgl.Popup({ offset: [0, -15] })
 .setLngLat(feature.geometry.coordinates)
 .setHTML(
@@ -70,16 +73,14 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
 
     return(
         <div className='container-fluid'>
-            <div id="map">
+          <div id="map">
             <div ref={mapContainer} className="map-container" onClick={interact} />
             
             <title>Display a map on a webpage</title>
             <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet"></link>
             <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
 
-        <style>{mapStyle}</style>
-            
-        <div id="root"></div>
+          <style>{mapStyle}</style>
         </div>
         </div>
         );
