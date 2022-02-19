@@ -55,7 +55,9 @@ class DashView extends Component {
                             <Route exact path="/about" component={About} />
                             <Route exact path="/pump" component={Pump} />
                             <Route exact path="/contact" component={Contact} />
-                            <Route path="/messages" component={Messages} />
+                            <Route path="/messages">
+                                <Messages dangerData={this.state.dangerData} setDangerData={this.setDangerData.bind(this)}/>
+                            </Route>
                             <Route exact path="/Map" component={Map} />
                             <Route exact path="/User" component={User} />
                             <Route exact path="/requests" component={Requests} />
