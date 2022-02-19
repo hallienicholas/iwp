@@ -31,9 +31,14 @@ function DbPage() {
   //vv
   const { token, setToken } = useToken();
 
+  
+
   //if(!token) {
   //  return <LoginPopUp setToken={setToken} />
   //}
+
+  // Code for conditional render based on token status.
+  //if(localStorage.getItem('token') != null){
   return (
     <div className="container-fluid">
       <h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
@@ -72,6 +77,14 @@ function DbPage() {
       </div>
     </div>
   );
+  // Code for conditional render based on token status.
+  // } else {
+  //   return(
+  //     <div className="container-fluid">
+  //   <>You are not permitted to see this page.</>
+  //   </div>
+  //   )
+  // }
 }
 
 export default DbPage;
