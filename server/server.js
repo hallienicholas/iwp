@@ -162,27 +162,29 @@ app.post('/register', (req, res) => {
         }
         // INSERT PRE-VALIDATION
 
-        if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
+if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
     let messageString = "Account successfully created!";
 
 // Check to see if the user exists
-    let userExist = db.query ("SELECT * FROM iwp_user") == username;
+    let userExist = db.query("SELECT user_email FROM iwp_user", [username]);
 
-        if (userExist.length > 0) {
+        if (userExist != username) {
+            console.log("user does not already exist")
     // No other users - go ahead and attempt an Insert
+
         try {
             db.query(
             "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')",
             [firstname, lastname, username, hash]
-                ); 
+                );
         } catch(e) {
             console.log("in catch");
         messageString = "Something went wrong - Account not created!";
         } 
     } else {
+        console.log("hit the else");
         messageString = "An account with that email already exists." ;
     }
-
 
         res.send({message: messageString});
 } else {

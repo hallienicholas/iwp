@@ -9,31 +9,28 @@ import Axios from 'axios';
 
 function Map(){
 
+    const [pumpsName, setPumpsName] = useState([]);
+	const [mapData, setMapData] = useState([]);
+
 const mapToken = "pk.eyJ1IjoiaG5pY2hvbGFzIiwiYSI6ImNremRma3hrNjA1bjAybm9iM2thdnZraXQifQ.CyiZY5YybAs-rk7ac--dsA";
 mapboxgl.accessToken = mapToken;
 const mapContainer = useRef(null);
 const map = useRef(null);
+//const [lng, setLng] = useState([]);
+//const [lat, setLat] = useState([]);
+
 const [lng, setLng] = useState(-77.012100);
 const [lat, setLat] = useState(40.231838);
 const [zoom, setZoom] = useState(5);
 const [central, setCentral] = useState("");
-const [pumpsName, setPumpsName] = useState([]);
-const [mapData, setMapData] = useState([]); //should be elsewhere, just not sure where
 
 const getMapData = (e) => {
     Axios.get("http://localhost:3001/mapData?id=" + e.target.value).then((response) => {
       setMapData(response.data);
+      const info = response.data;
+      const [id, name, latitude, longitude, country] = info.split(','); 
+      console.log(id);
     })
-  }
-
-const updateZoom = (e) => {
-    if(e.target.value !== "Select Pump"){
-        setPumpsName(e.target.value);
-        getMapData(e);
-        //set the center long and lat to what pump value/id corresponds to
-        setLng("gps_longitude");
-        setLat("gps_latitude"); 
-      }      
   }
   
 const [pumps1, setPumps1] = useState([]);
@@ -44,26 +41,46 @@ const getPumpsList = () => {
     })
   }
 
+  
+
   const mapStyle = 
   `#map { 
     width: 100%;
     margin-right:auto;
     margin-left:auto;
-}
-#map-container {
+    }
+    #map-container {
   margin-left:auto;
   margin-right:auto;
-}`;
+    }`;
+
+
+const updateCenter = (e) => {
+    if(e.target.value !== "Select Pump"){
+        setPumpsName(e.target.value);
+        getMapData(e);
+        //set the center long and lat to what pump value/id corresponds to
+        //parse db data to read that pump's lng/lat
+        setLng(lng);
+        setLat(lat);
+        map.current = new mapboxgl.Map({
+            container: mapContainer.current,
+            style: 'mapbox://styles/hnicholas/ckzdfpm16000614mn71sfppcs',
+            //style: 'mapbox://styles/mapbox/outdoors-v11',
+            center: [lng, lat],
+            zoom: zoom,
+                });
+      }      
+    }
 
 useEffect(() => {
-    if (map.current) return; // initialize map only once
+    //if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
     container: mapContainer.current,
     style: 'mapbox://styles/hnicholas/ckzdfpm16000614mn71sfppcs',
     //style: 'mapbox://styles/mapbox/outdoors-v11',
     center: [lng, lat],
-    zoom: zoom
-    
+    zoom: zoom,
         });
     });
 
@@ -105,13 +122,10 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
             <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
 
         <style>{mapStyle}</style>
-            
-        <div id="root"></div>
-        </div>
 
         <div className="col">
             <label for="pumpList">Pump</label>
-            <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} onChange={updateZoom}>
+            <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} onChange={updateCenter}>
             <option key="default">Select Pump</option>
             {pumps1.map((val,key) => {
                   return(
@@ -121,6 +135,11 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
               }
             </select>
           </div>
+
+        <div id="root"></div>
+        </div>
+
+        
 
         </div>
         );

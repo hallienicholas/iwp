@@ -23,51 +23,64 @@ function Registration () {
     const [nextAction, setNextAction] = useState("");
     const regexp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-    const valPassword = (passString, usernameReg) => {
+    const valPassword = (passwordReg, usernameReg) => {
         let valmessage = "OK";
-        if (passString.length < 8) {
+        if (passwordReg.length < 8) {
             valmessage = "The password is too short."
-        } else if(!passString.includes("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
+        } else if(!passwordReg.includes("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
             valmessage = "The password needs to contain a number."
         } else if ( usernameReg || regexp.test(usernameReg) === false ) {
             valmessage = "You've entered an invalid email address."
         }
         return valmessage;
-    };    
-
+    };
     
     const register = () => {
         //call validatePass function
-        let validation = valPassword (passwordReg);
-        let textStatus = "not-determined"
+        let validation = valPassword();
+        //let textStatus = "not-determined"
         // let valid passwords go ahead with backend registration call
         if (validation = "OK") {
             Axios.post("http://localhost:3001/register", {
-                username: usernameReg, 
+                username: usernameReg,
                 password: passwordReg,
                 firstname: firstNameReg,
                 lastname: lastNameReg
             }).then((response) => {
+
+        let valmessage = "OK";
+        if (passwordReg.length < 8) {
+            valmessage = "The password is too short."
+        } else if(!passwordReg.includes("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
+            valmessage = "The password needs to contain a number."
+        } else if ( usernameReg || regexp.test(usernameReg) === false ) {
+            valmessage = "You've entered an invalid email address."
+        }
+
                 if (response.data.message){
                     setRegStatus(response.data.message);
+                    if (response.data.message == "Account successfully created!") {
+                        setTextStatus("text-success");
+                    } else {
+                        setTextStatus("text-danger");
+                    }
                 } console.log(response);
                 setTimeout(() =>{
                     if (response.data.message == "Account successfully created!") {
                         setNextAction(<Route><Redirect to="./Login"/></Route>);
                     }
                 }, 3000);
-                if (response.data.message == "Account successfully created!") {
+                /* if (response.data.message == "Account successfully created!") {
                     textStatus = "text-success";
                 } else {
                     console.log('There was an issue writing to the database:', response.data.message);
                     textStatus = "text-danger";
-                }
+                } */
             })
         } else {
             console.log('Password Validation Failed:', validation);
-            textStatus = "text-danger";
+            //textStatus = "text-danger";
         }
-        setTextStatus(textStatus);
     };
 
     /* const valPassword = () => {
