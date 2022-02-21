@@ -3,7 +3,9 @@ import DangerChild from "./DangerChild"
 
 function Danger(props) {
 
-    const [display, setDisplay] = useState(true);
+    const [display, setDisplay] = useState(
+        localStorage.getItem('display') || true
+    );
     
 
     const SystemMessage = `.system-message {
@@ -15,6 +17,10 @@ function Danger(props) {
     const closeContainer = () => {
         setDisplay(false)
     }
+
+    useEffect(() => {
+        localStorage.setItem('display', display);
+    }, [display])
 
     console.log(props.data);
 
