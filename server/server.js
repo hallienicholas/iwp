@@ -181,16 +181,14 @@ if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && pas
             console.log("in catch");
         messageString = "Something went wrong - Account not created!";
         } 
-    } else {
+    } else if(userExist == username) {
         console.log("hit the else");
         messageString = "An account with that email already exists." ;
     }
-
         res.send({message: messageString});
 } else {
     res.send({message: "Please complete all fields"});
-};
-    
+};    
     });
 });
 //get data from db for dashboard

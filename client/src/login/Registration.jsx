@@ -25,19 +25,19 @@ function Registration () {
 
     const valPassword = (passwordReg, usernameReg) => {
         let valmessage = "OK";
-        if (passwordReg.length < 8) {
-            valmessage = "The password is too short."
-        } else if(!passwordReg.includes("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-            valmessage = "The password needs to contain a number."
-        } else if ( usernameReg || regexp.test(usernameReg) === false ) {
-            valmessage = "You've entered an invalid email address."
+        if (this.passwordReg.length < 8) {
+            valmessage = "The password is too short.";
+        } else if (!passwordReg.includes("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
+            valmessage = "The password needs to contain a number.";
+        } else if (usernameReg || regexp.test(usernameReg) === false) {
+            valmessage = "You've entered an invalid email address.";
         }
         return valmessage;
     };
     
     const register = () => {
         //call validatePass function
-        let validation = valPassword();
+        let validation = valPassword;
         //let textStatus = "not-determined"
         // let valid passwords go ahead with backend registration call
         if (validation = "OK") {
@@ -48,15 +48,6 @@ function Registration () {
                 lastname: lastNameReg
             }).then((response) => {
 
-        let valmessage = "OK";
-        if (passwordReg.length < 8) {
-            valmessage = "The password is too short."
-        } else if(!passwordReg.includes("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-            valmessage = "The password needs to contain a number."
-        } else if ( usernameReg || regexp.test(usernameReg) === false ) {
-            valmessage = "You've entered an invalid email address."
-        }
-
                 if (response.data.message){
                     setRegStatus(response.data.message);
                     if (response.data.message == "Account successfully created!") {
@@ -65,7 +56,7 @@ function Registration () {
                         setTextStatus("text-danger");
                     }
                 } console.log(response);
-                setTimeout(() =>{
+                setTimeout(() => {
                     if (response.data.message == "Account successfully created!") {
                         setNextAction(<Route><Redirect to="./Login"/></Route>);
                     }

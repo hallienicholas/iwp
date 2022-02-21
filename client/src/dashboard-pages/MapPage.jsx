@@ -89,7 +89,7 @@ Add an event listener that runs
   when a user clicks on the map element.
 */
 
-const interact = (event) => {
+/* const interact = (event) => {
     // If the user clicked on one of your markers, get its information.
     var features = map.queryRenderedFeatures({ layers: ['sites-outline'] }).map(function(feat) {
         return feat.properties && feat.properties.DEV_STATUS;
@@ -99,10 +99,10 @@ const interact = (event) => {
     }
     const feature = features[0];
     
-    /* 
-    Create a popup, specify its options 
-    and properties, and add it to the map.
-  */
+    
+    //Create a popup, specify its options 
+   // and properties, and add it to the map.
+  
 const popup = new mapboxgl.Popup({ offset: [0, -15] })
 .setLngLat(feature.geometry.coordinates)
 .setHTML(
@@ -110,13 +110,15 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
 )
 .addTo(map);
     
-  };
+  }; */
 
     return(
         <div className='container-fluid'>
             <div id="map">
-            <div ref={mapContainer} className="map-container" onClick={interact} />
+            <div ref={mapContainer} className="map-container"/>
             
+            {/* onClick={interact}  */}
+
             <title>Display a map on a webpage</title>
             <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet"></link>
             <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
@@ -125,7 +127,8 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
 
         <div className="col">
             <label for="pumpList">Pump</label>
-            <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} onChange={updateCenter}>
+            <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} >
+            {/* onChange={updateCenter} */}
             <option key="default">Select Pump</option>
             {pumps1.map((val,key) => {
                   return(
