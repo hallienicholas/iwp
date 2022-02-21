@@ -46,7 +46,7 @@ function DbPage() {
         <button className="btn-primary btn d-inline shadow" onClick={getData}>Show Data</button> 
         <Link to="/login" className="btn btn-light shadow">Go To Login Page</Link> 
       </div>
-      <div className="row">
+      <div className="row mb-4">
         <div className="col-8">
           <div className="card shadow">
             <table className="table">
