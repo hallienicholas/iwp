@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken')
 const express = require('express');
 const app = express();
 //const bodyParser = require("body-parser");
@@ -247,7 +248,7 @@ app.get('/chartData', (req, res) => {
 
 //Route for Danger and notifications
 app.get('/dangerData', (req, res) => {
-    db.query("SELECT t1.iwp_pump_id_fk, t1.date_sensed, t2.daily_volume_sum, t1.battery_percentage, t1.leak_coefficient_avg, t1.iwp_sensor_data_id FROM iwp_sensor_data t1 LEFT JOIN iwp_sensor_calculations t2 ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE t1.date_sensed = ( SELECT t3.date_sensed FROM iwp_sensor_data t3 LEFT JOIN iwp_sensor_calculations t4 ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE t3.iwp_pump_id_fk = t1.iwp_pump_id_fk ORDER BY t3.iwp_pump_id_fk DESC LIMIT 1) ORDER BY t1.iwp_pump_id_fk", (err, result) => {
+    db.query("SELECT t1.iwp_pump_id_fk, t1.date_sensed, t2.daily_volume_sum, t1.battery_percentage, t1.leak_coefficient_avg, t1.iwp_sensor_data_id FROM iwp_sensor_data t1 LEFT JOIN iwp_sensor_calculations t2 ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE t1.date_sensed = ( SELECT t3.date_sensed FROM iwp_sensor_data t3 LEFT JOIN iwp_sensor_calculations t4 ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE t3.iwp_pump_id_fk = t1.iwp_pump_id_fk ORDER BY t3.iwp_pump_id_fk DESC LIMIT 1) ORDER BY t1.date_sensed", (err, result) => {
         if (err){
             console.log(err)
         } else {
