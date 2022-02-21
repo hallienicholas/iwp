@@ -18,6 +18,7 @@ const saltRounds = 10
 // email handling
 const nodemailer = require("nodemailer");
 const {v4: uuidv4} = require("uuid");
+const e = require('express');
 require("dotenv").config();
 let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -105,7 +106,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
     const uniqueString = process.env.RES_STRING;
     const email = req.body.email;
     const newPassword = process.env.PASS_RESET;
-    const regexp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    
 
     bcrypt.hash(newPassword,saltRounds, (err, hash) => { 
         if (err) {
@@ -154,44 +155,42 @@ app.post('/register', (req, res) => {
     const lastname = req.body.lastname;
     const username = req.body.username;
     const password = req.body.password;
-    const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    
 
     bcrypt.hash(password,saltRounds, (err, hash) => {
         
         if (err) {
             console.log(err)
         }
-        //insert new user into db
-        db.query(
-            "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')", 
-            [firstname, lastname, username, hash],
-            (err, result) => {
-                //null checks and password validation
-                if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
-                    /*if (password.length < 8) {
-                        res.send({message: "Password requires more than 8 characters."});
-                    } else if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-                        res.send({message: "Password must contain a numeric symbol."});*/
-                    
-                   //email validation and success msg
-                    
-                    if (this.username || regex.test(username) === false) {
-                        res.send({message: "You've entered an invalid email address."});
-                    } else if (err) {
-                        res.send({message: "An account with that email already exists." });
-                    } else { 
-                    res.send({message: "Account successfully created!"});
-                    sendVerificationEmail(username, res);
-                    };
-                } else {
-                    res.send({message: "Please complete all fields."});
-            };
-        
-        }
-        
-        );
-    })
+        // INSERT PRE-VALIDATION
+
+if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
+    let messageString = "Account successfully created!";
+
+// Check to see if the user exists
+    let userExist = db.query("SELECT user_email FROM iwp_user", [username]);
+
+        if (userExist != username) {
+            console.log("user does not already exist")
+    // No other users - go ahead and attempt an Insert
+
+        try {
+            db.query(
+            "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')",
+            [firstname, lastname, username, hash]
+                );
+        } catch(e) {
+            console.log("in catch");
+        messageString = "Something went wrong - Account not created!";
+        } 
+    } else if(userExist == username) {
+        console.log("hit the else");
+        messageString = "An account with that email already exists." ;
+    }
+        res.send({message: messageString});
+} else {
+    res.send({message: "Please complete all fields"});
+};    
+    });
 });
 //get data from db for dashboard
 app.get('/data', (req,res) => {
@@ -238,6 +237,17 @@ app.get('/pumps', (req,res) => {
 //get data for charts
 app.get('/chartData', (req, res) => {
     db.query("SELECT * FROM(SELECT iwp_pump_id_fk, iwp_sensor_data_id, date_sensed, daily_volume_sum, battery_percentage, leak_coefficient_avg FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE iwp_pump_id_fk ='"+req.query.id+"' ORDER BY date_sensed DESC LIMIT 8) sub ORDER BY date_sensed ASC", (err, result) => {
+        if (err){
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
+
+//get data for map
+app.get('/mapData', (req, res) => {
+    db.query("SELECT iwp_pump_id, pump_name, gps_latitude, gps_longitude, country_fk from iwpDB.iwp_pump WHERE iwp_pump_id ='"+req.query.id+"' ORDER BY iwp_pump_id", (err, result) => {
         if (err){
             console.log(err)
         } else {
@@ -337,4 +347,3 @@ app.post('/login', (req, res) => {
 app.listen(3001, ()=> {
     console.log("Yay, your server is running on port 3001");
 });
-
