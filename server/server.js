@@ -1,3 +1,4 @@
+//const jwt = require('jsonwebtoken')
 const express = require('express');
 const app = express();
 //const bodyParser = require("body-parser");
@@ -17,6 +18,7 @@ const saltRounds = 10
 // email handling
 const nodemailer = require("nodemailer");
 const {v4: uuidv4} = require("uuid");
+const e = require('express');
 require("dotenv").config();
 let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -104,7 +106,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
     const uniqueString = process.env.RES_STRING;
     const email = req.body.email;
     const newPassword = process.env.PASS_RESET;
-    const regexp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    
 
     bcrypt.hash(newPassword,saltRounds, (err, hash) => { 
         if (err) {
@@ -153,44 +155,49 @@ app.post('/register', (req, res) => {
     const lastname = req.body.lastname;
     const username = req.body.username;
     const password = req.body.password;
-    const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    
 
     bcrypt.hash(password,saltRounds, (err, hash) => {
         
         if (err) {
             console.log(err)
         }
-        //insert new user into db
-        db.query(
-            "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')", 
-            [firstname, lastname, username, hash],
-            (err, result) => {
-                //null checks and password validation
-                if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
-                    /*if (password.length < 8) {
-                        res.send({message: "Password requires more than 8 characters."});
-                    } else if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-                        res.send({message: "Password must contain a numeric symbol."});*/
-                    
-                   //email validation and success msg
-                    
-                    if (this.username || regex.test(username) === false) {
-                        res.send({message: "You've entered an invalid email address."});
-                    } else if (err) {
-                        res.send({message: "An account with that email already exists." });
-                    } else { 
-                    res.send({message: "Account successfully created!"});
-                    sendVerificationEmail(username, res);
-                    };
-                } else {
-                    res.send({message: "Please complete all fields."});
-            };
-        
-        }
-        
-        );
-    })
+        // INSERT PRE-VALIDATION
+
+if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
+    let messageString = "Account successfully created!";
+    let valmessage = 'OK';
+    if (password.length < 8) {
+        valmessage = "The password is too short.";
+    } else if (!password.includes("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
+        valmessage = "The password needs to contain a number.";
+    } else if (username || regexp.test(username) === false) {
+        valmessage = "You've entered an invalid email address.";
+    }
+
+
+// Check to see if the user exists
+if (valmessage == "OK") {
+    let userExist = db.query("SELECT user_email FROM iwp_user");
+
+        if (userExist !== username) {
+            console.log("user does not already exist")
+    // No other users - go ahead and attempt an Insert
+            db.query(
+            "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')",
+            [firstname, lastname, username, hash]
+                );
+    } else if(userExist == username) {
+        console.log("hit the else");
+        messageString = "An account with that email already exists.";
+    } else if(valmessage != 'OK') {
+        messageString = "You've entered an invalid password.";
+    }
+    res.send({message: messageString});
+}
+} else {
+    res.send({message: "Please complete all fields"});
+};    
+    });
 });
 //get data from db for dashboard
 app.get('/data', (req,res) => {
@@ -211,6 +218,12 @@ app.get("/login", (req, res) => {
         res.send({loggedIn: false})
     }
 })
+//call map page
+app.get('/MapPage', (req,res) => {
+    console.log("Reading map")
+    res.send("read map")
+})
+
 //call map page
 app.get('/MapPage', (req,res) => {
     console.log("Reading map")
@@ -252,7 +265,7 @@ app.get('/mapData', (req, res) => {
 
 //Route for Danger and notifications
 app.get('/dangerData', (req, res) => {
-    db.query("SELECT t1.iwp_pump_id_fk, t1.date_sensed, t2.daily_volume_sum, t1.battery_percentage, t1.leak_coefficient_avg, t1.iwp_sensor_data_id FROM iwp_sensor_data t1 LEFT JOIN iwp_sensor_calculations t2 ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE t1.date_sensed = ( SELECT t3.date_sensed FROM iwp_sensor_data t3 LEFT JOIN iwp_sensor_calculations t4 ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE t3.iwp_pump_id_fk = t1.iwp_pump_id_fk ORDER BY t3.iwp_pump_id_fk DESC LIMIT 1) ORDER BY t1.iwp_pump_id_fk", (err, result) => {
+    db.query("SELECT t1.iwp_pump_id_fk, t1.date_sensed, t2.daily_volume_sum, t1.battery_percentage, t1.leak_coefficient_avg, t1.iwp_sensor_data_id FROM iwp_sensor_data t1 LEFT JOIN iwp_sensor_calculations t2 ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE t1.date_sensed = ( SELECT t3.date_sensed FROM iwp_sensor_data t3 LEFT JOIN iwp_sensor_calculations t4 ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE t3.iwp_pump_id_fk = t1.iwp_pump_id_fk ORDER BY t3.iwp_pump_id_fk DESC LIMIT 1) ORDER BY t1.date_sensed", (err, result) => {
         if (err){
             console.log(err)
         } else {
@@ -341,4 +354,3 @@ app.post('/login', (req, res) => {
 app.listen(3001, ()=> {
     console.log("Yay, your server is running on port 3001");
 });
-

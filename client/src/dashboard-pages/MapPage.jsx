@@ -1,5 +1,5 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import mapboxgl from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
+import mapboxgl, { queryRenderedFeatures } from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
 import React, { Component, useRef, useEffect, useState } from "react";
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
@@ -24,9 +24,9 @@ const [central, setCentral] = useState("");
 const getMapData = (e) => {
     Axios.get("http://localhost:3001/mapData?id=" + e.target.value).then((response) => {
       setMapData(response.data);
-      const info = response.data;
-      const [id, name, latitude, longitude, country] = info.split(','); 
-      console.log(id);
+      //const info = response.data;
+      //const [id, name, latitude, longitude, country] = info.split(','); 
+      //console.log(id);
     })
   }
   
@@ -37,8 +37,6 @@ const getPumpsList = () => {
       setPumps1(response.data);
     })
   }
-
-  
 
   const mapStyle = 
   `#map { 
@@ -53,13 +51,23 @@ const getPumpsList = () => {
 
 
 const updateCenter = (e) => {
+    getMapData(e);
     if(e.target.value !== "Select Pump"){
-        setPumpsName(e.target.value);
-        getMapData(e);
+        
         //set the center long and lat to what pump value/id corresponds to
         //parse db data to read that pump's lng/lat - ask Adam
-        setLng(lng);////
-        setLat(lat);////
+
+        var long = [];
+        var lats = [];
+        if(mapData[0]){
+            for(var i=0; i<mapData.length; i++){
+              long[i] = mapData[i].gps_longitude.split(":")[0];
+              lats[i] = mapData[i].gps_latitude.split(":")[0];
+              //.slice(0,-3);
+            }
+        setLng(long);
+        setLat(lats);
+        }
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/hnicholas/ckzdfpm16000614mn71sfppcs',
@@ -71,12 +79,12 @@ const updateCenter = (e) => {
     }
 
 useEffect(() => {
-    //if (map.current) return; // initialize map only once
+    if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
     container: mapContainer.current,
     style: 'mapbox://styles/hnicholas/ckzdfpm16000614mn71sfppcs',
     //style: 'mapbox://styles/mapbox/outdoors-v11',
-    center: [lng, lat],
+    center: [-77.012100, 40.231838],
     zoom: zoom,
         });
     });
@@ -86,7 +94,7 @@ Add an event listener that runs
   when a user clicks on the map element.
 */
 
-const interact = (event) => {
+const interact = (event, map, mapboxgl) => {
     // If the user clicked on one of your markers, get its information.
     var features = map.queryRenderedFeatures({ layers: ['sites-outline'] }).map(function(feat) {
         return feat.properties && feat.properties.DEV_STATUS;

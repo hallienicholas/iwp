@@ -1,5 +1,5 @@
 import React, {Component, useState } from 'react';
-import Map from '../global/MapPage';
+import Map from '../dashboard-pages/MapPage';
 import Axios from 'axios';
 
 function MapView(){
@@ -9,7 +9,8 @@ function MapView(){
 
 	return(
 		<div className="container-fluid">
-			<Map setPumpsName={setPumpsName} pumpsName={pumpsName} setMapData={setMapData} mapData={mapData}/></div>
+			<Map setPumpsName={setPumpsName} pumpsName={pumpsName} setMapData={setMapData} mapData={mapData}/>
+            </div>
 	);
 	
 }
