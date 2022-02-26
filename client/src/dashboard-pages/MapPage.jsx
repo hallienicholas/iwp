@@ -7,17 +7,14 @@ import Axios from 'axios';
 // ADD YOUR ACCESS TOKEN FROM
 // https://account.mapbox.com
 
-function Map(){
-
-    const [pumpsName, setPumpsName] = useState([]);
-	const [mapData, setMapData] = useState([]);
+function Map({pumpsName, setPumpsName, mapData, setMapData}){
 
 const mapToken = "pk.eyJ1IjoiaG5pY2hvbGFzIiwiYSI6ImNremRma3hrNjA1bjAybm9iM2thdnZraXQifQ.CyiZY5YybAs-rk7ac--dsA";
 mapboxgl.accessToken = mapToken;
 const mapContainer = useRef(null);
 const map = useRef(null);
-//const [lng, setLng] = useState([]);
-//const [lat, setLat] = useState([]);
+const [lng, setLng] = useState([]);
+const [lat, setLat] = useState([]);
 
 const [lng, setLng] = useState(-77.012100);
 const [lat, setLat] = useState(40.231838);
@@ -89,7 +86,7 @@ Add an event listener that runs
   when a user clicks on the map element.
 */
 
-/* const interact = (event) => {
+const interact = (event) => {
     // If the user clicked on one of your markers, get its information.
     var features = map.queryRenderedFeatures({ layers: ['sites-outline'] }).map(function(feat) {
         return feat.properties && feat.properties.DEV_STATUS;
@@ -110,14 +107,12 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
 )
 .addTo(map);
     
-  }; */
+  };
 
     return(
         <div className='container-fluid'>
             <div id="map">
-            <div ref={mapContainer} className="map-container"/>
-            
-            {/* onClick={interact}  */}
+            <div ref={mapContainer} className="map-container" onClick={interact}/>
 
             <title>Display a map on a webpage</title>
             <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet"></link>
@@ -127,8 +122,7 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
 
         <div className="col">
             <label for="pumpList">Pump</label>
-            <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} >
-            {/* onChange={updateCenter} */}
+            <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} onChange={updateCenter}>
             <option key="default">Select Pump</option>
             {pumps1.map((val,key) => {
                   return(
