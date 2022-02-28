@@ -23,10 +23,7 @@ function Danger(props) {
         localStorage.setItem('display', display);
     }, [])
 
-    console.log(display)
-
     if(display === "true"){
-        console.log("RETURNING")
         return(
             <div className="system-message position-fixed">
                 <style>{SystemMessage}</style>

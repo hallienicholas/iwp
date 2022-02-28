@@ -29,19 +29,9 @@ function DangerHandling (props) {
     getPumpList();
     
   }, [])
-
-  console.log(props.dangerData);
-
-
-  var count=1;
   
   return(
     <>
-    {/* {dangerData.map((val, key) => {
-      return(
-        <Danger data={val}/>
-      );
-    })} */}
     <Danger data={props.dangerData} />
     </>
   );
