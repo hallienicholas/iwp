@@ -4,7 +4,7 @@ import DangerChild from "./DangerChild"
 function Danger(props) {
 
     const [display, setDisplay] = useState(
-        localStorage.getItem('display') || true
+        localStorage.getItem('display') || "true"
     );
     
 
@@ -15,16 +15,18 @@ function Danger(props) {
         }`;
 
     const closeContainer = () => {
-        setDisplay(false)
+        setDisplay("false")
+        localStorage.setItem('display', "false");
     }
 
     useEffect(() => {
         localStorage.setItem('display', display);
-    }, [display])
+    }, [])
 
-    console.log(props.data);
+    console.log(display)
 
-    if(display == true){
+    if(display === "true"){
+        console.log("RETURNING")
         return(
             <div className="system-message position-fixed">
                 <style>{SystemMessage}</style>
