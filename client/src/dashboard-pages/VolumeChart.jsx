@@ -23,8 +23,6 @@ ChartJS.register(
 
 function VolumeChart({chartData, chartTitle, pumpId, purpose}){
 
-  
-
   var dates = [];
   var id = "";
   var dataPoints = [];
