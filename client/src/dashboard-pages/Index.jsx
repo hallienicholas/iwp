@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import Axios from 'axios'
 import {useState} from "react";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import useToken from '../popups/useToken';
 //^^
 import sortPieData from "./sortPieData.js";
 import PieChart from "./PieChart";
+import VolumeChart from "./VolumeChart";
 
 function DbPage() {
 
@@ -21,6 +22,10 @@ function DbPage() {
     });
     getPieData();
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const getPieData = () => {
     Axios.get("http://localhost:3001/lastTrans").then((response) => {
@@ -46,6 +51,11 @@ function DbPage() {
         <button className="btn-primary btn d-inline shadow" onClick={getData}>Show Data</button> 
         <Link to="/login" className="btn btn-light shadow">Go To Login Page</Link> 
       </div>
+      {/* <div className="row mb-4">
+        <div className="col">
+          <VolumeChart chartData={pumpList} chartTitle={"Volume Pumped by Date"} pumpId={284} purpose="volume"/>
+        </div>
+      </div> */}
       <div className="row mb-4">
         <div className="col-8">
           <div className="card shadow">
@@ -53,7 +63,9 @@ function DbPage() {
               <thead>
                 <tr>
                   <th>Transmission ID</th>
+                  <th>Timestamp</th>
                   <th>Pump ID</th>
+                  <th>Daily Volume Sum</th>
                   <th>Battery Percentage</th>
                 </tr>
               </thead>
@@ -62,7 +74,9 @@ function DbPage() {
                   return(
                     <tr>
                       <td>{val.iwp_sensor_data_id}</td>
+                      <td>{val.timestamp}</td>
                       <td>{val.iwp_pump_id_fk}</td>
+                      <td>{val.daily_volume_sum || "null"}</td>
                       <td>{val.battery_percentage}</td>
                     </tr>
                   );
