@@ -1,5 +1,5 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import mapboxgl, { queryRenderedFeatures } from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
+import mapboxgl, {queryRenderedFeatures} from 'mapbox-gl';
 import React, { Component, useRef, useEffect, useState } from "react";
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
@@ -8,21 +8,58 @@ import Axios from 'axios';
 // https://account.mapbox.com
 
 function Map({pumpsName, setPumpsName, mapData, setMapData}){
-
+//const mapboxgl = require('mapbox-gl');
 const mapToken = "pk.eyJ1IjoiaG5pY2hvbGFzIiwiYSI6ImNremRma3hrNjA1bjAybm9iM2thdnZraXQifQ.CyiZY5YybAs-rk7ac--dsA";
 mapboxgl.accessToken = mapToken;
 const mapContainer = useRef(null);
-const map = useRef(null);
+let map = useRef(null);
 const [lng, setLng] = useState([]);
 const [lat, setLat] = useState([]);
-
 //const [lng, setLng] = useState(-77.012100);
 //const [lat, setLat] = useState(40.231838);
 const [zoom, setZoom] = useState(5);
 const [central, setCentral] = useState("");
+const [coords, setCoords] = useState([]);
+
+const getCoords = () => {
+  Axios.get("http://localhost:3001/mapData").then((response) => {
+    setCoords(response.data);
+    setLng(response.data.gps_latitude);
+    console.log(response.data.gps_latitude);
+  })
+}
+const geojson = {
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [-77.032, 38.913]
+      },
+      properties: {
+        title: 'Mapbox',
+        description: 'Washington, D.C.'
+      }
+    },
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [-122.414, 37.776]
+      },
+      properties: {
+        title: 'Mapbox',
+        description: 'San Francisco, California'
+      }
+    }
+  ]
+};
+
 
 const getMapData = (e) => {
     Axios.get("http://localhost:3001/mapData?id=" + e.target.value).then((response) => {
+      console.log(response.data);
       setMapData(response.data);
       //const info = response.data;
       //const [id, name, latitude, longitude, country] = info.split(','); 
@@ -35,22 +72,11 @@ const [pumps1, setPumps1] = useState([]);
 const getPumpsList = () => {
     Axios.get("http://localhost:3001/pumps").then((response) => {
       setPumps1(response.data);
+      console.log(response.data);
     })
   }
 
-  const mapStyle = 
-  `#map { 
-    width: 100%;
-    margin-right:auto;
-    margin-left:auto;
-    }
-    #map-container {
-  margin-left:auto;
-  margin-right:auto;
-    }`;
-
-
-const updateCenter = (e) => {
+  const updateCenter = (e) => {
     getMapData(e);
     if(e.target.value !== "Select Pump"){
         
@@ -75,10 +101,23 @@ const updateCenter = (e) => {
             center: [lng, lat],
             zoom: zoom,
                 });
-      }      
+        console.log(map);
+      }
     }
-
+  
+  const mapStyle = 
+  `#map { 
+    width: 100%;
+    margin-right:auto;
+    margin-left:auto;
+    }
+    #map-container {
+  margin-left:auto;
+  margin-right:auto;
+    }`;
+  
 useEffect(() => {
+    console.log("in useEffect");
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
     container: mapContainer.current,
@@ -87,21 +126,31 @@ useEffect(() => {
     center: [-77.012100, 40.231838],
     zoom: zoom,
         });
-    });
+      });
 
+useEffect(() => {
+    if (!map.current) return; // wait for map to initialize
+      map.current.on('move', () => {
+        setLng(map.current.getCenter().lng.toFixed(4));
+        setLat(map.current.getCenter().lat.toFixed(4));
+        setZoom(map.current.getZoom().toFixed(2));
+        });
+      });
+    
     /* 
 Add an event listener that runs
   when a user clicks on the map element.
 */
 
-const interact = (event, map, mapboxgl) => {
+/* let interact = (map, mapboxgl) => {
     // If the user clicked on one of your markers, get its information.
-    var features = map.queryRenderedFeatures({ layers: ['sites-outline'] }).map(function(feat) {
+    var features = map.current.queryRenderedFeatures({ layers: ['sites-outline'] }).map(function(feat) {
         return feat.properties && feat.properties.DEV_STATUS;
       });
     if (!features.length) {
       return;
     }
+    
     const feature = features[0];
     
     
@@ -115,13 +164,17 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
 )
 .addTo(map);
     
-  };
+  }; */
+
 
     return(
         <div className='container-fluid'>
             <div id="map">
-            <div ref={mapContainer} className="map-container" onClick={interact}/>
-
+            <div className="mapbar">
+              Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+            </div>
+            <div ref={mapContainer} className="map-container" />
+            {/* onClick={interact} */}
             <title>Display a map on a webpage</title>
             <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet"></link>
             <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
@@ -147,8 +200,7 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
         
 
         </div>
-        );
-        
+        );      
 }
 
 export default Map;

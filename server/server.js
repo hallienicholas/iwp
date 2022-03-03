@@ -155,6 +155,7 @@ app.post('/register', (req, res) => {
     const lastname = req.body.lastname;
     const username = req.body.username;
     const password = req.body.password;
+    const regexp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
     bcrypt.hash(password,saltRounds, (err, hash) => {
         
@@ -163,38 +164,50 @@ app.post('/register', (req, res) => {
         }
         // INSERT PRE-VALIDATION
 
-if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
+if (firstname.length !== 0 && lastname.length !== 0 && username.length !== 0 && password.length !== 0) {
     let messageString = "Account successfully created!";
     let valmessage = 'OK';
+    console.log("message");
     if (password.length < 8) {
         valmessage = "The password is too short.";
-    } else if (!password.includes("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
+    } else if (password.includes("1")) {
         valmessage = "The password needs to contain a number.";
-    } else if (username || regexp.test(username) === false) {
+        console.log(password.includes("1"));
+    } else if (regexp.test(username) === false) {
+        console.log(regexp.test(username));
+        console.log(username);
+        console.log(regexp.test(username) === false);
         valmessage = "You've entered an invalid email address.";
     }
-
+console.log(valmessage);
 
 // Check to see if the user exists
-if (valmessage == "OK") {
-    let userExist = db.query("SELECT user_email FROM iwp_user");
-
-        if (userExist !== username) {
-            console.log("user does not already exist")
+if (valmessage === "OK") {
+    let userExist = db.query("SELECT user_email FROM iwp_user WHERE user_email = ?", [username], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(result)
+    console.log(result.length);
+        if (result.length === 0) {
+            console.log("user does not already exist");
     // No other users - go ahead and attempt an Insert
             db.query(
             "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')",
             [firstname, lastname, username, hash]
                 );
-    } else if(userExist == username) {
+        } else if(result.length > 0) {
         console.log("hit the else");
         messageString = "An account with that email already exists.";
-    } else if(valmessage != 'OK') {
+        } else if(valmessage !== 'OK') {
         messageString = "You've entered an invalid password.";
-    }
-    res.send({message: messageString});
-}
-} else {
+            }
+        res.send({message: messageString});
+        }
+    });
+    
+        }
+    } else {
     res.send({message: "Please complete all fields"});
 };    
     });
