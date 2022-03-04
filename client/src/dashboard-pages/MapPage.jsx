@@ -21,14 +21,12 @@ const [zoom, setZoom] = useState(5);
 const [central, setCentral] = useState("");
 const [coords, setCoords] = useState([]);
 
-const getCoords = () => {
+
   Axios.get("http://localhost:3001/mapData").then((response) => {
     setCoords(response.data);
-    setLng(response.data.gps_latitude);
-    console.log(response.data.gps_latitude);
-  })
-}
-const geojson = {
+  });
+
+const geojson = { //do something with parsing the data here
   type: 'FeatureCollection',
   features: [
     {
@@ -56,6 +54,15 @@ const geojson = {
   ]
 };
 
+for (const feature of geojson.features) {
+  // create a HTML element for each feature
+  const el = document.createElement('div');
+  el.className = 'marker';
+
+  // make a marker for each feature and add to the map
+  new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
+}
+
 
 const getMapData = (e) => {
     Axios.get("http://localhost:3001/mapData?id=" + e.target.value).then((response) => {
@@ -64,6 +71,7 @@ const getMapData = (e) => {
       //const info = response.data;
       //const [id, name, latitude, longitude, country] = info.split(','); 
       //console.log(id);
+      
     })
   }
   
@@ -126,7 +134,7 @@ useEffect(() => {
     center: [-77.012100, 40.231838],
     zoom: zoom,
         });
-      });
+      }, []);
 
 useEffect(() => {
     if (!map.current) return; // wait for map to initialize
@@ -135,7 +143,7 @@ useEffect(() => {
         setLat(map.current.getCenter().lat.toFixed(4));
         setZoom(map.current.getZoom().toFixed(2));
         });
-      });
+      }, []);
     
     /* 
 Add an event listener that runs
