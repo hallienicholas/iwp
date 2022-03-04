@@ -164,15 +164,27 @@ app.post('/register', (req, res) => {
         }
         // INSERT PRE-VALIDATION
 
+        var arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
+        function checker(value) {
+
+            for (var i = 0; i < password.length; i++) {
+                if (value.indexOf(password[i]) == -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            }
+
 if (firstname.length !== 0 && lastname.length !== 0 && username.length !== 0 && password.length !== 0) {
     let messageString = "Account successfully created!";
     let valmessage = 'OK';
     console.log("message");
     if (password.length < 8) {
         valmessage = "The password is too short.";
-    } else if (password.includes("1")) {
+    } else if (!/\d/.test(password)) {
         valmessage = "The password needs to contain a number.";
-        console.log(password.includes("1"));
     } else if (regexp.test(username) === false) {
         console.log(regexp.test(username));
         console.log(username);
@@ -180,6 +192,7 @@ if (firstname.length !== 0 && lastname.length !== 0 && username.length !== 0 && 
         valmessage = "You've entered an invalid email address.";
     }
 console.log(valmessage);
+res.send({message: valmessage});
 
 // Check to see if the user exists
 if (valmessage === "OK") {

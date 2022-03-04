@@ -62,69 +62,6 @@ function Registration () {
         
     })
     };
-
-    /* const valPassword = () => {
-            let val;
-                try {
-                 if (passwordReg.length < 8) {
-                    throw "Short";
-                    console.log("it is short");
-                } if (!password.contains("1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9")) {
-                    throw "Number";
-                } if (this.username || regex.test(username) === false) {
-                    throw "Invalid";
-                } if (err) {
-                    throw "Exist";
-              }
-
-            }
-            catch(e) {
-            console.log("In the catch");
-                if (e == "Short") {
-                  res.send({message: "Password requires more than 8 characters."});
-                }
-                if (e == "Number") {
-                  res.send({message: "Password must contain a numeric symbol."});
-                }
-                if (e == "Invalid") {
-                  res.send({message: "You've entered an invalid email address."});
-                }
-                if (e == "Exist") {
-                  res.send({message: "An account with that email already exists." });
-                }
-            }
-            return(false);
-          } 
-          true; */
-    
-    /* const register = () => {
-        //call validatePass function
-        //valPassword;
-      Axios.post("http://localhost:3001/register", {
-        username: usernameReg, 
-        password: passwordReg,
-        firstname: firstNameReg,
-        lastname: lastNameReg
-      }).then((response) => {
-        if (response.data.message){
-            setRegStatus(response.data.message);
-        } console.log(response);
-        setTimeout(() =>{
-            if (response.data.message == "Account successfully created!") {
-                setNextAction(<Route><Redirect to="./Login"/></Route>);
-            }
-        }, 3000);
-
-        if (response.data.message == "Account successfully created!") {
-            setTextStatus("text-success");
-        } else {
-            setTextStatus("text-danger");
-        };
-
-      });
-    }; */
-
-
         return(
             <div id = "wrapper">
                 <LoginRibbon />
