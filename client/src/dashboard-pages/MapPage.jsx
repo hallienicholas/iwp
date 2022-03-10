@@ -22,58 +22,19 @@ const [central, setCentral] = useState("");
 const [coords, setCoords] = useState([]);
 
 
-  Axios.get("http://localhost:3001/mapData").then((response) => {
-    setCoords(response.data);
-  });
 
-const geojson = { //do something with parsing the data here
-  type: 'FeatureCollection',
-  features: [
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [-77.032, 38.913]
-      },
-      properties: {
-        title: 'Mapbox',
-        description: 'Washington, D.C.'
-      }
-    },
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [-122.414, 37.776]
-      },
-      properties: {
-        title: 'Mapbox',
-        description: 'San Francisco, California'
-      }
-    }
-  ]
-};
 
-for (const feature of geojson.features) {
+/* for (const feature of geojson.features) {
   // create a HTML element for each feature
   const el = document.createElement('div');
   el.className = 'marker';
 
   // make a marker for each feature and add to the map
   //new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
-}
+} */
 
 
-const getMapData = (e) => {
-    Axios.get("http://localhost:3001/mapData?id=" + e.target.value).then((response) => {
-      console.log(response.data);
-      setMapData(response.data);
-      //const info = response.data;
-      //const [id, name, latitude, longitude, country] = info.split(','); 
-      //console.log(id);
-      
-    })
-  }
+
   
 const [pumps1, setPumps1] = useState([]);
 
@@ -84,34 +45,48 @@ const getPumpsList = () => {
     })
   }
 
-  const updateCenter = (e) => {
-    getMapData(e);
+   const updateCenter = (e) => {
+    /* Axios.get("http://localhost:3001/mapData").then((response) => {
+      console.log(response.data);
+      setCoords(response.data);
+    }); */
+    
     if(e.target.value !== "Select Pump"){
+
+      Axios.get("http://localhost:3001/mapData?id=" + e.target.value).then((response) => {
+    console.log(response.data);
+      
         
         //set the center long and lat to what pump value/id corresponds to
         //parse db data to read that pump's lng/lat - ask Adam
 
         var long = [];
         var lats = [];
-        if(mapData[0]){
-            for(var i=0; i<mapData.length; i++){
-              long[i] = mapData[i].gps_longitude.split(":")[0];
-              lats[i] = mapData[i].gps_latitude.split(":")[0];
-              //.slice(0,-3);
+        if(response.data[0]){
+            for(let i=0; i<response.data.length; i++){
+              console.log(response.data[i]);
+              long[i] = response.data[i].gps_longitude;
+              lats[i] = response.data[i].gps_latitude;
             }
-        setLng(long);
-        setLat(lats);
         }
-        map.current = new mapboxgl.Map({
+
+        map.current.flyTo({
+          center: [long, lats],
+          zoom: 10
+        });
+        /* map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/hnicholas/ckzdfpm16000614mn71sfppcs',
             //style: 'mapbox://styles/mapbox/outdoors-v11',
             center: [lng, lat],
             zoom: zoom,
                 });
-        console.log(map);
-      }
-    }
+        console.log(map); */
+              }
+      )};
+     }
+    
+    
   
   const mapStyle = 
   `#map { 
@@ -123,6 +98,8 @@ const getPumpsList = () => {
   margin-left:auto;
   margin-right:auto;
     }`;
+
+
   
 useEffect(() => {
     console.log("in useEffect");
@@ -134,7 +111,17 @@ useEffect(() => {
     center: [-77.012100, 40.231838],
     zoom: zoom,
         });
+        const popup = new mapboxgl.Popup({ closeOnClick: true })
+        .setLngLat([-77.012100, 40.231838])
+        //.trackPointer()
+        .setHTML('<h1>Bittner Pump!</h1>')
+        .addTo(map.current);
+
       }, []);
+
+
+        
+      //});
 
 useEffect(() => {
     if (!map.current) return; // wait for map to initialize
@@ -144,13 +131,15 @@ useEffect(() => {
         setZoom(map.current.getZoom().toFixed(2));
         });
       }, []);
+
+      
     
     /* 
 Add an event listener that runs
   when a user clicks on the map element.
 */
 
-/* let interact = (map, mapboxgl) => {
+/* et interact = (map, mapboxgl) => {
     // If the user clicked on one of your markers, get its information.
     var features = map.current.queryRenderedFeatures({ layers: ['sites-outline'] }).map(function(feat) {
         return feat.properties && feat.properties.DEV_STATUS;
