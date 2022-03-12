@@ -23,13 +23,14 @@ const [lng, setLng] = useState(-77.012100);
 const [lat, setLat] = useState(40.231838);
 const [zoom, setZoom] = useState(5);
 const [central, setCentral] = useState("");
+const [info, setInfo] = useState(null);
 
 const getMapData = (e) => {
     Axios.get("http://localhost:3001/mapData?id=" + e.target.value).then((response) => {
       setMapData(response.data);
-      const info = response.data;
-      const [id, name, latitude, longitude, country] = info.split(','); 
-      console.log(id);
+      setInfo(response.data);
+      console.log(info);
+      console.log(info[0].iwp_pump_id);
     })
   }
   
@@ -63,23 +64,28 @@ const updateCenter = (e) => {
         //parse db data to read that pump's lng/lat
         setLng(lng);
         setLat(lat);
-        map.current = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: 'mapbox://styles/hnicholas/ckzdfpm16000614mn71sfppcs',
-            //style: 'mapbox://styles/mapbox/outdoors-v11',
-            center: [lng, lat],
-            zoom: zoom,
-                });
+        // map.current = new mapboxgl.Map({
+        //     container: mapContainer.current,
+        //     style: 'mapbox://styles/hnicholas/ckzdfpm16000614mn71sfppcs',
+        //     //style: 'mapbox://styles/mapbox/outdoors-v11',
+        //     center: [lng, lat],
+        //     zoom: zoom,
+        //         });
+                map.current.flyTo({center: [0, 0]});
       }      
     }
 
+const goToNorthPole = () => {
+  map.current.flyTo({center: [0,0]});
+}
+
 useEffect(() => {
-    //if (map.current) return; // initialize map only once
+    if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
     container: mapContainer.current,
     style: 'mapbox://styles/hnicholas/ckzdfpm16000614mn71sfppcs',
     //style: 'mapbox://styles/mapbox/outdoors-v11',
-    center: [lng, lat],
+    center: [-90, 0],
     zoom: zoom,
         });
     });
@@ -127,8 +133,7 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
 
         <div className="col">
             <label for="pumpList">Pump</label>
-            <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} >
-            {/* onChange={updateCenter} */}
+            <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} onChange={updateCenter}>
             <option key="default">Select Pump</option>
             {pumps1.map((val,key) => {
                   return(
