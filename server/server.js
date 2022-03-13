@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken')
+//const jwt = require('jsonwebtoken')
+
 const express = require('express');
 const app = express();
 //const bodyParser = require("body-parser");
@@ -155,6 +156,8 @@ app.post('/register', (req, res) => {
     const lastname = req.body.lastname;
     const username = req.body.username;
     const password = req.body.password;
+    const regexp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
 
     bcrypt.hash(password,saltRounds, (err, hash) => {
         
@@ -163,31 +166,63 @@ app.post('/register', (req, res) => {
         }
         // INSERT PRE-VALIDATION
 
-if (firstname.length != 0 && lastname.length != 0 && username.length != 0 && password.length != 0) {
+        var arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
+        function checker(value) {
+
+            for (var i = 0; i < password.length; i++) {
+                if (value.indexOf(password[i]) == -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            }
+
+if (firstname.length !== 0 && lastname.length !== 0 && username.length !== 0 && password.length !== 0) {
     let messageString = "Account successfully created!";
+    let valmessage = 'OK';
+    console.log("message");
+    if (password.length < 8) {
+        valmessage = "The password is too short.";
+    } else if (!/\d/.test(password)) {
+        valmessage = "The password needs to contain a number.";
+    } else if (regexp.test(username) === false) {
+        console.log(regexp.test(username));
+        console.log(username);
+        console.log(regexp.test(username) === false);
+        valmessage = "You've entered an invalid email address.";
+    }
+console.log(valmessage);
+res.send({message: valmessage});
 
 // Check to see if the user exists
-    let userExist = db.query("SELECT user_email FROM iwp_user", [username]);
-
-        if (userExist != username) {
-            console.log("user does not already exist")
+if (valmessage === "OK") {
+    let userExist = db.query("SELECT user_email FROM iwp_user WHERE user_email = ?", [username], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(result)
+    console.log(result.length);
+        if (result.length === 0) {
+            console.log("user does not already exist");
     // No other users - go ahead and attempt an Insert
-
-        try {
             db.query(
             "INSERT INTO iwp_user (user_first_name, user_last_name, user_email, user_password, iwp_access_level, iwp_user_activated, iwp_user_photograph, iwp_user_preferred_communication_method) VALUES (?,?,?,?,5,0,'n/a','email')",
             [firstname, lastname, username, hash]
                 );
-        } catch(e) {
-            console.log("in catch");
-        messageString = "Something went wrong - Account not created!";
-        } 
-    } else if(userExist == username) {
+        } else if(result.length > 0) {
         console.log("hit the else");
-        messageString = "An account with that email already exists." ;
-    }
+        messageString = "An account with that email already exists.";
+        } else if(valmessage !== 'OK') {
+        messageString = "You've entered an invalid password.";
+            }
         res.send({message: messageString});
-} else {
+        }
+    });
+    
+        }
+    } else {
     res.send({message: "Please complete all fields"});
 };    
     });

@@ -1,0 +1,287 @@
+{
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Kpahikpaba"
+      },
+      "geometry": {
+        "coordinates": [
+          9.973458,
+          -0.250851
+        ],
+        "type": "Point"
+      },
+      "id": "14504b90aba830963352ccc8f8e66eef"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Kpukpaligu Community"
+      },
+      "geometry": {
+        "coordinates": [
+          9.553571,
+          -0.636778
+        ],
+        "type": "Point"
+      },
+      "id": "16eac56b6bb81a3708d2d9e30630f9c6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Hangerline"
+      },
+      "geometry": {
+        "coordinates": [
+          9.260779,
+          -1.808859
+        ],
+        "type": "Point"
+      },
+      "id": "1bdb4838f45cf7fe4c950ab4fdc99ba4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Wantugu, Ghana"
+      },
+      "geometry": {
+        "coordinates": [
+          -0.475206,
+          9.845446
+        ],
+        "type": "Point"
+      },
+      "id": "362ee8c7654a8bde408b97d403e9d7f0"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Yong Community"
+      },
+      "geometry": {
+        "coordinates": [
+          9.639743,
+          -0.787862
+        ],
+        "type": "Point"
+      },
+      "id": "3cf2c7f76d0220f221cfa27155ac1034"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Vawagri pump"
+      },
+      "geometry": {
+        "coordinates": [
+          9.446391,
+          -1.796161
+        ],
+        "type": "Point"
+      },
+      "id": "3fe434d53f11440f453fb67ad495b541"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "FreyBittner",
+        "description": "Messiah campus pump"
+      },
+      "geometry": {
+        "coordinates": [
+          -76.9869,
+          40.1563
+        ],
+        "type": "Point"
+      },
+      "id": "426c2e9c7a299398ec4c6fcf351aee60"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Mang Tindang Community"
+      },
+      "geometry": {
+        "coordinates": [
+          10.064336,
+          -0.103055
+        ],
+        "type": "Point"
+      },
+      "id": "6258d966d2aee7f77de4caef9ef54a28"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Mang Tindang Community"
+      },
+      "geometry": {
+        "coordinates": [
+          -0.112951,
+          10.074087
+        ],
+        "type": "Point"
+      },
+      "id": "6269e36fc001683f483a79f3337ed128"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Gushegu ADP BASE"
+      },
+      "geometry": {
+        "coordinates": [
+          9.925093,
+          -0.907477
+        ],
+        "type": "Point"
+      },
+      "id": "6419fe7e6a46a0e225da216c91325de2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Nakohigu-fong Community"
+      },
+      "geometry": {
+        "coordinates": [
+          9.913931,
+          -0.220793
+        ],
+        "type": "Point"
+      },
+      "id": "6f13e8bcde80c2783cf52f5e5085360f"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Ngbarpe"
+      },
+      "geometry": {
+        "coordinates": [
+          9.266974,
+          -1.859571
+        ],
+        "type": "Point"
+      },
+      "id": "7db7e35d20794a60aa99b69c337df792"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "description": "This pump is on Messiah's campus and is used for testing by the Intelligent Water Project Team",
+        "Name": "FreyBittner"
+      },
+      "geometry": {
+        "coordinates": [
+          -76.986905,
+          40.156304
+        ],
+        "type": "Point"
+      },
+      "id": "8d72bc287f6b020bd81b755f6a2d2d97"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Libga Community"
+      },
+      "geometry": {
+        "coordinates": [
+          9.595269,
+          -0.84384
+        ],
+        "type": "Point"
+      },
+      "id": "8f8395269e9f9b38f77e3d82a3d31f45"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Gbumgbum Community"
+      },
+      "geometry": {
+        "coordinates": [
+          9.59552,
+          -0.756665
+        ],
+        "type": "Point"
+      },
+      "id": "995799961d68f55025cba61ed5007cc5"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Yiwogu Community"
+      },
+      "geometry": {
+        "coordinates": [
+          9.662334,
+          -0.881473
+        ],
+        "type": "Point"
+      },
+      "id": "9f4fdebd418cff67f8bab046d568380a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Kpachelo Community"
+      },
+      "geometry": {
+        "coordinates": [
+          9.558966,
+          -0.774136
+        ],
+        "type": "Point"
+      },
+      "id": "a064a358d628ddb07b240ab488936687"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Zantele Community"
+      },
+      "geometry": {
+        "coordinates": [
+          9.957812,
+          -0.142392
+        ],
+        "type": "Point"
+      },
+      "id": "f2dac96d462e4ca5b22862600526851b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Hangerline"
+      },
+      "geometry": {
+        "coordinates": [
+          -1.827273,
+          9.080266
+        ],
+        "type": "Point"
+      },
+      "id": "fee9e4497ffad3baf7d61c50367fc270"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "GI-WASH"
+      },
+      "geometry": {
+        "coordinates": [
+          9.5,
+          -1.5
+        ],
+        "type": "Point"
+      },
+      "id": "region.7676932287954430"
+    }
+  ],
+  "type": "FeatureCollection"
+}
