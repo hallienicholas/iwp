@@ -62,11 +62,11 @@ function DbPage() {
             <table className="table">
               <thead>
                 <tr>
-                  <th>Transmission ID</th>
-                  <th>Timestamp</th>
                   <th>Pump ID</th>
-                  <th>Daily Volume Sum</th>
+                  <th>Location</th>
+                  <th>Volume Sum</th>
                   <th>Battery Percentage</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -90,7 +90,8 @@ function DbPage() {
         </div>
       </div>
     </div>
-  );
+  // );
+
   // Code for conditional render based on token status.
   // } else {
   //   return(
@@ -99,6 +100,7 @@ function DbPage() {
   //   </div>
   //   )
   // }
+  );
 }
 
 export default DbPage;
