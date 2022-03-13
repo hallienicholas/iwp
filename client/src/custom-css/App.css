@@ -81,5 +81,7 @@
 
     .mapboxgl-popup {
       max-width: 400px;
+      font-size: larger;
+      font-style: oblique;
       font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   }

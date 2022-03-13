@@ -1,4 +1,5 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
+import '../custom-css/App.css';
 import mapboxgl, {queryRenderedFeatures} from 'mapbox-gl';
 import React, { Component, useRef, useEffect, useState } from "react";
 import ReactDOM from 'react-dom';
@@ -109,18 +110,10 @@ const getPumpsList = () => {
         container: mapContainer.current,
         style: 'mapbox://styles/hnicholas/cl0ka3zrx001b14o2ycy1m595',
         //center: [-77.012100, 40.231838],
-        center: [-0.475206,
-          9.845446],
+        center: [-76.9869, 40.1563],
         zoom: zoom
             });
-            /* const popup = new mapboxgl.Popup({ closeOnClick: true })
-            .setLngLat([-77.012100, 40.231838])
-            //.trackPointer()
-            .setHTML('<h1>Bittner Pump!</h1>')
-            .addTo(map.current); */
-          //}, []);
-
-        //useEffect(() => {
+            
         map.current.on('load', () => {
           console.log("loading");
           map.current.addSource('places', {
