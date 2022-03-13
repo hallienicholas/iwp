@@ -17,7 +17,7 @@ function DbPage() {
   const [chartData, setChartData] = useState({});
 
   const getData = () => {
-    Axios.get("http://localhost:3001/data").then((response) => {
+    Axios.get("http://localhost:3001/dangerData").then((response) => {
       setPumpList(response.data);
     });
     getPieData();
@@ -36,7 +36,7 @@ function DbPage() {
   //vv
   const { token, setToken } = useToken();
 
-  
+  console.log(pumpList);
 
   //if(!token) {
   //  return <LoginPopUp setToken={setToken} />
@@ -73,11 +73,11 @@ function DbPage() {
                 {pumpList.map((val,key) => {
                   return(
                     <tr>
-                      <td>{val.iwp_sensor_data_id}</td>
-                      <td>{val.timestamp}</td>
                       <td>{val.iwp_pump_id_fk}</td>
+                      <td>{val.pump_name}</td>
                       <td>{val.daily_volume_sum || "null"}</td>
                       <td>{val.battery_percentage}</td>
+                      <td>Status</td>
                     </tr>
                   );
                 })}
