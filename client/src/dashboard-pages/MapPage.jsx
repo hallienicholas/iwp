@@ -34,8 +34,6 @@ const [coords, setCoords] = useState([]);
   //new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
 } */
 
-
-
   
 const [pumps1, setPumps1] = useState([]);
 
@@ -86,9 +84,7 @@ const getPumpsList = () => {
               }
       )};
      }
-    
-    
-  
+ 
   const mapStyle = 
   `#map { 
     width: 100%;
@@ -99,8 +95,6 @@ const getPumpsList = () => {
   margin-left:auto;
   margin-right:auto;
     }`;
-
-
   
     
     useEffect(() => {
@@ -390,6 +384,7 @@ const getPumpsList = () => {
         waiting();
       });
 
+
       // When a click event occurs on a feature in the places layer, open a popup at the
 // location of the feature, with description HTML from its properties.
 map.current.on('click', 'places', (e) => {
@@ -411,6 +406,7 @@ map.current.on('click', 'places', (e) => {
   .addTo(map.current);
   });
 
+
   map.current.on('mouseenter', 'places', () => {
     map.current.getCanvas().style.cursor = 'pointer';
     });
@@ -418,7 +414,6 @@ map.current.on('click', 'places', (e) => {
       map.current.on('mouseleave', 'places', () => {
       map.current.getCanvas().style.cursor = 'default';
       });
-    
           }, []);
           
 
@@ -434,11 +429,13 @@ useEffect(() => {
     return(
         <div className='container-fluid'>
             <div id="map">
+
             <div className="mapbar">
               Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
             </div>
             <div ref={mapContainer} className="map-container" />
             {/* onClick={interact} */}
+
             <title>Display a map on a webpage</title>
             <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet"></link>
             <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
@@ -447,7 +444,9 @@ useEffect(() => {
 
         <div className="col">
             <label for="pumpList">Pump</label>
+
             <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} onChange={updateCenter}>
+
             <option key="default">Select Pump</option>
             {pumps1.map((val,key) => {
                   return(
@@ -459,6 +458,7 @@ useEffect(() => {
           </div>
 
         <div id="root"></div>
+
         </div>
 
         

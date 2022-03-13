@@ -1,4 +1,5 @@
 //const jwt = require('jsonwebtoken')
+
 const express = require('express');
 const app = express();
 //const bodyParser = require("body-parser");
@@ -156,6 +157,7 @@ app.post('/register', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const regexp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
 
     bcrypt.hash(password,saltRounds, (err, hash) => {
         

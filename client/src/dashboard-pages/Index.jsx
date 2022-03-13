@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import Axios from 'axios'
 import {useState} from "react";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import useToken from '../popups/useToken';
 //^^
 import sortPieData from "./sortPieData.js";
 import PieChart from "./PieChart";
+import VolumeChart from "./VolumeChart";
 
 function DbPage() {
 
@@ -22,6 +23,10 @@ function DbPage() {
     getPieData();
   };
 
+  useEffect(() => {
+    getData();
+  }, []);
+
   const getPieData = () => {
     Axios.get("http://localhost:3001/lastTrans").then((response) => {
       setChartData(sortPieData(response.data))
@@ -31,9 +36,14 @@ function DbPage() {
   //vv
   const { token, setToken } = useToken();
 
+  
+
   //if(!token) {
   //  return <LoginPopUp setToken={setToken} />
   //}
+
+  // Code for conditional render based on token status.
+  //if(localStorage.getItem('token') != null){
   return (
     <div className="container-fluid">
       <h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
@@ -41,14 +51,21 @@ function DbPage() {
         <button className="btn-primary btn d-inline shadow" onClick={getData}>Show Data</button> 
         <Link to="/login" className="btn btn-light shadow">Go To Login Page</Link> 
       </div>
-      <div className="row">
+      {/* <div className="row mb-4">
+        <div className="col">
+          <VolumeChart chartData={pumpList} chartTitle={"Volume Pumped by Date"} pumpId={284} purpose="volume"/>
+        </div>
+      </div> */}
+      <div className="row mb-4">
         <div className="col-8">
           <div className="card shadow">
             <table className="table">
               <thead>
                 <tr>
                   <th>Transmission ID</th>
+                  <th>Timestamp</th>
                   <th>Pump ID</th>
+                  <th>Daily Volume Sum</th>
                   <th>Battery Percentage</th>
                 </tr>
               </thead>
@@ -57,7 +74,9 @@ function DbPage() {
                   return(
                     <tr>
                       <td>{val.iwp_sensor_data_id}</td>
+                      <td>{val.timestamp}</td>
                       <td>{val.iwp_pump_id_fk}</td>
+                      <td>{val.daily_volume_sum || "null"}</td>
                       <td>{val.battery_percentage}</td>
                     </tr>
                   );
@@ -72,6 +91,14 @@ function DbPage() {
       </div>
     </div>
   );
+  // Code for conditional render based on token status.
+  // } else {
+  //   return(
+  //     <div className="container-fluid">
+  //   <>You are not permitted to see this page.</>
+  //   </div>
+  //   )
+  // }
 }
 
 export default DbPage;

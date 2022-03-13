@@ -3,7 +3,9 @@ import DangerChild from "./DangerChild"
 
 function Danger(props) {
 
-    const [display, setDisplay] = useState(true);
+    const [display, setDisplay] = useState(
+        localStorage.getItem('display') || "true"
+    );
     
 
     const SystemMessage = `.system-message {
@@ -13,12 +15,15 @@ function Danger(props) {
         }`;
 
     const closeContainer = () => {
-        setDisplay(false)
+        setDisplay("false")
+        localStorage.setItem('display', "false");
     }
 
-    console.log(props.data);
+    useEffect(() => {
+        localStorage.setItem('display', display);
+    }, [])
 
-    if(display == true){
+    if(display === "true"){
         return(
             <div className="system-message position-fixed">
                 <style>{SystemMessage}</style>

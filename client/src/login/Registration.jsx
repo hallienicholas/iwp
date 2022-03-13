@@ -9,7 +9,6 @@ import {
     Switch,
     Redirect
   } from "react-router-dom";
-import LoginPage from "./Login";
 
 function Registration () {
 
@@ -62,6 +61,7 @@ function Registration () {
         
     })
     };
+
         return(
             <div id = "wrapper">
                 <LoginRibbon />
