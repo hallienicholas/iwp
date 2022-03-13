@@ -71,7 +71,7 @@ const getPumpsList = () => {
 
         map.current.flyTo({
           center: [long, lats],
-          zoom: 10
+          zoom: 8
         });
         /* map.current = new mapboxgl.Map({
             container: mapContainer.current,
