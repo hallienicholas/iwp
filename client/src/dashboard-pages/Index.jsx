@@ -17,7 +17,7 @@ function DbPage() {
   const [chartData, setChartData] = useState({});
 
   const getData = () => {
-    Axios.get("http://localhost:3001/data").then((response) => {
+    Axios.get("http://localhost:3001/dangerData").then((response) => {
       setPumpList(response.data);
     });
     getPieData();
@@ -36,7 +36,7 @@ function DbPage() {
   //vv
   const { token, setToken } = useToken();
 
-  
+  console.log(pumpList);
 
   //if(!token) {
   //  return <LoginPopUp setToken={setToken} />
@@ -62,22 +62,22 @@ function DbPage() {
             <table className="table">
               <thead>
                 <tr>
-                  <th>Transmission ID</th>
-                  <th>Timestamp</th>
                   <th>Pump ID</th>
-                  <th>Daily Volume Sum</th>
+                  <th>Location</th>
+                  <th>Volume Sum</th>
                   <th>Battery Percentage</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 {pumpList.map((val,key) => {
                   return(
                     <tr>
-                      <td>{val.iwp_sensor_data_id}</td>
-                      <td>{val.timestamp}</td>
                       <td>{val.iwp_pump_id_fk}</td>
+                      <td>{val.pump_name}</td>
                       <td>{val.daily_volume_sum || "null"}</td>
                       <td>{val.battery_percentage}</td>
+                      <td>Status</td>
                     </tr>
                   );
                 })}
@@ -90,7 +90,8 @@ function DbPage() {
         </div>
       </div>
     </div>
-  );
+  // );
+
   // Code for conditional render based on token status.
   // } else {
   //   return(
@@ -99,6 +100,7 @@ function DbPage() {
   //   </div>
   //   )
   // }
+  );
 }
 
 export default DbPage;

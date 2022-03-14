@@ -20,10 +20,8 @@ const [lat, setLat] = useState([]);
 //const [lat, setLat] = useState(40.231838);
 const [zoom, setZoom] = useState(5);
 const [central, setCentral] = useState("");
+
 const [coords, setCoords] = useState([]);
-
-
-
 
 /* for (const feature of geojson.features) {
   // create a HTML element for each feature
@@ -33,7 +31,6 @@ const [coords, setCoords] = useState([]);
   // make a marker for each feature and add to the map
   //new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
 } */
-
   
 const [pumps1, setPumps1] = useState([]);
 
@@ -95,8 +92,7 @@ const getPumpsList = () => {
   margin-left:auto;
   margin-right:auto;
     }`;
-  
-    
+
     useEffect(() => {
         console.log("in useEffect");
         if (map.current) return; // initialize map only once
@@ -384,7 +380,6 @@ const getPumpsList = () => {
         waiting();
       });
 
-
       // When a click event occurs on a feature in the places layer, open a popup at the
 // location of the feature, with description HTML from its properties.
 map.current.on('click', 'places', (e) => {
@@ -444,8 +439,8 @@ useEffect(() => {
 
         <div className="col">
             <label for="pumpList">Pump</label>
-
             <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} onChange={updateCenter}>
+
 
             <option key="default">Select Pump</option>
             {pumps1.map((val,key) => {
