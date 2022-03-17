@@ -2,7 +2,7 @@ import React from "react";
 import Axios from 'axios'
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import LoginRibbon from "../global/LoginRibbon";
 function LoginPage () {
 
@@ -50,6 +50,8 @@ function LoginPage () {
         } 
       });
     }, []);
+
+    console.log(loginStatus);
   
     return (
       <div id = "wrapper">
@@ -101,7 +103,9 @@ function LoginPage () {
             <div className="col-sm"></div>
           </div>
         </div>
+        {loginStatus ? <Redirect to="/" /> : <></>}
       </div>
+      
     );
   }
   
