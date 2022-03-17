@@ -47,15 +47,54 @@ function DbPage() {
   return (
     <div className="container-fluid">
       <h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
-      <div className="btn-group mt-2 mb-2" role="group">
-        <button className="btn-primary btn d-inline shadow" onClick={getData}>Show Data</button> 
-        <Link to="/login" className="btn btn-light shadow">Go To Login Page</Link> 
-      </div>
-      {/* <div className="row mb-4">
-        <div className="col">
-          <VolumeChart chartData={pumpList} chartTitle={"Volume Pumped by Date"} pumpId={284} purpose="volume"/>
+
+      <div className="row">
+        <div className="col-4">
+          <div className="card border-left-primary shadow">
+            <div className="card-body">
+              <div className="row">
+                <div className="col mr-2">
+                  <div className="text-xs text-uppercase font-weight-bold text-primary mb-1">Pumps</div>
+                  <div className="mb-1 h5 text-uppercase">{pumpList.length}</div>
+                </div>
+                <div className="col-auto">
+                  <span><i className="fas fa-faucet fa-2x text-gray-300"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div> */}
+        <div className="col-4">
+        <div className="card border-left-primary shadow">
+            <div className="card-header">
+              <h4>Pumps</h4>
+            </div>
+            <div className="card-body">
+              13
+            </div>
+          </div>
+        </div>
+        <div className="col-4">
+        <div className="card border-left-primary shadow">
+            <div className="card-header">
+              <h4>Pumps</h4>
+            </div>
+            <div className="card-body">
+              13
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col">
+          <div className="btn-group mt-2 mb-2" role="group">
+            <button className="btn-primary btn d-inline shadow" onClick={getData}>Show Data</button> 
+            <Link to="/login" className="btn btn-light shadow">Go To Login Page</Link> 
+          </div>
+        </div>
+      </div>
+        
       <div className="row mb-4">
         <div className="col-8">
           <div className="card shadow">
