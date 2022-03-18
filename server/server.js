@@ -150,6 +150,17 @@ app.post('/sendPasswordResetEmail', (req, res) => {
 
 
 //registration
+
+app.get('/organizations', (req,res) => {
+    db.query("SELECT organization_name FROM iwp_organization", (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
+
 app.post('/register', (req, res) => {
     
     const firstname = req.body.firstname;

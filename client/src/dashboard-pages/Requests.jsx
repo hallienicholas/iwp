@@ -16,14 +16,35 @@ class Requests extends Component{
                                     <th>Email</th>
                                 </tr>
                                 <tr>
+                                    <td>New</td>
+                                    <td>User</td>
+                                    <td>ip1164@messiah.edu</td>
+                                    <Link to="/">
+                                        <button>
+                                            Accept
+                                        </button>
+                                    </Link>
+                                </tr>
+
+                                <tr>
                                     <td>Adam</td>
                                     <td>Hungerford</td>
                                     <td>ah1600@messiah.edu</td>
+                                    <Link to="/">
+                                        <button>
+                                            Accept
+                                        </button>
+                                    </Link>
                                 </tr>
                                 <tr>
                                     <td>Test</td>
                                     <td>Testerson</td>
                                     <td>test_testerson@mailinator.com</td>
+                                    <Link to="/">
+                                        <button>
+                                            Accept
+                                        </button>
+                                    </Link>
                                 </tr>
                             </table>
                         </div>
