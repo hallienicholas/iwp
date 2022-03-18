@@ -15,6 +15,14 @@ function DbPage() {
   const [pumpList, setPumpList] = useState([]);
   //const [pieData, setPieData] = useState([]);
   const [chartData, setChartData] = useState({});
+  const [volumeData, setVolumeData] = useState([]);
+  const [volume, setVolume] = useState(0);
+
+  const getVolume = () => {
+    Axios.get("http://localhost:3001/calcs").then((response) => {
+      setVolumeData(response.data);
+    })
+  }
 
   const getData = () => {
     Axios.get("http://localhost:3001/dangerData").then((response) => {
@@ -25,7 +33,16 @@ function DbPage() {
 
   useEffect(() => {
     getData();
+    getVolume();
   }, []);
+
+  function calcSum(data){
+    var sum = 0;
+    data.forEach(element => {
+      sum = sum + parseInt(element.daily_volume_sum)
+    });
+    return sum;
+  }
 
   const getPieData = () => {
     Axios.get("http://localhost:3001/lastTrans").then((response) => {
@@ -35,8 +52,7 @@ function DbPage() {
 
   //vv
   const { token, setToken } = useToken();
-
-  console.log(pumpList);
+  
 
   //if(!token) {
   //  return <LoginPopUp setToken={setToken} />
@@ -66,24 +82,29 @@ function DbPage() {
         </div>
         <div className="col-4">
         <div className="card border-left-primary shadow">
+            <div className="card-body">
+              <div className="row">
+                <div className="col mr-2">
+                  <div className="text-xs text-uppercase font-weight-bold text-primary mb-1">Total Volume Pumped</div>
+                  <div className="mb-1 h5 text-uppercase">{calcSum(volumeData)}</div>
+                </div>
+                <div className="col-auto">
+                  <span><i className="fa-water fas fa-2x text-gray-300"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <div className="col-4">
+          <div className="card border-left-primary shadow">
             <div className="card-header">
               <h4>Pumps</h4>
             </div>
             <div className="card-body">
-              13
+              {this.props.dangerData}
             </div>
           </div>
-        </div>
-        <div className="col-4">
-        <div className="card border-left-primary shadow">
-            <div className="card-header">
-              <h4>Pumps</h4>
-            </div>
-            <div className="card-body">
-              13
-            </div>
-          </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="row">

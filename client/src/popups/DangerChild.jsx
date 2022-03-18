@@ -3,8 +3,9 @@ import React, {Component, useEffect, useState} from "react";
 function DangerChild(props){
 
     const [message, setMessage] = useState({});
-    const [display, setDisplay] = useState(true);
-    
+    const pumpString = 'display' + props.data.iwp_pump_id_fk;
+    const [display, setDisplay] = useState(localStorage.getItem(pumpString)||"true");
+
     const sortData = () => {
         const pumpName      = props.data.iwp_pump_id_fk
         const date          = props.data.date_sensed;
@@ -25,20 +26,22 @@ function DangerChild(props){
             message.tagline = "Based on transmission " + transmission + " from " + date + ". ";
             message.tagline += 'This should be cause for concern.'
         } else {
-            setDisplay(false);
+            localStorage.setItem(pumpString, "false");
+            setDisplay(localStorage.getItem(pumpString));
         }
         return(message);
     }
 
     const closeCard = () => {
-        setDisplay(false);
+        localStorage.setItem(pumpString, "false");
+        setDisplay(localStorage.getItem(pumpString));
     }
 
     useEffect(() => {
         setMessage(sortData())
     }, [])
 
-    if(display){
+    if(display != "false"){
         return(
             <div className="card dangerChild p-1 mb-1" onClick={closeCard}>
 

@@ -49,7 +49,9 @@ class DashView extends Component {
                     <div id="content-wrapper" className="d-flex flex-column">
                         <Navbar dangerData={this.state.dangerData}/>
                         <Switch>
-                            <Route exact path="/" component={DbPage} />
+                            <Route exact path="/">
+                                <DbPage dangerData={this.state.dangerData} />
+                            </Route>
                             <Route exact path="/about" component={About} />
                             <Route exact path="/pump" component={Pump} />
                             <Route exact path="/contact" component={Contact} />
