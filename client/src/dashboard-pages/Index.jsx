@@ -50,6 +50,11 @@ function DbPage() {
     })
   };
 
+  const determineStatus = (battery, leak) => {
+    if(battery < 5 || leak > 20){return "Danger"}
+    else{return "Healthy"}
+  }
+
   //vv
   const { token, setToken } = useToken();
   
@@ -137,7 +142,7 @@ function DbPage() {
                       <td>{val.pump_name}</td>
                       <td>{val.daily_volume_sum || "null"}</td>
                       <td>{val.battery_percentage}</td>
-                      <td>Status</td>
+                      <td>{determineStatus(val.battery_percentage, val.leakage_coefficient)}</td>
                     </tr>
                   );
                 })}
