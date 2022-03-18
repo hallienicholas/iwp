@@ -17,11 +17,22 @@ function Registration () {
     const [lastNameReg, setLastNameReg] = useState("");
     const [usernameReg, setUsernameReg] = useState("");
     const [passwordReg, setPasswordReg] = useState("");
+    const [affiliationReg, setAffiliationReg] = useState("");
     const [regStatus, setRegStatus] = useState("");
     const [textStatus, setTextStatus] = useState("");
     const [nextAction, setNextAction] = useState("");
     const regexp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     
+    /* List of organizations */
+    const [orgList, setOrgList] = useState([]);
+    const [orgReg, setOrgReg] = useState("");
+    
+    const getOrganization = () => {
+        Axios.get("http://localhost:3001/organizations").then((response) => {
+          setOrgList(response.data);
+        });
+      };
+
     const register = () => {
         //call validatePass function
         //let textStatus = "not-determined"
@@ -110,6 +121,25 @@ function Registration () {
                                         }}
                                     />
                                     <br />
+
+                                    <select value="select organization" onClick={getOrganization}>
+                                        {orgList.map((val,key) => (
+                                            <option>
+                                                {val.organization_name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                             
+                                    <input 
+                                    className="mt-2"
+                                    type="affiliation"
+                                    placeholder="Choose Affiliation"
+                                    onChange={(event) => {
+                                        setAffiliationReg(event.target.value); 
+                                        }}
+                                    />
+                                    <br />
+
                                 <div className="btn-group mt-2 mb-2" role="group">
                                 <button className="btn btn-primary shadow" onClick={register}>Submit</button>
                                 </div>
