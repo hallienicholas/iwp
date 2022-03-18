@@ -280,6 +280,17 @@ app.get('/pumps', (req,res) => {
     })
 })
 
+//get all records from sensor calculations. I wouldn't use this overmuch.
+app.get('/calcs', (req, res) => {
+    db.query("SELECT daily_volume_sum FROM iwp_sensor_calculations", (err, result) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    })
+})
+
 //get data for charts
 app.get('/chartData', (req, res) => {
     db.query("SELECT * FROM(SELECT iwp_pump_id_fk, iwp_sensor_data_id, date_sensed, daily_volume_sum, battery_percentage, leak_coefficient_avg FROM iwp_sensor_data LEFT JOIN iwp_sensor_calculations ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE iwp_pump_id_fk ='"+req.query.id+"' ORDER BY date_sensed DESC LIMIT 8) sub ORDER BY date_sensed ASC", (err, result) => {

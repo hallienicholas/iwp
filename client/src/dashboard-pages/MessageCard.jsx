@@ -7,6 +7,7 @@ class MessageCard extends Component{
             data: this.props.data,
             message: "",
             display: true,
+            pumpString: "display" + this.props.data.iwp_pump_id_fk,
         }
     }
     
@@ -35,7 +36,8 @@ class MessageCard extends Component{
         return(message);
     }
 
-    closeCard = () => {
+    ignore = () => {
+        localStorage.setItem(this.state.pumpString, "false");
         this.setState({display: false});
     }
 
@@ -47,17 +49,17 @@ class MessageCard extends Component{
         var message = this.state.message;
         return(
             <>
-                <a href="#collapseCardExample" className="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <a href={"#collapse" + this.state.data.iwp_pump_id_fk} className="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls={"collapse" + this.state.data.iwp_pump_id_fk}>
                     <h6 className="m-0 font-weight-bold text-primary">Pump {this.state.data.iwp_pump_id_fk} ({this.state.data.date_sensed.split(":")[0].slice(0,-3)})</h6>
                 </a>
-                <div className="collapse show" id="collapseCardExample">
+                <div className="collapse show" id={"collapse" + this.state.data.iwp_pump_id_fk}>
                     <div className="card-body">
                         {message.battery}
                         {message.leak}
                         {message.tagline}
                         <br className="mb-2"/>
-                        <button className="btn btn-success mr-1">Resolve</button>
-                        <button className="btn btn-danger mr-1">Ignore</button>
+                        {/* <button className="btn btn-success mr-1">Resolve</button> */}
+                        <button className="btn btn-danger mr-1" onClick={this.ignore}>Ignore</button>
                     </div>
                 </div>
             </>

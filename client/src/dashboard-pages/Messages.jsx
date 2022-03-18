@@ -8,6 +8,7 @@ class Messages extends Component{
     }
 
     render(){
+
         return(
             <div className="container-fluid">
                 <h1 className="h3 mb-4 text-gray-800">Messages</h1>

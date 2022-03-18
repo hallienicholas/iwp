@@ -12,6 +12,7 @@ function Danger(props) {
         top:50px;
         left:300px;
         right:300px;
+        bottom:auto;
         }`;
 
     const closeContainer = () => {
@@ -28,21 +29,23 @@ function Danger(props) {
             <div className="system-message position-fixed">
                 <style>{SystemMessage}</style>
                 <div className="card system-card border-left-danger mb-4 shadow vw-50">
-                    <div className="card-header py-3">
+                    <a href="#collapseDanger" className="card-header d-block py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseDanger">
                         <span className="ml-0 h6 mr-auto font-weight-bold text-danger float-left">System warning</span>
                         <a className="float-right h6 text-muted text-decoration-none close-button" onClick={closeContainer}>
                             <b>x</b>
                         </a>
+                    </a>
+                <div className="collapse show" id="collapseDanger">
+                    <div className="card-body">
+                        {props.data.map((val, key) => {
+                            return(
+                                <DangerChild data={val} key={key}/>
+                            );
+                        })}
                     </div>
-                <div className="card-body">
-                    {props.data.map((val, key) => {
-                        return(
-                            <DangerChild data={val}/>
-                        );
-                    })}
-                </div>
                 </div>
             </div>
+        </div>
         )
     }else{
         return(<></>);

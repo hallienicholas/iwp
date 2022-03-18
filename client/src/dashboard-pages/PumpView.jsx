@@ -6,7 +6,25 @@ import Axios from 'axios';
 function Pump(){
 
 	const [pumpName, setPumpName] = useState([]);
-	const [chartData, setChartData] = useState([]);
+	const [chartData, setChartData] = useState([0]);
+
+	const fillBattery = () => {
+		if(chartData[0]){
+			return chartData[0].battery_percentage;
+		} else {
+			return "N/A";
+		}
+	}
+
+	const fillTrans = () => {
+		if(chartData[0]){
+			return chartData[0].iwp_sensor_data_id;
+		} else {
+			return "N/A";
+		}
+	}
+
+	console.log(chartData[0])
 
 	return(
 		<div className="container-fluid">
@@ -34,7 +52,9 @@ function Pump(){
 									<div className="col mr-2">
 										<div className="text-xs font-weight-bold text-danger text-uppercase mb-1">
 											Battery Percentage</div>
-										<div className="h5 mb-0 font-weight-bold text-uppercase text-gray-800">0</div>
+										<div className="h5 mb-0 font-weight-bold text-uppercase text-gray-800">
+											{fillBattery()}
+										</div>
 									</div>
 									<div className="col-auto">
 										<i className="fas fa-battery-empty fa-2x text-gray-300"></i>
@@ -49,7 +69,9 @@ function Pump(){
 							<div className="row no-gutters align-items-center">
 								<div className="col mr-2">
 									<div className="text-xs font-weight-bold text-secondary text-uppercase mb-1">Last Transmission</div>
-									<div className="h5 mb-0 font-weight-bold text-gray-800 text-uppercase">5679</div>
+									<div className="h5 mb-0 font-weight-bold text-gray-800 text-uppercase">
+										{fillTrans()}
+									</div>
 								</div>
 								<div className="col-auto">
 									<i className="fas fa-faucet fa-2x text-gray-300"></i>
