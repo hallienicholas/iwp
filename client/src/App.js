@@ -13,6 +13,8 @@ import DashView from "./routing/DashView";
 import Map from "./dashboard-pages/MapPage";
 import Registration from "./login/Registration"; 
 import ForgotPassword from "./login/ForgotPassword";
+import ChangeEmail from "./login/ChangeEmail";
+import NewEmail from "./login/NewEmail";
 class App extends Component {
   render() {
     return (
@@ -21,6 +23,8 @@ class App extends Component {
             <Route exact path="/register" component={Registration} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/forgot" component={ForgotPassword} />
+            <Route exact path="/change-email" component={ChangeEmail} />
+            <Route exact path="/newemail" component={NewEmail} />
             <Route exact path="*" component={DashView} />
           </Switch>
         </Router> 
