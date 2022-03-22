@@ -14,8 +14,8 @@ function DangerChild(props){
         const transmission  = props.data.iwp_sensor_data_id;
         var message = {battery:"", leak:"", tagline:""};
 
-        if(battery < 5){
-            message.battery = 'Pump ' + pumpName + '\'s battery percentage has fallen below 5%. '
+        if(battery < 3.1){
+            message.battery = 'Pump ' + pumpName + '\'s battery voltage has fallen below 3.1. '
         }
         
         if(leak > 20){

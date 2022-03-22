@@ -51,7 +51,7 @@ function Pump(){
 								<div className="row no-gutters align-items-center">
 									<div className="col mr-2">
 										<div className="text-xs font-weight-bold text-danger text-uppercase mb-1">
-											Battery Percentage</div>
+											Battery Voltage</div>
 										<div className="h5 mb-0 font-weight-bold text-uppercase text-gray-800">
 											{fillBattery()}
 										</div>
