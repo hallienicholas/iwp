@@ -19,7 +19,7 @@ class MessageCard extends Component{
         const transmission  = this.state.data.iwp_sensor_data_id;
         var message = {battery:"", leak:"", tagline:""};
 
-        if(battery < 5){
+        if(battery < 3.1){
             message.battery = 'Pump ' + pumpName + '\'s battery percentage has fallen below 5%. '
         }
         

@@ -19,6 +19,8 @@ import {
     //Redirect
   } from "react-router-dom";
 
+import Landing from "../dashboard-pages/Landing";
+
   
 class DashView extends Component {
 
@@ -49,8 +51,11 @@ class DashView extends Component {
                     <div id="content-wrapper" className="d-flex flex-column">
                         <Navbar dangerData={this.state.dangerData}/>
                         <Switch>
-                            <Route exact path="/">
+                            <Route exact path="/dashboard">
                                 <DbPage dangerData={this.state.dangerData} />
+                            </Route>
+                            <Route exact path="/">
+                                <Landing />
                             </Route>
                             <Route exact path="/about" component={About} />
                             <Route exact path="/pump" component={Pump} />
