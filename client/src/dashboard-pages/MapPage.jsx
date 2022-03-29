@@ -9,6 +9,7 @@ import Axios from 'axios';
 // https://account.mapbox.com
 
 function Map({pumpsName, setPumpsName, mapData, setMapData}){
+
 //const mapboxgl = require('mapbox-gl');
 const mapToken = "pk.eyJ1IjoiaG5pY2hvbGFzIiwiYSI6ImNremRma3hrNjA1bjAybm9iM2thdnZraXQifQ.CyiZY5YybAs-rk7ac--dsA";
 mapboxgl.accessToken = mapToken;
@@ -33,6 +34,7 @@ const [coords, setCoords] = useState([]);
 } */
   
 const [pumps1, setPumps1] = useState([]);
+const [locs, setLocs] = useState([]);
 
 const getPumpsList = () => {
     Axios.get("http://localhost:3001/pumps").then((response) => {
@@ -40,6 +42,13 @@ const getPumpsList = () => {
       console.log(response.data);
     })
   }
+
+  /* const getPumpLocs = () => {
+    Axios.get("http://localhost:3001/mapDatas").then((response) => {
+      setLocs(response.data);
+      console.log(response.data);
+    })
+} */
 
    const updateCenter = (e) => {
     /* Axios.get("http://localhost:3001/mapData").then((response) => {
@@ -70,15 +79,8 @@ const getPumpsList = () => {
           center: [long, lats],
           zoom: 8
         });
-        /* map.current = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: 'mapbox://styles/hnicholas/ckzdfpm16000614mn71sfppcs',
-            //style: 'mapbox://styles/mapbox/outdoors-v11',
-            center: [lng, lat],
-            zoom: zoom,
-                });
-        console.log(map); */
               }
+              
       )};
      }
  
@@ -92,9 +94,36 @@ const getPumpsList = () => {
   margin-left:auto;
   margin-right:auto;
     }`;
+  
+  var pumpArray = [];
+  //var pumpArray: {type: String, properties: {Name}}[];
+  const getPumpLocs = () => {
+    let process = false;
+    Axios.get("http://localhost:3001/mapDatas").then((response) => {
+      response.data.forEach((item) => {
+        let pump = {
+            'type': 'Feature',
+            'properties': {
+                'Name': item.pump_name,
+                'description': 'This is pump ' + item.iwp_pump_id 
+              },
+              'geometry': {
+                'coordinates': [
+                  item.gps_longitude,
+                  item.gps_latitude
+                ],
+                'type': 'Point'
+              }
+            };
+        // Add pump object to the Pump Array
+        pumpArray.push(pump);
+      })
+    })
+    process = true;
+    return process;
+  }
 
     useEffect(() => {
-        console.log("in useEffect");
         if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
         container: mapContainer.current,
@@ -103,9 +132,16 @@ const getPumpsList = () => {
         center: [-76.9869, 40.1563],
         zoom: zoom
             });
-            
+        
         map.current.on('load', () => {
           console.log("loading");
+          getPumpLocs();
+
+          //const geojson = 
+          const waiting1 = () => {
+            if (!pumpArray.length > 0) {
+              setTimeout(waiting1, 200);
+            } else {
           map.current.addSource('places', {
           // This GeoJSON contains features that include an "icon"
           // property. The value of the "icon" property corresponds
@@ -113,257 +149,22 @@ const getPumpsList = () => {
           'type': 'geojson',
           'data': {
           'type': 'FeatureCollection',
-          'features': [ 
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Wantugu, Ghana',
-                'description': 'This is pump 297.'
-              },
-              'geometry': {
-                'coordinates': [
-                  -0.475206,
-                  9.845446
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Yong Community',
-                'description': 'This is pump 283.'
-              },
-              'geometry': {
-                'coordinates': [
-                  9.639743,
-                  -0.787862
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Vawagri pump',
-                'description': 'This is pump 296.'
-              },
-              'geometry': {
-                'coordinates': [
-                  9.446391,
-                  -1.796161
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'FreyBittner',
-                'description': 'This is pump 295 at Messiah University.'
-              },
-              'geometry': {
-                'coordinates': [
-                  -76.9869,
-                  40.1563
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Mang Tindang Community',
-                'description': 'This is pump 292.'
-              },
-              'geometry': {
-                'coordinates': [
-                  10.064336,
-                  -0.103055
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Gushegu ADP BASE',
-                'description': 'This is pump 291.'
-              },
-              'geometry': {
-                'coordinates': [
-                  9.925093,
-                  -0.907477
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Nakohigu-fong Community',
-                'description': 'This is pump 293.'
-              },
-              'geometry': {
-                'coordinates': [
-                  9.913931,
-                  -0.220793
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Ngbarpe',
-                'description': 'This is pump 299.'
-              },
-              'geometry': {
-                'coordinates': [
-                  9.266974,
-                  -1.859571
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              "type": "Feature",
-              "properties": {
-                "Name": "Kpukpaligu Community",
-                'description': 'This is pump 284.'
-              },
-              "geometry": {
-                "coordinates": [
-                  9.553571,
-                  -0.636778
-                ],
-                "type": "Point"
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Libga Community',
-                'description': 'This is pump 285.'
-              },
-              'geometry': {
-                'coordinates': [
-                  9.595269,
-                  -0.84384
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Gbumgbum Community',
-                'description': 'This is pump 286.'
-              },
-              'geometry': {
-                'coordinates': [
-                  9.59552,
-                  -0.756665
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              "type": "Feature",
-              "properties": {
-                "Name": "Kpachelo Community",
-                'description': 'This is pump 287.'
-              },
-              "geometry": {
-                "coordinates": [
-                  9.558966,
-                  -0.774136
-                ],
-                "type": "Point"
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Yiwogu Community',
-                'description': 'This is pump 288.'
-              },
-              'geometry': {
-                'coordinates': [
-                  9.662334,
-                  -0.881473
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Zantele Community',
-                'description': 'This is pump 289.'
-              },
-              'geometry': {
-                'coordinates': [
-                  9.957812,
-                  -0.142392
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              "type": "Feature",
-              "properties": {
-                "Name": "Kpahikpaba",
-                'description': 'This is pump 290.'
-              },
-              "geometry": {
-                "coordinates": [
-                  9.973458,
-                  -0.250851
-                ],
-                "type": "Point"
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'Hangerline',
-                'description': 'This is pump 298.'
-              },
-              'geometry': {
-                'coordinates': [
-                  -1.827273,
-                  9.080266
-                ],
-                'type': 'Point'
-              }
-            },
-            {
-              'type': 'Feature',
-              'properties': {
-                'Name': 'GI-WASH',
-                'description': 'This is pump 277.'
-              },
-              'geometry': {
-                'coordinates': [
-                  9.5,
-                  -1.5
-                ],
-                'type': 'Point'
-              }
-              }
-          ]
+          'features': pumpArray
         }
         })
+        console.log(pumpArray);
         console.log("got points");
+      }
+    }
+    waiting1();
       });
   
       map.current.on('load', () => {
           
-        const waiting = () => {
-          if (!map.current.isStyleLoaded()) {
-            setTimeout(waiting, 200);
-          } else {
+         const waiting = () => {
+          if (!pumpArray.length > 0) {
+            setTimeout(waiting, 300);
+          } else { 
             map.current.addLayer({
         
               'id': 'places',
@@ -375,9 +176,9 @@ const getPumpsList = () => {
               }
               });
               console.log("added layer");
-          }
-        };
-        waiting();
+            }
+      };
+        waiting(); 
       });
 
       // When a click event occurs on a feature in the places layer, open a popup at the
