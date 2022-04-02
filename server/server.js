@@ -107,6 +107,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
     const uniqueString = process.env.RES_STRING;
     const email = req.body.email;
     const newPassword = process.env.PASS_RESET;
+    const regexp1 = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     
 
     bcrypt.hash(newPassword,saltRounds, (err, hash) => { 
@@ -121,11 +122,12 @@ app.post('/sendPasswordResetEmail', (req, res) => {
             (err, result) => {
                 if (email.length == 0) {
                     res.send({message: "Please specify an email address."});
-                } else if (regexp.test(email) == false) {
+                } else if (regexp1.test(email) == false) {
                     res.send({message: "You've entered an invalid email address."});
-                };
-                if (err) {
+                } else if (err) {
                     console.log(err);
+                } else {
+                    sendVerificationEmail();
                 }
             } 
         );
