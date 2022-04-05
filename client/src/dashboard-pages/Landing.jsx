@@ -25,15 +25,13 @@ class Landing extends Component {
         return element != undefined;
     }
 
-    componentDidMount(){
-        console.log(this.state.cards);
-    }
-
     render(){
         return(
             <div className="container-fluid">
                 <div className="row">
-                    <div className="h3 mb-4 text-gray-800">Landing</div>
+                    <div className="col-lg-10">
+                        <div className="h3 mb-4 text-gray-800">Landing</div>
+                    </div>
                 </div>
                 {this.pairUp(this.props.dangerData).map((val, key) => {
                     return(<div className="row mb-4">

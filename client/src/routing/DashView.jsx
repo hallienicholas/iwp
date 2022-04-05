@@ -33,6 +33,12 @@ class DashView extends Component {
         }
     }
 
+    getDangerData = () => {
+        Axios.get("http://localhost:3001/dangerData").then((response) => {
+          this.setState({dangerData: response.data})
+        })
+    }
+
     setDangerData(stuff){
         this.setState({dangerData: stuff})
     }
@@ -40,7 +46,11 @@ class DashView extends Component {
     useEffect(){
         Axios.get("http://localhost:3001/pumps").then((response) => {
             this.setState({pumps: response.data});
-        })        
+        })
+    }
+
+    componentDidMount(){
+        this.getDangerData();
     }
 
     render() {
