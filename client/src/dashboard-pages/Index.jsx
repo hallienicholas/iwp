@@ -51,7 +51,7 @@ function DbPage() {
   };
 
   const determineStatus = (battery, leak) => {
-    if(battery < 5 || leak > 20){return "Danger"}
+    if(battery < 3.1 || leak > 20){return "Danger"}
     else{return "Healthy"}
   }
 
@@ -91,7 +91,7 @@ function DbPage() {
               <div className="row">
                 <div className="col mr-2">
                   <div className="text-xs text-uppercase font-weight-bold text-primary mb-1">Total Volume Pumped</div>
-                  <div className="mb-1 h5 text-uppercase">{calcSum(volumeData)}</div>
+                  <div className="mb-1 h5 text-uppercase">{calcSum(volumeData)} l</div>
                 </div>
                 <div className="col-auto">
                   <span><i className="fa-water fas fa-2x text-gray-300"></i></span>
@@ -138,10 +138,10 @@ function DbPage() {
                 {pumpList.map((val,key) => {
                   return(
                     <tr>
-                      <td>{val.iwp_pump_id_fk}</td>
+                      <td>{val.iwp_pump_id}</td>
                       <td>{val.pump_name}</td>
                       <td>{val.daily_volume_sum || "null"}</td>
-                      <td>{val.battery_percentage}</td>
+                      <td>{val.battery_percentage || "null"}</td>
                       <td>{determineStatus(val.battery_percentage, val.leakage_coefficient)}</td>
                     </tr>
                   );

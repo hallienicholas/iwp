@@ -19,12 +19,12 @@ class Sidebar extends Component {
         </div>
       </a>
       <hr className="sidebar-divider"></hr>
-      <div className="sidebar-heading">Dashboard</div>
+      <div className="sidebar-heading">Intelligent Water</div>
       <li className="nav-item">
         <a className="nav-link" href="/">
           <i className="fas fa-fw fa-home">
           </i>
-          <span>Dashboard</span>
+          <span>Home</span>
         </a>
       </li>
       <hr className="sidebar-divider"></hr>
@@ -38,6 +38,12 @@ class Sidebar extends Component {
       </li>
       <hr className="sidebar-divider"></hr>
       <div className="sidebar-heading">Pumps</div>
+      <li className="nav-item">
+        <a className='nav-link' href="/dashboard">
+          <i className='fas fa-fw fa-chart-bar'></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
       <li className="nav-item">
         <a className="nav-link" href="./pump">
           <i className="fas fa-fw fa-faucet"></i>
