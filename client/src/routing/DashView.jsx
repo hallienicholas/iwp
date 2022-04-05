@@ -55,7 +55,7 @@ class DashView extends Component {
                                 <DbPage dangerData={this.state.dangerData} />
                             </Route>
                             <Route exact path="/">
-                                <Landing />
+                                <Landing dangerData={this.state.dangerData}/>
                             </Route>
                             <Route exact path="/about" component={About} />
                             <Route exact path="/pump" component={Pump} />

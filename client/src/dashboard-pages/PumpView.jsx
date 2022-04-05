@@ -120,6 +120,18 @@ function Pump(){
 						</div>
 					</div>
 				</div>
+				<div className='col-xl-6'>
+				<div className="card shadow mb-4 border-left-info">
+						<div className="card-header py-3">
+							<h6 className="m-0 font-weight-bold text-primary">Leakage</h6>
+						</div>
+						<div className="card-body">
+							<canvas id="myChart"  className="chartjs-render-monitor mt-auto mb-auto" width="0" height="0">
+						</canvas>
+							<VolumeChart chartData={chartData} chartTitle={"Longest Prime by Date"} pumpId={pumpName} purpose="priming"/>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
