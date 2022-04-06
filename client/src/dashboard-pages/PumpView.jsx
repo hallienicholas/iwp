@@ -51,7 +51,7 @@ function Pump(){
 								<div className="row no-gutters align-items-center">
 									<div className="col mr-2">
 										<div className="text-xs font-weight-bold text-danger text-uppercase mb-1">
-											Battery Voltage</div>
+											Battery Percentage</div>
 										<div className="h5 mb-0 font-weight-bold text-uppercase text-gray-800">
 											{fillBattery()}
 										</div>
@@ -117,18 +117,6 @@ function Pump(){
 							<canvas id="myChart"  className="chartjs-render-monitor mt-auto mb-auto" width="0" height="0">
 						</canvas>
 							<VolumeChart chartData={chartData} chartTitle={"Leakage Coefficient by Date"} pumpId={pumpName} purpose="leakage"/>
-						</div>
-					</div>
-				</div>
-				<div className='col-xl-6'>
-				<div className="card shadow mb-4 border-left-info">
-						<div className="card-header py-3">
-							<h6 className="m-0 font-weight-bold text-primary">Leakage</h6>
-						</div>
-						<div className="card-body">
-							<canvas id="myChart"  className="chartjs-render-monitor mt-auto mb-auto" width="0" height="0">
-						</canvas>
-							<VolumeChart chartData={chartData} chartTitle={"Longest Prime by Date"} pumpId={pumpName} purpose="priming"/>
 						</div>
 					</div>
 				</div>

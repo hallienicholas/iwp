@@ -34,18 +34,17 @@ function VolumeChart({chartData, chartTitle, pumpId, purpose}){
   id = pumpId;
 
   //You'll need to add new chart types here. Just add a new block to the if statement.
- 
-  for(var j = 0; j < chartData.length; j++){
-    if(purpose==="volume"){
-      dataPoints[j] = chartData[j].daily_volume_sum;
-    } else if(purpose === "leakage"){
-      dataPoints[j] = chartData[j].leak_coefficient_avg;
-    } else if(purpose === "battery"){
-      dataPoints[j] = chartData[j].battery_percentage;
-    } else if(purpose === "priming"){
-      dataPoints[j] = chartData[j].longest_prime;
-    } else {
-      console.log("ERR: Purpose undefined (see component call in PumpView.jsx)");
+  if(purpose=="volume"){
+    for(var i=0; i<chartData.length; i++){
+      dataPoints[i] = chartData[i].daily_volume_sum;
+    }
+  } else if(purpose=="leakage"){
+    for(var i=0; i<chartData.length; i++){
+      dataPoints[i] = chartData[i].leak_coefficient_avg;
+    }
+  } else {
+    for(var i=0; i<chartData.length; i++){
+      dataPoints[i] = chartData[i].battery_percentage;
     }
   }
 }

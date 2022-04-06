@@ -7,20 +7,20 @@ class MessageCard extends Component{
             data: this.props.data,
             message: "",
             display: true,
-            pumpString: "display" + this.props.data.iwp_pump_id,
+            pumpString: "display" + this.props.data.iwp_pump_id_fk,
         }
     }
     
     sortData = () => {
-        const pumpName      = this.state.data.iwp_pump_id;
-        const date          = this.props.data.date_sensed || "null";
-        const battery       = this.state.data.battery_percentage || "null";
+        const pumpName      = this.state.data.iwp_pump_id_fk
+        const date          = this.state.data.date_sensed;
+        const battery       = this.state.data.battery_percentage;
         const leak          = this.state.data.leak_coefficient_avg;
         const transmission  = this.state.data.iwp_sensor_data_id;
         var message = {battery:"", leak:"", tagline:""};
 
-        if(battery < 3.1){
-            message.battery = 'Pump ' + pumpName + '\'s battery voltage has fallen below 3.1. '
+        if(battery < 5){
+            message.battery = 'Pump ' + pumpName + '\'s battery percentage has fallen below 5%. '
         }
         
         if(leak > 20){
@@ -46,28 +46,24 @@ class MessageCard extends Component{
     }
     
     render(){
-        console.log(this.state.data);
         var message = this.state.message;
-        if(this.state.display == true){
-            return(
-                <div className="card shadow mb-4 border-left-info">
-                    <a href={"#collapse" + this.state.data.iwp_pump_id} className="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls={"collapse" + this.state.data.iwp_pump_id}>
-                        <h6 className="m-0 font-weight-bold text-primary">Pump {this.state.data.iwp_pump_id} ({this.props.data.date_sensed == null? "null": this.props.data.date_sensed.split(":")[0].slice(0,-3)})</h6>
-                    </a>
-                    <div className="collapse show" id={"collapse" + this.state.data.iwp_pump_id}>
-                        <div className="card-body">
-                            {message.battery}
-                            {message.leak}
-                            {message.tagline}
-                            <br className="mb-2"/>
-                            <button className="btn btn-danger mr-1" onClick={this.ignore}>Ignore</button>
-                        </div>
+        return(
+            <>
+                <a href={"#collapse" + this.state.data.iwp_pump_id_fk} className="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls={"collapse" + this.state.data.iwp_pump_id_fk}>
+                    <h6 className="m-0 font-weight-bold text-primary">Pump {this.state.data.iwp_pump_id_fk} ({this.state.data.date_sensed.split(":")[0].slice(0,-3)})</h6>
+                </a>
+                <div className="collapse show" id={"collapse" + this.state.data.iwp_pump_id_fk}>
+                    <div className="card-body">
+                        {message.battery}
+                        {message.leak}
+                        {message.tagline}
+                        <br className="mb-2"/>
+                        {/* <button className="btn btn-success mr-1">Resolve</button> */}
+                        <button className="btn btn-danger mr-1" onClick={this.ignore}>Ignore</button>
                     </div>
                 </div>
-            );
-        } else {
-            return(<></>);
-        }
+            </>
+        );
     }
 }
 

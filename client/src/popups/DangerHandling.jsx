@@ -11,27 +11,28 @@ function DangerHandling (props) {
 
   
 
-  // const getPumpList = () => {
-  //   Axios.get("http://localhost:3001/pumps").then((response) => {
-  //     setList(response.data);
-  //   })
-  // }
+  const getPumpList = () => {
+    Axios.get("http://localhost:3001/pumps").then((response) => {
+      setList(response.data);
+    })
+  }
 
-  // const getDangerData = () => {
-  //   Axios.get("http://localhost:3001/dangerData").then((response) => {
-  //     props.setDangerData(response.data);
-  //   })
-  // }
+  const getDangerData = () => {
+    Axios.get("http://localhost:3001/dangerData").then((response) => {
+      props.setDangerData(response.data);
+    })
+  }
 
   useEffect(() => {
-    //getDangerData();
-    // getPumpList();
+
+    getDangerData();
+    getPumpList();
     
   }, [])
   
   return(
     <>
-    {/* <Danger data={props.dangerData} /> */}
+    <Danger data={props.dangerData} />
     </>
   );
     

@@ -19,8 +19,6 @@ import {
     //Redirect
   } from "react-router-dom";
 
-import Landing from "../dashboard-pages/Landing";
-
   
 class DashView extends Component {
 
@@ -33,12 +31,6 @@ class DashView extends Component {
         }
     }
 
-    getDangerData = () => {
-        Axios.get("http://localhost:3001/dangerData").then((response) => {
-          this.setState({dangerData: response.data})
-        })
-    }
-
     setDangerData(stuff){
         this.setState({dangerData: stuff})
     }
@@ -46,11 +38,7 @@ class DashView extends Component {
     useEffect(){
         Axios.get("http://localhost:3001/pumps").then((response) => {
             this.setState({pumps: response.data});
-        })
-    }
-
-    componentDidMount(){
-        this.getDangerData();
+        })        
     }
 
     render() {
@@ -61,11 +49,8 @@ class DashView extends Component {
                     <div id="content-wrapper" className="d-flex flex-column">
                         <Navbar dangerData={this.state.dangerData}/>
                         <Switch>
-                            <Route exact path="/dashboard">
-                                <DbPage dangerData={this.state.dangerData} />
-                            </Route>
                             <Route exact path="/">
-                                <Landing dangerData={this.state.dangerData}/>
+                                <DbPage dangerData={this.state.dangerData} />
                             </Route>
                             <Route exact path="/about" component={About} />
                             <Route exact path="/pump" component={Pump} />
