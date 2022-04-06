@@ -4,11 +4,10 @@ import MessageCard from "./MessageCard"
 class Messages extends Component{
     constructor(props){
         super(props)
-        this.state = {}
     }
 
     render(){
-
+        console.log(this.props.dangerData)
         return(
             <div className="container-fluid">
                 <h1 className="h3 mb-4 text-gray-800">Messages</h1>
@@ -19,9 +18,7 @@ class Messages extends Component{
                                 return(
                                 <div className="row">
                                     <div className="col">
-                                        <div className="card shadow mb-4 border-left-info">
-                                            <MessageCard data={val}/>
-                                        </div>
+                                        <MessageCard data={val}/>
                                     </div>
                                 </div>
                             )

@@ -3,19 +3,19 @@ import React, {Component, useEffect, useState} from "react";
 function DangerChild(props){
 
     const [message, setMessage] = useState({});
-    const pumpString = 'display' + props.data.iwp_pump_id_fk;
+    const pumpString = 'display' + props.data.iwp_pump_id;
     const [display, setDisplay] = useState(localStorage.getItem(pumpString)||"true");
 
     const sortData = () => {
-        const pumpName      = props.data.iwp_pump_id_fk
+        const pumpName      = props.data.iwp_pump_id;
         const date          = props.data.date_sensed;
         const battery       = props.data.battery_percentage;
         const leak          = props.data.leak_coefficient_avg;
         const transmission  = props.data.iwp_sensor_data_id;
         var message = {battery:"", leak:"", tagline:""};
 
-        if(battery < 5){
-            message.battery = 'Pump ' + pumpName + '\'s battery percentage has fallen below 5%. '
+        if(battery < 3.1){
+            message.battery = 'Pump ' + pumpName + '\'s battery voltage has fallen below 3.1. '
         }
         
         if(leak > 20){
