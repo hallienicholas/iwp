@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Axios from 'axios';
+import { Route } from 'react-router-dom'
 
 function PumpList({pumpName, setPumpName, chartData, setChartData}){
 
@@ -24,6 +25,17 @@ function PumpList({pumpName, setPumpName, chartData, setChartData}){
       })
     }
 
+    const Button = () => (
+      <Route render={({ history}) => (
+        <button
+          type='button'
+          onClick={() => { history.push('/pump?=dd') }}
+        >
+          Click Me!
+        </button>
+      )} />
+    )
+
 
     return(
         <div className="row">
@@ -31,6 +43,7 @@ function PumpList({pumpName, setPumpName, chartData, setChartData}){
             <h1 className="h3 mb-4 text-gray-800">Pump {pumpName}</h1>
           </div>
           <div className="col">
+          
             <label for="pumpList">Pump</label>
             <select id="pumpList" className="form-control form-control-sm" onClick={getPumpList} onChange={updateHeader}>
             <option key="default">Select Pump</option>
@@ -41,7 +54,10 @@ function PumpList({pumpName, setPumpName, chartData, setChartData}){
                 })
               }
             </select>
+            
           </div>
+          
+          
         </div>
     )
 }

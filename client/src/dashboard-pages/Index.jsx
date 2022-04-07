@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect } from "react";
 import Axios from 'axios'
+import PumpList from '../global/PumpList';
 import {useState} from "react";
 import { Link } from "react-router-dom";
 //vv
@@ -57,7 +58,7 @@ function DbPage() {
 
   //vv
   const { token, setToken } = useToken();
-  
+  const [pumps, setPumps] = useState([]);
 
   //if(!token) {
   //  return <LoginPopUp setToken={setToken} />
@@ -100,6 +101,7 @@ function DbPage() {
             </div>
           </div>
         </div>
+        
         {/* <div className="col-4">
           <div className="card border-left-primary shadow">
             <div className="card-header">
@@ -137,8 +139,14 @@ function DbPage() {
               <tbody>
                 {pumpList.map((val,key) => {
                   return(
+                    
                     <tr>
-                      <td>{val.iwp_pump_id_fk}</td>
+                      <td>
+                        <a href={"/pump?=" + val.iwp_pump_id_fk}>
+                          <div>{val.iwp_pump_id_fk}</div>
+                          </a>
+                          </td>
+                      
                       <td>{val.pump_name}</td>
                       <td>{val.daily_volume_sum || "null"}</td>
                       <td>{val.battery_percentage}</td>
