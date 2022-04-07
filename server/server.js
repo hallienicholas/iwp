@@ -328,7 +328,8 @@ app.get('/mapDatas', (req, res) => {
 
 //Route for Danger and notifications
 app.get('/dangerData', (req, res) => {
-    db.query("SELECT t1.*, t2.*, t3.* FROM iwp_sensor_data t1 LEFT JOIN iwp_sensor_calculations t2 ON iwp_sensor_data_id=iwp_sensor_data_id_fk RIGHT JOIN iwp_pump t3 on iwp_pump_id_fk=iwp_pump_id WHERE t1.date_sensed = ( SELECT t4.date_sensed FROM iwp_sensor_data t4 LEFT JOIN iwp_sensor_calculations t5 ON iwp_sensor_data_id=iwp_sensor_data_id_fk WHERE t4.iwp_pump_id_fk = t1.iwp_pump_id_fk ORDER BY t4.iwp_pump_id_fk DESC LIMIT 1) ORDER BY t1.date_sensed DESC", (err, result) => {
+
+    db.query("select t1.*, t2.*, t3.* from iwp_pump t1 left join iwp_sensor_data t2 on t1.iwp_pump_id=t2.iwp_pump_id_fk left join iwp_sensor_calculations t3 on t2.iwp_sensor_data_id=t3.iwp_sensor_data_id_fk where ifnull(t2.date_sensed, \"NULL\") = (select ifnull(t5.date_sensed, \"NULL\") from iwp_pump t4 left join iwp_sensor_data t5 on t4.iwp_pump_id=t5.iwp_pump_id_fk left join iwp_sensor_calculations t6 on t5.iwp_sensor_data_id=t6.iwp_sensor_data_id_fk where t4.iwp_pump_id = t1.iwp_pump_id order by t5.date_sensed desc limit 1) order by t1.iwp_pump_id asc", (err, result) => {
         if (err){
             console.log(err)
         } else {
