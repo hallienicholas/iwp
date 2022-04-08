@@ -43,6 +43,7 @@ class MessageCard extends Component{
 
     componentDidMount() {
         this.setState({message: this.sortData()});
+        
     }
     
     render(){

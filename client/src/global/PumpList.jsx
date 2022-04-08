@@ -1,7 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Axios from 'axios';
 
-function PumpList({pumpName, setPumpName, chartData, setChartData}){
+function PumpList({pumpName, setPumpName, chartData, setChartData, id}){
+
+  if(id){
+    console.log("HI");
+  } else {
+    console.log("BOO");
+  }
+
+  function selectPump(){
+    if(id){
+      return(<option selected="true">{id.id}</option>)
+    }
+  }
 
   const getChartData = (e) => {
     Axios.get("http://localhost:3001/chartData?id=" + e.target.value).then((response) => {
@@ -24,6 +36,10 @@ function PumpList({pumpName, setPumpName, chartData, setChartData}){
       })
     }
 
+    useEffect(() => {
+      updateHeader({target: {value: id.id}})
+    }, [])
+
 
     return(
         <div className="row">
@@ -40,6 +56,7 @@ function PumpList({pumpName, setPumpName, chartData, setChartData}){
                   )
                 })
               }
+              {selectPump()}
             </select>
           </div>
         </div>

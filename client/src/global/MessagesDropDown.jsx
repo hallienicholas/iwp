@@ -2,13 +2,6 @@ import React, {Component, useEffect, useState} from "react";
 import DropDownMessage from "./DropDownMessage";
 
 function MessagesDropDown(props){
-    const [seeMore, setSeeMore] = useState(null);
-
-    useEffect(() => {
-        if(props.data.length > 2){
-            setSeeMore(<a href="/messages" className="dropdown-item">See {props.data.length - 3} more...</a>)
-        }
-    }, [props.data]);
 
     return(
         <div className="nav-item dropdown no-arrow ml-auto mr-4 show">
@@ -22,7 +15,7 @@ function MessagesDropDown(props){
                     <DropDownMessage data={val}/>
                 )
                 })}
-                {seeMore}
+                <a href="/messages" className="dropdown-item">See more...</a>
             </div>
         </div>
     );

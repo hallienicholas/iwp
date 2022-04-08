@@ -20,7 +20,7 @@ class DropDownMessage extends Component{
         const transmission  = this.state.data.iwp_sensor_data_id;
         var message = {battery:"", leak:"", tagline:""};
 
-        if(battery < 5){
+        if(battery < 3.1){
             message.battery = 'Pump ' + pumpName + '\'s battery percentage has fallen below 5%. '
         }
         
@@ -46,13 +46,17 @@ class DropDownMessage extends Component{
     }
     render(){
         var message = this.state.message;
+        if(this.state.display == true){
         return(
         <>
             <a className="dropdown-item border-left-danger" href="/messages">
                 {message.battery}
                 {message.leak}
             </a>
-        </>);
+        </>);}
+        else{
+            return(<></>);
+        }
     }
 }
 

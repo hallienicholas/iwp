@@ -3,7 +3,9 @@ import PumpList from '../global/PumpList';
 import VolumeChart from './VolumeChart';
 import Axios from 'axios';
 
-function Pump(){
+function Pump(id){
+
+	console.log(id.location.state)
 
 	const [pumpName, setPumpName] = useState([]);
 	const [chartData, setChartData] = useState([0]);
@@ -28,7 +30,7 @@ function Pump(){
 
 	return(
 		<div className="container-fluid">
-			<PumpList setPumpName={setPumpName} pumpName={pumpName} setChartData={setChartData} chartData={chartData}/>
+			<PumpList setPumpName={setPumpName} pumpName={pumpName} setChartData={setChartData} chartData={chartData} id={id.location.state}/>
 			<div className="row">
 				<div className="col-xl-3 col-md-6 mb-4">
 					<div className="card border-left-primary shadow h-100 py-2">

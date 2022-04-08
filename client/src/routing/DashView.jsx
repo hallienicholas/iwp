@@ -47,6 +47,7 @@ class DashView extends Component {
         Axios.get("http://localhost:3001/pumps").then((response) => {
             this.setState({pumps: response.data});
         })
+        console.log("AFEsfgeag");
     }
 
     componentDidMount(){
@@ -80,8 +81,6 @@ class DashView extends Component {
                         </Switch>
                         
                     </div>
-                    <DangerHandling dangerData={this.state.dangerData} setDangerData={this.setDangerData.bind(this)} />
-                    {this.state.pumps}
             </div>
         );
     }

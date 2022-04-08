@@ -15,11 +15,14 @@ import Registration from "./login/Registration";
 import ForgotPassword from "./login/ForgotPassword";
 import ChangeEmail from "./login/ChangeEmail";
 import NewEmail from "./login/NewEmail";
+import Splash from "./Splash";
 class App extends Component {
+  
   render() {
     return (
         <Router>
           <Switch>
+            <Route exact path="/splash" component={Splash} />
             <Route exact path="/register" component={Registration} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/forgot" component={ForgotPassword} />
