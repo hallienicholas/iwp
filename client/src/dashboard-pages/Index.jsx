@@ -12,12 +12,13 @@ import PieChart from "./PieChart";
 import VolumeChart from "./VolumeChart";
 
 function DbPage() {
-
+  let isMounted = true;
   const [pumpList, setPumpList] = useState([]);
   //const [pieData, setPieData] = useState([]);
   const [chartData, setChartData] = useState({});
   const [volumeData, setVolumeData] = useState([]);
   const [volume, setVolume] = useState(0);
+  const [selected, setSelected] = useState([]);
 
   const getVolume = () => {
     Axios.get("http://localhost:3001/calcs").then((response) => {
@@ -56,9 +57,12 @@ function DbPage() {
     else{return "Healthy"}
   }
 
+
   //vv
   const { token, setToken } = useToken();
   const [pumps, setPumps] = useState([]);
+
+
 
   //if(!token) {
   //  return <LoginPopUp setToken={setToken} />
@@ -139,14 +143,10 @@ function DbPage() {
               <tbody>
                 {pumpList.map((val,key) => {
                   return(
-                    
                     <tr>
                       <td>
-                        <a href={"/pump?=" + val.iwp_pump_id_fk}>
-                          <div>{val.iwp_pump_id_fk}</div>
-                          </a>
+                         <Link to={{pathname: "/pump", state: {id:277}}}>{val.iwp_pump_id_fk}</Link>
                           </td>
-                      
                       <td>{val.pump_name}</td>
                       <td>{val.daily_volume_sum || "null"}</td>
                       <td>{val.battery_percentage}</td>

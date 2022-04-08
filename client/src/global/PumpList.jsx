@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import Axios from 'axios';
-import { Route } from 'react-router-dom'
 
-function PumpList({pumpName, setPumpName, chartData, setChartData}){
+
+function PumpList({pumpName, setPumpName, chartData, setChartData, selected, setSelected}){
 
   const getChartData = (e) => {
     Axios.get("http://localhost:3001/chartData?id=" + e.target.value).then((response) => {
@@ -20,21 +20,15 @@ function PumpList({pumpName, setPumpName, chartData, setChartData}){
     const [pumps, setPumps] = useState([]);
 
     const getPumpList = () => {
+
+      if (selected != null) {
       Axios.get("http://localhost:3001/pumps").then((response) => {
         setPumps(response.data);
       })
+    } else {
+      console.log("in the else for selected")
     }
-
-    const Button = () => (
-      <Route render={({ history}) => (
-        <button
-          type='button'
-          onClick={() => { history.push('/pump?=dd') }}
-        >
-          Click Me!
-        </button>
-      )} />
-    )
+    }
 
 
     return(

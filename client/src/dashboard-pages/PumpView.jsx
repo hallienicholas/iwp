@@ -7,6 +7,7 @@ function Pump(){
 
 	const [pumpName, setPumpName] = useState([]);
 	const [chartData, setChartData] = useState([0]);
+	const [selected, setSelected] = useState([]);
 
 	const fillBattery = () => {
 		if(chartData[0]){
@@ -23,12 +24,10 @@ function Pump(){
 			return "N/A";
 		}
 	}
-
-	console.log(chartData[0])
-
+	
 	return(
 		<div className="container-fluid">
-			<PumpList setPumpName={setPumpName} pumpName={pumpName} setChartData={setChartData} chartData={chartData}/>
+			<PumpList setPumpName={setPumpName} pumpName={pumpName} setSelected={setSelected} selected={selected} setChartData={setChartData} chartData={chartData}/>
 			<div className="row">
 				<div className="col-xl-3 col-md-6 mb-4">
 					<div className="card border-left-primary shadow h-100 py-2">
