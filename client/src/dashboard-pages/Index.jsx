@@ -10,9 +10,7 @@ import sortPieData from "./sortPieData.js";
 import PieChart from "./PieChart";
 import VolumeChart from "./VolumeChart";
 
-function DbPage() {
-
-  const [pumpList, setPumpList] = useState([]);
+function DbPage(dangerData) {
   //const [pieData, setPieData] = useState([]);
   const [chartData, setChartData] = useState({});
   const [volumeData, setVolumeData] = useState([]);
@@ -24,15 +22,8 @@ function DbPage() {
     })
   }
 
-  const getData = () => {
-    Axios.get("http://localhost:3001/dangerData").then((response) => {
-      setPumpList(response.data);
-    });
-    getPieData();
-  };
-
   useEffect(() => {
-    getData();
+    getPieData();
     getVolume();
   }, []);
 
@@ -76,7 +67,7 @@ function DbPage() {
               <div className="row">
                 <div className="col mr-2">
                   <div className="text-xs text-uppercase font-weight-bold text-primary mb-1">Pumps</div>
-                  <div className="mb-1 h5 text-uppercase">{pumpList.length}</div>
+                  <div className="mb-1 h5 text-uppercase">{dangerData.dangerData.length}</div>
                 </div>
                 <div className="col-auto">
                   <span><i className="fas fa-faucet fa-2x text-gray-300"></i></span>
@@ -115,7 +106,7 @@ function DbPage() {
       <div className="row">
         <div className="col">
           <div className="btn-group mt-2 mb-2" role="group">
-            <button className="btn-primary btn d-inline shadow" onClick={getData}>Show Data</button> 
+            <button className="btn-primary btn d-inline shadow" disabled="true">Show Data</button> 
             <Link to="/login" className="btn btn-light shadow">Go To Login Page</Link> 
           </div>
         </div>
@@ -135,10 +126,14 @@ function DbPage() {
                 </tr>
               </thead>
               <tbody>
-                {pumpList.map((val,key) => {
+                {dangerData.dangerData.map((val,key) => {
                   return(
                     <tr>
-                      <td>{val.iwp_pump_id}</td>
+                      <td>
+                        <Link to={{pathname:"/pump", state:{id: val.iwp_pump_id}}}>
+                        {val.iwp_pump_id}
+                        </Link>
+                        </td>
                       <td>{val.pump_name}</td>
                       <td>{val.daily_volume_sum || "null"}</td>
                       <td>{val.battery_percentage || "null"}</td>
