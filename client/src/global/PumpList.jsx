@@ -7,6 +7,7 @@ function PumpList({pumpName, setPumpName, chartData, setChartData, id}){
     console.log("HI");
   } else {
     console.log("BOO");
+    id = 0;
   }
 
   function selectPump(){

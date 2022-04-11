@@ -10,7 +10,6 @@ import {
 } from "react-router-dom";
 import LoginPage from "./login/Login";
 import DashView from "./routing/DashView";
-import Map from "./dashboard-pages/MapPage";
 import Registration from "./login/Registration"; 
 import ForgotPassword from "./login/ForgotPassword";
 import ChangeEmail from "./login/ChangeEmail";
