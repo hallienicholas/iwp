@@ -12,6 +12,7 @@ import DangerHandling from "../popups/DangerHandling.jsx";
 import User from "../dashboard-pages/User";
 import Requests from "../dashboard-pages/Requests";
 import Axios from "axios";
+import { Redirect } from "react-router-dom";
 
 import {
     Route, 
@@ -52,6 +53,7 @@ class DashView extends Component {
 
     componentDidMount(){
         this.getDangerData();
+        console.log(this.state.loginStatus);
     }
 
     render() {
@@ -60,7 +62,7 @@ class DashView extends Component {
             <div id="wrapper" className="display-flex">
                     <Sidebar />
                     <div id="content-wrapper" className="d-flex flex-column">
-                        <Navbar dangerData={this.state.dangerData}/>
+                        <Navbar dangerData={this.state.dangerData} loginStatus={this.props.loginStatus} setLoginStatus={this.props.setLoginStatus}/>
                         <Switch>
                             <Route exact path="/dashboard">
                                 <DbPage dangerData={this.state.dangerData} />
@@ -81,6 +83,8 @@ class DashView extends Component {
                         </Switch>
                         
                     </div>
+
+                    {this.props.loginStatus == true ? <></> : <Redirect to="/login" />}
             </div>
         );
     }

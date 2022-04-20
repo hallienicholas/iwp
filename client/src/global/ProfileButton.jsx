@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 
 class ProfileButton extends Component{
+    constructor(props){
+        super(props);
+        this.state = {};
+    }
     render(){
         return(
             <div className="nav-item dropdown no-arrow show">
@@ -12,7 +16,7 @@ class ProfileButton extends Component{
                     <a className="dropdown-item" href="/user">User Settings</a>
                     <a className="dropdown-item" href="/messages">Messages</a>
                     <div className="dropdown-divider" />
-                    <a className="dropdown-item" href="./login">Logout</a>
+                    <a className="dropdown-item" onClick={() => this.props.setLoginStatus(false)}>Logout</a>
                 </div>
             </div>
         );
