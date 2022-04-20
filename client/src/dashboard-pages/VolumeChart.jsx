@@ -6,8 +6,7 @@ import {
   PointElement,
   LineElement,
   Title,
-  Tooltip,
-  Legend,
+  Tooltip
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
@@ -17,8 +16,7 @@ ChartJS.register(
   PointElement,
   LineElement,
   Title,
-  Tooltip,
-  Legend
+  Tooltip
 );
 
 function VolumeChart({chartData, chartTitle, pumpId, purpose}){
@@ -55,6 +53,7 @@ function VolumeChart({chartData, chartTitle, pumpId, purpose}){
     plugins: {
       legend: {
         position: 'top',
+        display: false
       },
       title: {
         display: true,
@@ -73,7 +72,6 @@ function VolumeChart({chartData, chartTitle, pumpId, purpose}){
     labels,
     datasets: [
       {
-        label: 'Select Pump',
         data: ['0','0','0','0','0','0','0','0'],
         borderColor: 'rgb(40, 180, 70)',
         backgroundColor: 'rgba(40, 180, 70, 0.5)',
@@ -83,10 +81,6 @@ function VolumeChart({chartData, chartTitle, pumpId, purpose}){
 
   if(dataPoints){
     data.datasets[0].data=dataPoints;
-  }
-
-  if(id){
-    data.datasets[0].label = "Pump " + id;
   }
 
   return(<Line options={options} data={data} />);

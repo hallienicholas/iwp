@@ -25,12 +25,13 @@ import Landing from "../dashboard-pages/Landing";
   
 class DashView extends Component {
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             display: true,
             dangerData: [],
             pumps : null,
+            loginStatus: this.props.loginStatus
         }
     }
 
@@ -62,7 +63,7 @@ class DashView extends Component {
             <div id="wrapper" className="display-flex">
                     <Sidebar />
                     <div id="content-wrapper" className="d-flex flex-column">
-                        <Navbar dangerData={this.state.dangerData} loginStatus={this.props.loginStatus} setLoginStatus={this.props.setLoginStatus}/>
+                        <Navbar dangerData={this.state.dangerData} loginStatus={this.state.loginStatus} setLoginStatus={this.props.setLoginStatus.bind(this)}/>
                         <Switch>
                             <Route exact path="/dashboard">
                                 <DbPage dangerData={this.state.dangerData} />
@@ -84,7 +85,7 @@ class DashView extends Component {
                         
                     </div>
 
-                    {this.props.loginStatus == true ? <></> : <Redirect to="/login" />}
+                    {this.state.loginStatus == true || localStorage.getItem("token") ? <></> : <Redirect to="/login" />}
             </div>
         );
     }

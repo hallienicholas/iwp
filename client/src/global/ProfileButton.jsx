@@ -5,6 +5,12 @@ class ProfileButton extends Component{
         super(props);
         this.state = {};
     }
+
+    logout(){
+        localStorage.clear();
+        this.props.setLoginStatus(false);
+    }
+
     render(){
         return(
             <div className="nav-item dropdown no-arrow show">
@@ -16,7 +22,7 @@ class ProfileButton extends Component{
                     <a className="dropdown-item" href="/user">User Settings</a>
                     <a className="dropdown-item" href="/messages">Messages</a>
                     <div className="dropdown-divider" />
-                    <a className="dropdown-item" onClick={() => this.props.setLoginStatus(false)}>Logout</a>
+                    <a className="dropdown-item" onClick={() => this.logout()}>Logout</a>
                 </div>
             </div>
         );

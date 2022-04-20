@@ -104,7 +104,7 @@ function LoginPage (props) {
             <div className="col-sm"></div>
           </div>
         </div>
-        {props.loginStatus  == true ? <Redirect to="/" /> : <></>}
+        {props.loginStatus  == true ? <Redirect to={{pathname: "/", state:{loginStatus: true}}}/> : <></>}
       </div>
       
     );

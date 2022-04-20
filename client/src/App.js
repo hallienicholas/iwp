@@ -27,6 +27,10 @@ class App extends Component {
     this.setState({loginStatus: arg})
   }
 
+  componentDidMount(){
+    console.log(this.state.loginStatus)
+  }
+
   
   render() {
     return (

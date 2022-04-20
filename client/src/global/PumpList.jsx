@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Axios from 'axios';
+import e from 'cors';
 
 function PumpList({pumpName, setPumpName, chartData, setChartData, id}){
 
-  if(id){
-    console.log("HI");
-  } else {
-    console.log("BOO");
+  if(!id){
     id = 0;
   }
 
@@ -41,11 +39,33 @@ function PumpList({pumpName, setPumpName, chartData, setChartData, id}){
       updateHeader({target: {value: id.id}})
     }, [])
 
+    const fillSubtitle = () => {
+      if(pumpName && pumps){
+        console.log(pumps)
+
+        var chosenPump = "";
+
+        for(var i=0; i<pumps.length; i++){
+          console.log("Looking");
+          console.log(pumps[i].iwp_pump_id.toString() == pumpName, pumps[i].iwp_pump_id.toString(), pumpName)
+          if(pumps[i].iwp_pump_id.toString() == pumpName){
+            chosenPump = pumps[i].pump_name;
+            break
+          }
+          console.log(chosenPump)
+        }
+        return(<h4 className='mb-4'>{chosenPump}</h4>)
+      } else {
+        return(<h4 className='mb-4'></h4>);
+      }
+    }
+
 
     return(
         <div className="row">
           <div className="col-lg-10">
-            <h1 className="h3 mb-4 text-gray-800">Pump {pumpName}</h1>
+          <h1 className="h3 text-gray-800">Pump {pumpName}</h1>
+          {fillSubtitle()}
           </div>
           <div className="col">
             <label for="pumpList">Pump</label>
