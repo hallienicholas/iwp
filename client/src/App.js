@@ -36,7 +36,7 @@ class App extends Component {
     return (
         <Router>
           <Switch>
-            <Route exact path="/splash" component={Splash} />
+            {/* <Route exact path="/splash" component={Splash} /> */}
             <Route exact path="/register" component={Registration} />
             <Route path="/login">
               <LoginPage loginStatus={this.state.loginStatus} setLoginStatus={this.setLoginStatus.bind(this)} />
