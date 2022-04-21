@@ -120,20 +120,24 @@ function Registration () {
                                         setPasswordReg(event.target.value); 
                                         }}
                                     />
-                                    
                                     <br />
-                                    <label>Choose organization:</label>
-                                    <select onClick={getOrganization}>
-                                        <option>
-                                            -Select an option-
-                                        </option>
+
+                                    <select value="select organization" onClick={getOrganization}>
                                         {orgList.map((val,key) => (
                                             <option>
                                                 {val.organization_name}
                                             </option>
                                         ))}
                                     </select>
-                                    
+                                             
+                                    <input 
+                                    className="mt-2"
+                                    type="affiliation"
+                                    placeholder="Choose Affiliation"
+                                    onChange={(event) => {
+                                        setAffiliationReg(event.target.value); 
+                                        }}
+                                    />
                                     <br />
 
                                 <div className="btn-group mt-2 mb-2" role="group">

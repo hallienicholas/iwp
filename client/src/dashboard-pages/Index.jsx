@@ -117,34 +117,6 @@ function DbPage(dangerData) {
       <div className="row mb-4">
         <div className="col-8">
           <div className="card shadow">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Pump ID</th>
-                  <th>Location</th>
-                  <th>Volume Sum</th>
-                  <th>Battery Percentage</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dangerData.dangerData.map((val,key) => {
-                  return(
-                    <tr>
-                      <td>
-                        <Link to={{pathname:"/pump", state:{id: val.iwp_pump_access_fk}}}>
-                        {val.iwp_pump_access_fk}
-                        </Link>
-                        </td>
-                      <td>{val.pump_name}</td>
-                      <td>{val.daily_volume_sum || "null"}</td>
-                      <td>{val.battery_percentage || "null"}</td>
-                      <td>{determineStatus(val.battery_percentage, val.leakage_coefficient)}</td>
-                    </tr>
-                  );
-                })}
-                </tbody>
-            </table>
             <MultiTable dangerData={dangerData}/>
           </div>
         </div>
