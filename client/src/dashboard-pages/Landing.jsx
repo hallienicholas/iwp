@@ -44,9 +44,9 @@ class Landing extends Component {
                                             <div className="card-body">
                                                 <div className="row">
                                                     <div className="col-6">
-                                                        <div className="h1 text-gray-800 text-uppercase"><strong>{v2.iwp_pump_id}</strong></div>
+                                                        <div className="h1 text-gray-800 text-uppercase"><strong>{v2.iwp_pump_access_fk}</strong></div>
                                                         <div className="">Battery voltage: {v2.battery_percentage || "null"}</div>
-                                                        <div className="">Leakage coefficient: {v2.leakage_coefficient_avg || "null"}</div>
+                                                        <div className="">Leakage coefficient: {v2.leak_coefficient_avg || "null"}</div>
                                                         <div className="">Priming rate: {v2.longest_prime || "null"}</div>
                                                     </div>
                                                     <div className="col-auto mb-auto mt-auto">
