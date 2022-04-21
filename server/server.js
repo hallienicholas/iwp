@@ -1,4 +1,4 @@
-//const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 const express = require('express');
 const app = express();
@@ -271,7 +271,7 @@ app.get('/MapPage', (req,res) => {
 
 //pump data
 app.get('/pumps', (req,res) => {
-    db.query("SELECT iwp_pump_id FROM iwp_pump ORDER BY iwp_pump_id", (err, result) => {
+    db.query("SELECT * FROM iwp_pump ORDER BY iwp_pump_id", (err, result) => {
         if (err){
             console.log(err)
         } else {
@@ -392,8 +392,8 @@ app.post('/login', (req, res) => {
                     
                     req.session.user = result;
                     console.log(req.session.user);
-                    res.send({message: "Logged in as " + username});
-                    res.send(result);
+                    //res.send({message: "Logged in as " + username});
+                    //res.send(result);
                     res.json({auth: true, token: token, result: result}) ;
                        
                    } else {
@@ -401,12 +401,12 @@ app.post('/login', (req, res) => {
                             auth: false,
                             message: "Wrong username/password combination",
                         });
-                        res.send({message: "Wrong username/password combination." });
+                        //res.send({message: "Wrong username/password combination." });
                    }
                }); 
             } else {
                 res.json({ auth: false, message: "User does not exist"});
-                res.send({ message: "User does not exist."});
+                //res.send({ message: "User does not exist."});
             }
         }
     );

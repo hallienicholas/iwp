@@ -1,6 +1,16 @@
 import React, {Component} from "react";
+import { Redirect } from "react-router-dom";
 
 class ProfileButton extends Component{
+    constructor(props){
+        super(props);
+    }
+
+    logout(){
+        localStorage.clear();
+        this.props.setLoginStatus(false);
+    }
+
     render(){
         return(
             <div className="nav-item dropdown no-arrow show">
@@ -12,7 +22,7 @@ class ProfileButton extends Component{
                     <a className="dropdown-item" href="/user">User Settings</a>
                     <a className="dropdown-item" href="/messages">Messages</a>
                     <div className="dropdown-divider" />
-                    <a className="dropdown-item" href="./login">Logout</a>
+                    <a className="dropdown-item" onClick={() => this.logout()}>Logout</a>
                 </div>
             </div>
         );

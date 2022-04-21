@@ -9,12 +9,17 @@ import useToken from '../popups/useToken';
 import sortPieData from "./sortPieData.js";
 import PieChart from "./PieChart";
 import VolumeChart from "./VolumeChart";
+import MultiTable from "./MultiTable";
+
+
+
 
 function DbPage(dangerData) {
   //const [pieData, setPieData] = useState([]);
   const [chartData, setChartData] = useState({});
   const [volumeData, setVolumeData] = useState([]);
   const [volume, setVolume] = useState(0);
+
 
   const getVolume = () => {
     Axios.get("http://localhost:3001/calcs").then((response) => {
@@ -41,10 +46,7 @@ function DbPage(dangerData) {
     })
   };
 
-  const determineStatus = (battery, leak) => {
-    if(battery < 3.1 || leak > 20){return "Danger"}
-    else{return "Healthy"}
-  }
+
 
   //vv
   const { token, setToken } = useToken();
@@ -60,7 +62,7 @@ function DbPage(dangerData) {
     <div className="container-fluid">
       <h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
 
-      <div className="row">
+      <div className="row mb-4">
         <div className="col-4">
           <div className="card border-left-primary shadow">
             <div className="card-body">
@@ -103,46 +105,19 @@ function DbPage(dangerData) {
         </div> */}
       </div>
 
-      <div className="row">
+      {/* <div className="row">
         <div className="col">
           <div className="btn-group mt-2 mb-2" role="group">
             <button className="btn-primary btn d-inline shadow" disabled="true">Show Data</button> 
             <Link to="/login" className="btn btn-light shadow">Go To Login Page</Link> 
           </div>
         </div>
-      </div>
+      </div> */}
         
       <div className="row mb-4">
         <div className="col-8">
           <div className="card shadow">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Pump ID</th>
-                  <th>Location</th>
-                  <th>Volume Sum</th>
-                  <th>Battery Percentage</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dangerData.dangerData.map((val,key) => {
-                  return(
-                    <tr>
-                      <td>
-                        <Link to={{pathname:"/pump", state:{id: val.iwp_pump_id}}}>
-                        {val.iwp_pump_id}
-                        </Link>
-                        </td>
-                      <td>{val.pump_name}</td>
-                      <td>{val.daily_volume_sum || "null"}</td>
-                      <td>{val.battery_percentage || "null"}</td>
-                      <td>{determineStatus(val.battery_percentage, val.leakage_coefficient)}</td>
-                    </tr>
-                  );
-                })}
-                </tbody>
-            </table>
+            <MultiTable dangerData={dangerData}/>
           </div>
         </div>
         <div className="col-4">
