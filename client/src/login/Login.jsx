@@ -4,14 +4,15 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import LoginRibbon from "../global/LoginRibbon";
-function LoginPage () {
+function LoginPage (props) {
 
     /* Login States */
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [loginStatus, setLoginStatus] = useState(false);
 
     Axios.defaults.withCredentials = true;
+
+    console.log(props.setLoginStatus)
 
     const login = () => {
       Axios.post("http://localhost:3001/login", {
@@ -20,11 +21,11 @@ function LoginPage () {
       }).then((response) => {
         console.log(response);
         if (!response.data.auth){
-          setLoginStatus(false);
+          props.setLoginStatus( false);
         } else {
           console.log(response.data)
           localStorage.setItem("token", response.data.token);
-          setLoginStatus(true);
+          props.setLoginStatus( true);
         }
       });
     };
@@ -45,13 +46,13 @@ function LoginPage () {
     useEffect(()=> {
       Axios.get("http://localhost:3001/login").then((response) => {
         if (response.data.loggedIn == true) {
-          //setLoginStatus(response.data.user[0].user_email);
+          //props.setLoginStatus( response.data.user[0].user_email);
           console.log(response.data.user[0].user_email);
         } 
       });
     }, []);
 
-    console.log(loginStatus);
+    console.log(props.loginStatus );
   
     return (
       <div id = "wrapper">
@@ -86,12 +87,11 @@ function LoginPage () {
                 <br />
                 <div className="btn-group mt-2 mb-2" role="group">
                 <button className="btn btn-primary shadow" onClick={login}>Login</button>
-                  <Link to="/" className="btn btn-light shadow">Go To DB Page</Link> 
                 </div>
 
                 {/* End of Login Section */}
 
-                {loginStatus && (
+                {props.loginStatus  && (
                   <button onClick= {userAuthenticated}> Check if Authenticated</button>
 
                 )}
@@ -103,7 +103,7 @@ function LoginPage () {
             <div className="col-sm"></div>
           </div>
         </div>
-        {loginStatus ? <Redirect to="/" /> : <></>}
+        {props.loginStatus  == true ? <Redirect to={{pathname: "/", state:{loginStatus: true}}}/> : <></>}
       </div>
       
     );

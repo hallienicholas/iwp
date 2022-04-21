@@ -16,18 +16,37 @@ import ChangeEmail from "./login/ChangeEmail";
 import NewEmail from "./login/NewEmail";
 import Splash from "./Splash";
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      loginStatus: false
+    }
+  }
+
+  setLoginStatus(arg){
+    this.setState({loginStatus: arg})
+  }
+
+  componentDidMount(){
+    console.log(this.state.loginStatus)
+  }
+
   
   render() {
     return (
         <Router>
           <Switch>
-            <Route exact path="/splash" component={Splash} />
+            {/* <Route exact path="/splash" component={Splash} /> */}
             <Route exact path="/register" component={Registration} />
-            <Route exact path="/login" component={LoginPage} />
+            <Route path="/login">
+              <LoginPage loginStatus={this.state.loginStatus} setLoginStatus={this.setLoginStatus.bind(this)} />
+            </Route> 
             <Route exact path="/forgot" component={ForgotPassword} />
             <Route exact path="/change-email" component={ChangeEmail} />
             <Route exact path="/newemail" component={NewEmail} />
-            <Route exact path="*" component={DashView} />
+            <Route path="*">
+              <DashView loginStatus={this.state.loginStatus} setLoginStatus={this.setLoginStatus.bind(this)}/>  
+            </Route>
           </Switch>
         </Router> 
     );

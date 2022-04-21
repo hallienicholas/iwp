@@ -143,9 +143,7 @@ const getPumpsList = () => {
               setTimeout(waiting1, 200);
             } else {
           map.current.addSource('places', {
-          // This GeoJSON contains features that include an "icon"
-          // property. The value of the "icon" property corresponds
-          // to an image in the Mapbox Streets style's sprite.
+
           'type': 'geojson',
           'data': {
           'type': 'FeatureCollection',
@@ -237,7 +235,7 @@ useEffect(() => {
             <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
 
         <style>{mapStyle}</style>
-
+      <div className='row'>
         <div className="col">
             <label for="pumpList">Pump</label>
             <select id="pumpList" className="form-control form-control-sm" onClick={getPumpsList} onChange={updateCenter}>
@@ -254,6 +252,7 @@ useEffect(() => {
           </div>
 
         <div id="root"></div>
+        </div>
 
         </div>
 
