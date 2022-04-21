@@ -130,8 +130,8 @@ function DbPage(dangerData) {
                   return(
                     <tr>
                       <td>
-                        <Link to={{pathname:"/pump", state:{id: val.iwp_pump_id}}}>
-                        {val.iwp_pump_id}
+                        <Link to={{pathname:"/pump", state:{id: val.iwp_pump_access_fk}}}>
+                        {val.iwp_pump_access_fk}
                         </Link>
                         </td>
                       <td>{val.pump_name}</td>

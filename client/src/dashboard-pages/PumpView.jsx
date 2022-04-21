@@ -18,9 +18,15 @@ function Pump(id){
 		}
 	}
 
+	function limit (string = '', limit = 0) {  
+		return string.substring(0, limit)
+
+	}
+
 	const fillTrans = () => {
-		if(chartData[0]){
-			return chartData[0].iwp_sensor_data_id;
+		if(chartData[7]){
+			const transm = limit(chartData[7].date_sensed, 10);
+			return transm;
 		} else {
 			return "N/A";
 		}
