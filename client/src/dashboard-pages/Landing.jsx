@@ -39,7 +39,7 @@ class Landing extends Component {
                             return(
                                 
                                 <div className="col-4">
-                                    <Link className="text-decoration-none" to={{pathname:"/pump", state:{id: v2.iwp_pump_id}}}>
+                                    <Link className="text-decoration-none" to={{pathname:"/pump", state:{id: v2.iwp_pump_id, pumps: [{iwp_pump_id: v2.iwp_pump_id, pump_name: v2.pump_name}] }}}>
                                         <div className={v2.battery_percentage > 3.1? "card border-left-primary shadow py-2":"card border-left-danger shadow py-2"}>
                                             <div className="card-body">
                                                 <div className="row">

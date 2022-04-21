@@ -62,7 +62,7 @@ function DbPage(dangerData) {
     <div className="container-fluid">
       <h1 className="h3 mb-4 text-gray-800">Dashboard</h1>
 
-      <div className="row">
+      <div className="row mb-4">
         <div className="col-4">
           <div className="card border-left-primary shadow">
             <div className="card-body">
@@ -105,14 +105,14 @@ function DbPage(dangerData) {
         </div> */}
       </div>
 
-      <div className="row">
+      {/* <div className="row">
         <div className="col">
           <div className="btn-group mt-2 mb-2" role="group">
             <button className="btn-primary btn d-inline shadow" disabled="true">Show Data</button> 
             <Link to="/login" className="btn btn-light shadow">Go To Login Page</Link> 
           </div>
         </div>
-      </div>
+      </div> */}
         
       <div className="row mb-4">
         <div className="col-8">

@@ -87,7 +87,6 @@ function LoginPage (props) {
                 <br />
                 <div className="btn-group mt-2 mb-2" role="group">
                 <button className="btn btn-primary shadow" onClick={login}>Login</button>
-                  <Link to="/" className="btn btn-light shadow">Go To DB Page</Link> 
                 </div>
 
                 {/* End of Login Section */}

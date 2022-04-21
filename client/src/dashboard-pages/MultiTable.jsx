@@ -47,7 +47,7 @@ class MultiTable extends Component{
                         return(
                         <tr>
                             <td>
-                            <Link to={{pathname:"/pump", state:{id: val.iwp_pump_id}}}>
+                            <Link to={{pathname:"/pump", state:{id: val.iwp_pump_id, pumps: [{iwp_pump_id: val.iwp_pump_id, pump_name: val.pump_name}] }}}>
                             {val.iwp_pump_id}
                             </Link>
                             </td>

@@ -5,7 +5,7 @@ import Axios from 'axios';
 
 function Pump(id){
 
-	console.log(id.location.state)
+	
 
 	const [pumpName, setPumpName] = useState("");
 	const [chartData, setChartData] = useState([0]);
@@ -25,8 +25,6 @@ function Pump(id){
 			return "N/A";
 		}
 	}
-
-	console.log(chartData[0])
 
 	return(
 		<div className="container-fluid">
