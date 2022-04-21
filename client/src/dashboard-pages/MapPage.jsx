@@ -105,7 +105,7 @@ const getPumpsList = () => {
             'type': 'Feature',
             'properties': {
                 'Name': item.pump_name,
-                'description': 'This is pump ' + item.iwp_pump_id 
+                'description': (<p>This is pump {item.iwp_pump_id}</p>)
               },
               'geometry': {
                 'coordinates': [
