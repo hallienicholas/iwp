@@ -5,9 +5,9 @@ import Axios from 'axios';
 
 function Pump(id){
 
-	console.log(id.location.state)
+	
 
-	const [pumpName, setPumpName] = useState([]);
+	const [pumpName, setPumpName] = useState("");
 	const [chartData, setChartData] = useState([0]);
 
 	const fillBattery = () => {
@@ -25,8 +25,6 @@ function Pump(id){
 			return "N/A";
 		}
 	}
-
-	console.log(chartData[0])
 
 	return(
 		<div className="container-fluid">
@@ -104,7 +102,7 @@ function Pump(id){
 						<div className="card-body">
 							<canvas id="myChart"  className="chartjs-render-monitor mt-auto mb-auto" width="0" height="0">
 						</canvas>
-							<VolumeChart chartData={chartData} chartTitle={"Battery Percentage by Date"} pumpId={pumpName} purpose="battery"/>
+							<VolumeChart chartData={chartData} chartTitle={"Battery Voltage by Date"} pumpId={pumpName} purpose="battery"/>
 						</div>
 					</div>
 				</div>
@@ -125,7 +123,7 @@ function Pump(id){
 				<div className='col-xl-6'>
 				<div className="card shadow mb-4 border-left-info">
 						<div className="card-header py-3">
-							<h6 className="m-0 font-weight-bold text-primary">Leakage</h6>
+							<h6 className="m-0 font-weight-bold text-primary">Priming</h6>
 						</div>
 						<div className="card-body">
 							<canvas id="myChart"  className="chartjs-render-monitor mt-auto mb-auto" width="0" height="0">
