@@ -17,7 +17,7 @@ class Navbar extends Component {
 				<a className="mr-3 nav-item nav-link text-uppercase" href="/contact">Contact</a>
 				<a className="mr-3 nav-item nav-link text-uppercase" href="http://iwp.cs.messiah.edu/about/faq.php">FAQ</a>
 				<MessagesDropDown data={this.props.dangerData}/>
-				<ProfileButton loginStatus={this.props.loginStatus} setLoginStatus={this.props.setLoginStatus.bind(this)} />
+				<ProfileButton loginStatus={this.props.loginStatus} setLoginStatus={this.props.setLoginStatus} />
 			</nav>
 		);
 	}

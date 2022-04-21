@@ -54,7 +54,6 @@ class DashView extends Component {
 
     componentDidMount(){
         this.getDangerData();
-        console.log(this.state.loginStatus);
     }
 
     render() {
@@ -63,7 +62,7 @@ class DashView extends Component {
             <div id="wrapper" className="display-flex">
                     <Sidebar />
                     <div id="content-wrapper" className="d-flex flex-column">
-                        <Navbar dangerData={this.state.dangerData} loginStatus={this.state.loginStatus} setLoginStatus={this.props.setLoginStatus.bind(this)}/>
+                        <Navbar dangerData={this.state.dangerData} loginStatus={this.state.loginStatus} setLoginStatus={this.props.setLoginStatus}/>
                         <Switch>
                             <Route exact path="/dashboard">
                                 <DbPage dangerData={this.state.dangerData} />
@@ -85,7 +84,7 @@ class DashView extends Component {
                         
                     </div>
 
-                    {this.state.loginStatus == true || localStorage.getItem("token") ? <></> : <Redirect to="/login" />}
+                    {this.props.loginStatus == true || localStorage.getItem("token") != null ? <></> : <Redirect to="/login" />}
             </div>
         );
     }

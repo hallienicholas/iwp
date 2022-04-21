@@ -1,9 +1,9 @@
 import React, {Component} from "react";
+import { Redirect } from "react-router-dom";
 
 class ProfileButton extends Component{
     constructor(props){
         super(props);
-        this.state = {};
     }
 
     logout(){
