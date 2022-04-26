@@ -14,20 +14,25 @@ Intelligent Water Alerts is a web application that will serve as a user interfac
 - [CircleCI Project](https://app.circleci.com/pipelines/github/hallienicholas/iwp)
 
 - [Github Repo](https://github.com/hallienicholas/iwp)
+
+- [For Passwords, and access email:](iparada777@icloud.com)
+Please explain who you are, how you are connected to the project, and what passwords/information you would like.
  
 ## Contribution Notes:
 
 **Starting the application:**
 
-1)  Spin up the server: ```cd server```
-2)  Type the command ```npm start```
-3)  Add a second terminal
-4)  Start the client: ```cd client```
-5)  Type the command: ```npm start```
+1)  Open up a split terminal
+2)  In one terminal, navigate to the server directory: ```cd server```
+3)  Type the command ```npm start```
+4)  In the second terminal
+5)  Navigate to the client directory: ```cd client```
+6)  Type the command: ```npm start```
 
 When you have finished the above steps, the application will spin up in a browser.
 
-- Staging: ```git add .```
+- For new additions to the code base please begin by forking this repository
+- For staging changes, enter the following command into your terminal:  ```git add .```
   
 - Committing Files: ```git commit -m "your 
   message here"```
@@ -35,7 +40,7 @@ When you have finished the above steps, the application will spin up in a browse
 - Push to branch: ```git push```
 
 ## Contributing to the UI:
-- As you will notice, our app file structure begins with two folders, **client** and **server**. Client contains everything in the frontend, and server is backend.
+- As you will notice, our application's file structure begins with two folders: **client** and **server**. Client contains everything in the frontend, and server is the backend which handles our database connection and all our api routes.
 - 
 
 **Contributors:**
