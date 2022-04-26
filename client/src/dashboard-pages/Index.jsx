@@ -139,7 +139,9 @@ function DbPage(dangerData) {
                       <td>{val.pump_name}</td>
                       <td>{val.daily_volume_sum || "null"}</td>
                       <td>{val.battery_percentage || "null"}</td>
+                      {/*
                       <td>{determineStatus(val.battery_percentage, val.leakage_coefficient)}</td>
+                      */}
                     </tr>
                   );
                 })}
